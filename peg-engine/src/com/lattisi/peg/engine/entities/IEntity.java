@@ -6,4 +6,7 @@ package com.lattisi.peg.engine.entities;
  * Time: 21:21
  */
 public interface IEntity {
+
+    public String getName();
+
 }
