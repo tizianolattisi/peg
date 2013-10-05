@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.shape.*?>
+
+<VBox alignment="CENTER" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.lattisi.peg.app.Controller">
+  <children>
+    <ToolBar>
+      <items>
+        <Button mnemonicParsing="false" text="Button" />
+      </items>
+    </ToolBar>
+    <SplitPane dividerPositions="0.6471571906354515" focusTraversable="true" orientation="VERTICAL" prefHeight="600.0" prefWidth="600.0">
+      <items>
+        <AnchorPane fx:id="canvas" minHeight="0.0" minWidth="0.0" prefHeight="384.0" prefWidth="600.0">
+          <children>
+            <Line endX="75.0" endY="-25.0" layoutX="196.0" layoutY="168.0" startX="-122.0" startY="86.0" />
+            <Line endX="-52.0" endY="17.0" layoutX="372.0" layoutY="237.0" startX="-101.0" startY="-93.0" />
+            <Line endX="146.0" endY="0.0" layoutX="174.0" layoutY="255.0" startX="-100.0" />
+          </children>
+        </AnchorPane>
+        <SplitPane dividerPositions="0.5" focusTraversable="true" prefHeight="160.0" prefWidth="200.0">
+          <items>
+            <TextArea id="dsl" fx:id="textArea" prefWidth="200.0" wrapText="true" />
+            <TableView id="tableViewEntities" fx:id="table" prefHeight="200.0" prefWidth="200.0">
+              <columns>
+                <TableColumn prefWidth="75.0" text="Column X" />
+                <TableColumn prefWidth="75.0" text="Column X" />
+              </columns>
+            </TableView>
+          </items>
+        </SplitPane>
+      </items>
+    </SplitPane>
+  </children>
+</VBox>
