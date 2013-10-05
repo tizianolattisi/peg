@@ -15,26 +15,22 @@ public class Triangle extends Base implements IEntity, IContainer {
     private Collection<Segment> segments = new ArrayList();
     private Collection<Angle> angles = new ArrayList();;
 
-    public Collection<Segment> getSegments() {
-        return segments;
-    }
-
-    public void setSegments(Collection<Segment> segments) {
-        this.segments = segments;
-    }
-
-    public Collection<Angle> getAngles() {
-        return angles;
-    }
-
-    public void setAngles(Collection<Angle> angles) {
-        this.angles = angles;
+    private void addSegment(Segment segment){
+        if( segments.size()<3 ){
+            segments.add(segment);
+        }
     }
 
     public static Triangle build(String name){
         if( name.length() == 3 ){
+            String p1name = name.substring(0, 1);
+            String p2name = name.substring(1, 2);
+            String p3name = name.substring(2);
             Triangle triangle = new Triangle();
             triangle.setName(name);
+            triangle.addSegment(Segment.build(p1name.concat(p2name)));
+            triangle.addSegment(Segment.build(p2name.concat(p3name)));
+            triangle.addSegment(Segment.build(p3name.concat(p1name)));
             return triangle;
         }
         Log.info("Wrong triangle name");

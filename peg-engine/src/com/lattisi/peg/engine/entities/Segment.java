@@ -14,14 +14,6 @@ public class Segment extends Base implements IEntity, IContainer {
 
     private Collection<Point> points = new ArrayList();
 
-    public Collection<Point> getPoints() {
-        return points;
-    }
-
-    public void setPoints(Collection<Point> points) {
-        this.points = points;
-    }
-
     public void addPoint(Point point){
         if( points.size() < 2 ){
             points.add(point);
