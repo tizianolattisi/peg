@@ -36,10 +36,6 @@ class DslTest extends GroovyTestCase {
             scan element, 0
         }
 
-        println ""
-        println problem.find("BC", Triangle.class)
-        println problem.find("ABC", Triangle.class)
-
     }
 
 }

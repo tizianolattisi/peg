@@ -39,7 +39,6 @@ public class Problem {
     }
 
     private static IEntity scan(IEntity entity, String name, Class klass){
-        System.out.println("esploro " + entity + " alla ricerca di " + name);
         IEntity found = null;
         if( entity instanceof IContainer ){
             for( IEntity child: ((IContainer) entity).getChildren() ){

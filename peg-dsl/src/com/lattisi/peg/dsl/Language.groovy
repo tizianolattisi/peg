@@ -28,7 +28,6 @@ class Language {
                 break
 
         }
-        problem.addElement(element)
 
     }
 

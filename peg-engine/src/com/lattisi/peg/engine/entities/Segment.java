@@ -32,6 +32,7 @@ public class Segment extends Base implements IEntity, IContainer {
             }
             Segment segment = new Segment();
             segment.setName(name);
+            Problem.addElement(segment);
 
             // children
             String point1name = name.substring(0, 1);

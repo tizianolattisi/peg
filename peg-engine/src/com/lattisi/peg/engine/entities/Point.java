@@ -19,6 +19,7 @@ public class Point extends Base implements IEntity {
             }
             Point point = new Point();
             point.setName(name);
+            Problem.addElement(point);
             return point;
         }
         Log.info("Wrong point name");

@@ -31,6 +31,7 @@ public class Triangle extends Base implements IEntity, IContainer {
             }
             Triangle triangle = new Triangle();
             triangle.setName(name);
+            Problem.addElement(triangle);
 
             // children
             String point1name = name.substring(0, 1);
