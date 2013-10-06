@@ -13,7 +13,6 @@ import java.util.Collection;
  */
 public class Triangle extends Base implements IEntity, IContainer {
 
-    private Problem problem;
     private Collection<Segment> segments = new ArrayList();
     private Collection<Angle> angles = new ArrayList();;
 
@@ -23,15 +22,14 @@ public class Triangle extends Base implements IEntity, IContainer {
         }
     }
 
-    public static Triangle build(String name, Problem problem){
+    public static Triangle build(String name){
         if( name.length() == 3 ){
-            IEntity found = problem.find(name, Triangle.class);
+            IEntity found = Problem.find(name, Triangle.class);
             if( found != null ){
                 Log.info("Triangle present in problem");
                 return (Triangle) found;
             }
             Triangle triangle = new Triangle();
-            triangle.setProblem(problem);
             triangle.setName(name);
 
             // children
@@ -39,11 +37,11 @@ public class Triangle extends Base implements IEntity, IContainer {
             String point2name = name.substring(1, 2);
             String point3name = name.substring(2);
             String segment1name = point1name.concat(point2name);
-            triangle.addSegment(Segment.build(segment1name, problem));
+            triangle.addSegment(Segment.build(segment1name));
             String segment2name = point2name.concat(point3name);
-            triangle.addSegment(Segment.build(segment2name, problem));
+            triangle.addSegment(Segment.build(segment2name));
             String segment3name = point3name.concat(point1name);
-            triangle.addSegment(Segment.build(segment3name, problem));
+            triangle.addSegment(Segment.build(segment3name));
 
             return triangle;
         }
@@ -60,12 +58,4 @@ public class Triangle extends Base implements IEntity, IContainer {
         return children;
     }
 
-    @Override
-    public Problem getProblem() {
-        return problem;
-    }
-
-    public void setProblem(Problem problem) {
-        this.problem = problem;
-    }
 }

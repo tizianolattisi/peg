@@ -13,18 +13,18 @@ import java.util.Map;
  */
 public class Problem {
 
-    private Map<String, IEntity> elements = new HashMap();
+    private static Map<String, IEntity> elements = new HashMap();
 
-    public void addElement(IEntity element){
+    public static void addElement(IEntity element){
         elements.put(element.getName(), element);
     }
 
-    public Map<String, IEntity> getElements(){
+    public static Map<String, IEntity> getElements(){
         return elements;
     }
 
 
-    public IEntity find(String name, Class klass){
+    public static IEntity find(String name, Class klass){
         IEntity found = null;
         for( IEntity entity: elements.values() ){
             if( entity.getName().equals(name) ){
@@ -38,7 +38,8 @@ public class Problem {
         return found;
     }
 
-    private IEntity scan(IEntity entity, String name, Class klass){
+    private static IEntity scan(IEntity entity, String name, Class klass){
+        System.out.println("esploro " + entity + " alla ricerca di " + name);
         IEntity found = null;
         if( entity instanceof IContainer ){
             for( IEntity child: ((IContainer) entity).getChildren() ){

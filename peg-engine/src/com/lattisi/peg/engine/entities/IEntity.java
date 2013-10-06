@@ -10,6 +10,5 @@ import com.lattisi.peg.engine.Problem;
 public interface IEntity {
 
     public String getName();
-    public Problem getProblem();
 
 }
