@@ -1,7 +1,7 @@
 package com.lattisi.peg.engine;
 
 import com.lattisi.peg.engine.entities.IContainer;
-import com.lattisi.peg.engine.entities.IEntity;
+import com.lattisi.peg.engine.entities.IItem;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,24 +13,24 @@ import java.util.Map;
  */
 public class Problem {
 
-    private static Map<String, IEntity> elements = new HashMap();
+    private static Map<String, IItem> items = new HashMap();
 
-    public static void addElement(IEntity element){
-        elements.put(element.getName(), element);
+    public static void addItem(IItem item){
+        items.put(item.getName(), item);
     }
 
-    public static Map<String, IEntity> getElements(){
-        return elements;
+    public static Map<String, IItem> getItems(){
+        return items;
     }
 
 
-    public static IEntity find(String name, Class klass){
-        IEntity found = null;
-        for( IEntity entity: elements.values() ){
-            if( entity.getName().equals(name) ){
-                return entity;
+    public static IItem find(String name, Class klass){
+        IItem found = null;
+        for( IItem item: items.values() ){
+            if( item.getName().equals(name) ){
+                return item;
             }
-            found = scan(entity, name, klass);
+            found = scan(item, name, klass);
             if( found != null ){
                 return found;
             }
@@ -38,10 +38,10 @@ public class Problem {
         return found;
     }
 
-    private static IEntity scan(IEntity entity, String name, Class klass){
-        IEntity found = null;
-        if( entity instanceof IContainer ){
-            for( IEntity child: ((IContainer) entity).getChildren() ){
+    private static IItem scan(IItem item, String name, Class klass){
+        IItem found = null;
+        if( item instanceof IContainer ){
+            for( IItem child: ((IContainer) item).getChildren() ){
                 if( child.getName().equals(name) ){
                     return child;
                 }

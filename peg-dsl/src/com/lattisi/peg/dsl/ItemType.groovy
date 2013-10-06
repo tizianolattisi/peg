@@ -5,6 +5,6 @@ package com.lattisi.peg.dsl
  * Date: 02/10/13
  * Time: 18:01
  */
-enum EntityType {
+enum ItemType {
     triangle, segment
 }

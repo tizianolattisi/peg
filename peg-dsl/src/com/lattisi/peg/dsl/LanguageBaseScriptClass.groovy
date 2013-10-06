@@ -7,7 +7,7 @@ package com.lattisi.peg.dsl
  */
 abstract class LanguageBaseScriptClass extends Script {
 
-    void make(Map map, EntityType type){
+    void make(Map map, ItemType type){
         this.binding.language.make(map, type)
     }
 

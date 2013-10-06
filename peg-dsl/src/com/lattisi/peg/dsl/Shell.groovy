@@ -26,7 +26,7 @@ class Shell extends GroovyShell{
         conf.scriptBaseClass = LanguageBaseScriptClass.class.name
 
         def imports = new ImportCustomizer()
-        imports.addStaticStars(com.lattisi.peg.dsl.EntityType.name)
+        imports.addStaticStars(ItemType.name)
 
         def secure = new SecureASTCustomizer()
         secure.with {
@@ -37,10 +37,10 @@ class Shell extends GroovyShell{
             importsWhitelist = []
             staticImportsWhitelist = []
 
-            staticStarImportsWhitelist = [com.lattisi.peg.dsl.EntityType.name]
+            staticStarImportsWhitelist = [ItemType.name]
 
-            tokensWhitelist = [com.lattisi.peg.dsl.EntityType.triangle,
-                    com.lattisi.peg.dsl.EntityType.segment]
+            tokensWhitelist = [ItemType.triangle,
+                    ItemType.segment]
 
             // to secure...
             //constantTypesClassesWhiteList = []

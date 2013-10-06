@@ -7,7 +7,7 @@ import com.lattisi.peg.engine.Problem;
  * Date: 05/10/13
  * Time: 21:21
  */
-public interface IEntity {
+public interface IItem {
 
     public String getName();
 

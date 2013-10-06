@@ -1,9 +1,8 @@
 package com.lattisi.peg.dsl
 
 import com.lattisi.peg.engine.Problem
-import com.lattisi.peg.engine.entities.Base
+import com.lattisi.peg.engine.entities.Item
 import com.lattisi.peg.engine.entities.IContainer
-import com.lattisi.peg.engine.entities.Triangle
 
 /**
  * User: tiziano
@@ -31,9 +30,9 @@ class DslTest extends GroovyTestCase {
             }
         }
 
-        for(Base element: problem.getElements().values()){
+        for(Item item: problem.getItems().values()){
             println ""
-            scan element, 0
+            scan item, 0
         }
 
     }

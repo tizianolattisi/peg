@@ -11,7 +11,7 @@ import java.util.Collection;
  * Date: 05/10/13
  * Time: 13:14
  */
-public class Triangle extends Base implements IEntity, IContainer {
+public class Triangle extends Item implements IItem, IContainer {
 
     private Collection<Segment> segments = new ArrayList();
     private Collection<Angle> angles = new ArrayList();;
@@ -24,14 +24,14 @@ public class Triangle extends Base implements IEntity, IContainer {
 
     public static Triangle build(String name){
         if( name.length() == 3 ){
-            IEntity found = Problem.find(name, Triangle.class);
+            IItem found = Problem.find(name, Triangle.class);
             if( found != null ){
                 Log.info("Triangle present in problem");
                 return (Triangle) found;
             }
             Triangle triangle = new Triangle();
             triangle.setName(name);
-            Problem.addElement(triangle);
+            Problem.addItem(triangle);
 
             // children
             String point1name = name.substring(0, 1);
@@ -51,8 +51,8 @@ public class Triangle extends Base implements IEntity, IContainer {
     }
 
     @Override
-    public Collection<IEntity> getChildren() {
-        Collection<IEntity> children = new ArrayList();
+    public Collection<IItem> getChildren() {
+        Collection<IItem> children = new ArrayList();
         for( Segment segment: segments ){
             children.add(segment);
         }

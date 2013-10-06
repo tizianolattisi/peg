@@ -5,5 +5,5 @@ package com.lattisi.peg.engine.entities;
  * Date: 05/10/13
  * Time: 13:17
  */
-public class Angle extends Base {
+public class Angle extends Item {
 }

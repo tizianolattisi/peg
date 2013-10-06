@@ -9,6 +9,6 @@ import java.util.Collection;
  */
 public interface IContainer {
 
-    public Collection<IEntity> getChildren();
+    public Collection<IItem> getChildren();
 
 }

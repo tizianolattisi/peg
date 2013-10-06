@@ -11,7 +11,7 @@ import java.util.Collection;
  * Date: 05/10/13
  * Time: 13:17
  */
-public class Segment extends Base implements IEntity, IContainer {
+public class Segment extends Item implements IItem, IContainer {
 
     private Collection<Point> points = new ArrayList();
 
@@ -25,14 +25,14 @@ public class Segment extends Base implements IEntity, IContainer {
 
     public static Segment build(String name){
         if( name.length() == 2 ){
-            IEntity found = Problem.find(name, Segment.class);
+            IItem found = Problem.find(name, Segment.class);
             if( found != null ){
                 Log.info("Segment present in problem");
                 return (Segment) found;
             }
             Segment segment = new Segment();
             segment.setName(name);
-            Problem.addElement(segment);
+            Problem.addItem(segment);
 
             // children
             String point1name = name.substring(0, 1);
@@ -47,8 +47,8 @@ public class Segment extends Base implements IEntity, IContainer {
     }
 
     @Override
-    public Collection<IEntity> getChildren() {
-        Collection<IEntity> children = new ArrayList();
+    public Collection<IItem> getChildren() {
+        Collection<IItem> children = new ArrayList();
         for( Point point: points ){
             children.add(point);
         }

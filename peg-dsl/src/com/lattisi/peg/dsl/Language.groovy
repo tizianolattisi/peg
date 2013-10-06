@@ -13,16 +13,16 @@ class Language {
 
     Problem problem = new Problem()
 
-    void make(Map map, EntityType type) {
+    void make(Map map, ItemType type) {
 
-        def element
+        def item
         def name = map["name"]
         switch( type ){
-            case EntityType.triangle:
-                element = Triangle.build(name)
+            case ItemType.triangle:
+                item = Triangle.build(name)
                 break
-            case EntityType.segment:
-                element = Segment.build(name)
+            case ItemType.segment:
+                item = Segment.build(name)
                 break
             default:
                 break
