@@ -19,10 +19,10 @@ class Language {
         def name = map["name"]
         switch( type ){
             case EntityType.triangle:
-                element = Triangle.build(name)
+                element = Triangle.build(name, problem)
                 break
             case EntityType.segment:
-                element = Segment.build(name)
+                element = Segment.build(name, problem)
                 break
             default:
                 break

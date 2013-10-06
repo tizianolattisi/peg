@@ -1,5 +1,7 @@
 package com.lattisi.peg.engine.entities;
 
+import com.lattisi.peg.engine.Problem;
+
 /**
  * User: tiziano
  * Date: 05/10/13
@@ -8,5 +10,6 @@ package com.lattisi.peg.engine.entities;
 public interface IEntity {
 
     public String getName();
+    public Problem getProblem();
 
 }

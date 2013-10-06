@@ -1,12 +1,8 @@
 package com.lattisi.peg.engine;
 
-import com.lattisi.peg.engine.entities.Base;
 import com.lattisi.peg.engine.entities.IContainer;
 import com.lattisi.peg.engine.entities.IEntity;
-import com.lattisi.peg.engine.entities.Point;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
