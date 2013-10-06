@@ -1,5 +1,6 @@
 package com.lattisi.peg.engine.entities;
 
+import com.lattisi.peg.engine.Problem;
 import com.sun.javafx.tools.packager.Log;
 
 import java.util.ArrayList;
@@ -24,15 +25,22 @@ public class Segment extends Base implements IEntity, IContainer {
 
     public static Segment build(String name){
         if( name.length() == 2 ){
-            String p1name = name.substring(0, 1);
-            String p2name = name.substring(1);
-            if( !p1name.equals(p2name) ){
-                Segment segment = new Segment();
-                segment.setName(name);
-                segment.addPoint(Point.build(p1name));
-                segment.addPoint(Point.build(p2name));
-                return segment;
+            IEntity found = Problem.find(name, Segment.class);
+            if( found != null ){
+                Log.info("Segment present in problem");
+                return (Segment) found;
             }
+            Segment segment = new Segment();
+            segment.setName(name);
+            Problem.addElement(segment);
+
+            // children
+            String point1name = name.substring(0, 1);
+            segment.addPoint(Point.build(point1name));
+            String point2name = name.substring(1);
+            segment.addPoint(Point.build(point2name));
+
+            return segment;
         }
         Log.info("Wrong segment name");
         return null;

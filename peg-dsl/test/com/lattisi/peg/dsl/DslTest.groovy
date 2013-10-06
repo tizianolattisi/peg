@@ -1,7 +1,9 @@
 package com.lattisi.peg.dsl
 
+import com.lattisi.peg.engine.Problem
 import com.lattisi.peg.engine.entities.Base
 import com.lattisi.peg.engine.entities.IContainer
+import com.lattisi.peg.engine.entities.Triangle
 
 /**
  * User: tiziano
@@ -17,6 +19,8 @@ class DslTest extends GroovyTestCase {
         Shell shell = Shell.build()
         shell.evaluate(new File("test/com/lattisi/peg/dsl/command.groovy"))
 
+        Problem problem = shell.getLanguage().getProblem()
+
         scan = { node, i ->
             println "  "*i + node
             if( node instanceof IContainer ){
@@ -27,7 +31,7 @@ class DslTest extends GroovyTestCase {
             }
         }
 
-        for(Base element: shell.getLanguage().getProblem().getElements().values()){
+        for(Base element: problem.getElements().values()){
             println ""
             scan element, 0
         }
