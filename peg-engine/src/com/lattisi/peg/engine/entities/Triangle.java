@@ -52,7 +52,7 @@ public class Triangle extends Item implements IItem, IContainer {
 
     @Override
     public Collection<IItem> getChildren() {
-        Collection<IItem> children = new ArrayList();
+        Collection<IItem> children = new ArrayList<IItem>();
         for( Segment segment: segments ){
             children.add(segment);
         }
