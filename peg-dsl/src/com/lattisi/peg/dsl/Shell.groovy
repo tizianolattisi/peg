@@ -1,5 +1,6 @@
 package com.lattisi.peg.dsl
 
+import com.lattisi.peg.engine.entities.ItemType
 import groovy.util.logging.Log
 import org.codehaus.groovy.control.CompilerConfiguration
 import org.codehaus.groovy.control.customizers.ASTTransformationCustomizer

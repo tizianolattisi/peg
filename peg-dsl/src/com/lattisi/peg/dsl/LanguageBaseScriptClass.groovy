@@ -1,5 +1,7 @@
 package com.lattisi.peg.dsl
 
+import com.lattisi.peg.engine.entities.ItemType
+
 /**
  * User: tiziano
  * Date: 04/10/13

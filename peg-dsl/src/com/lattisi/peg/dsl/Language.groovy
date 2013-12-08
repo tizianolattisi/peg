@@ -1,6 +1,7 @@
 package com.lattisi.peg.dsl
 
 import com.lattisi.peg.engine.Problem
+import com.lattisi.peg.engine.entities.ItemType
 import com.lattisi.peg.engine.entities.Segment
 import com.lattisi.peg.engine.entities.Triangle
 
