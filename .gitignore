@@ -1,0 +1,15 @@
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# IntelliJ
+.idea
+*.iml
+
+# out
+peg-app/out
+peg-dsl/out
+peg-engine/out
