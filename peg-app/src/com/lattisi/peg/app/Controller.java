@@ -57,5 +57,6 @@ public class Controller implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         columnName.setCellValueFactory(new PropertyValueFactory<IItem, String>("name"));
         columnTypeName.setCellValueFactory(new PropertyValueFactory<IItem, String>("typeName"));
+        columnMetric.setCellValueFactory(new PropertyValueFactory<IItem, String>("metric"));
     }
 }

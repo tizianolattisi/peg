@@ -1,6 +1,7 @@
 package com.lattisi.peg.dsl
 
 import com.lattisi.peg.engine.Problem
+import com.lattisi.peg.engine.entities.IItem
 import com.lattisi.peg.engine.entities.ItemType
 import com.lattisi.peg.engine.entities.Segment
 import com.lattisi.peg.engine.entities.Triangle
@@ -14,7 +15,9 @@ class Language {
 
     Problem problem = new Problem()
 
-    void make(Map map, ItemType type) {
+    String item1Name =null;
+
+    def make(Map map, ItemType type) {
 
         def item
         def name = map["name"]
@@ -32,6 +35,17 @@ class Language {
 
     }
 
+    def declare(String itemName){
+        this.item1Name = itemName
+    }
 
+    def equals(String itemName){
+        IItem item1 = Problem.find(this.item1Name, null)
+        IItem item2 = Problem.find(itemName, null)
+        def metric = "s"
+        item1.setMetric(metric)
+        item2.setMetric(metric)
+        item1Name=null
+    }
 
 }

@@ -9,6 +9,7 @@ public class Item implements IItem {
 
     private String name;
     private ItemType type;
+    private String metric;
 
     @Override
     public String getName() {
@@ -30,6 +31,16 @@ public class Item implements IItem {
     @Override
     public String getTypeName() {
         return type.name();
+    }
+
+    @Override
+    public String getMetric() {
+        return metric;
+    }
+
+    @Override
+    public void setMetric(String metric) {
+        this.metric = metric;
     }
 
     @Override

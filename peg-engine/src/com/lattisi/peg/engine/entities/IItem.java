@@ -13,4 +13,8 @@ public interface IItem {
 
     public String getTypeName();
 
+    public String getMetric();
+
+    void setMetric(String metric);
+
 }
