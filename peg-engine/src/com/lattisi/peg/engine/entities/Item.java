@@ -17,6 +17,10 @@ public class Item {
         this.name = name;
     }
 
+    public String getType() {
+        return this.getClass().getSimpleName();
+    }
+
     @Override
     public String toString() {
         return this.getClass().getSimpleName().concat(name) + " (" + super.hashCode() +")";

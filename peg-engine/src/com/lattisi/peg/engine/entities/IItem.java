@@ -11,4 +11,6 @@ public interface IItem {
 
     public String getName();
 
+    public String getType();
+
 }
