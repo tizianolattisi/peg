@@ -21,7 +21,7 @@ class Shell extends GroovyShell{
         super(binding, config)
     }
 
-    public static GroovyShell build(){
+    public static Shell build(){
         def conf = new CompilerConfiguration()
         conf.scriptBaseClass = LanguageBaseScriptClass.class.name
 
