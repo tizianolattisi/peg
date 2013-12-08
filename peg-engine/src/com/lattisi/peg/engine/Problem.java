@@ -38,6 +38,7 @@ public class Problem {
         return found;
     }
 
+    // TODO: implements klass parameter
     private static IItem scan(IItem item, String name, Class klass){
         IItem found = null;
         if( item instanceof IContainer ){
