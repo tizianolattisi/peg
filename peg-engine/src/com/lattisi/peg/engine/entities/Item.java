@@ -5,10 +5,12 @@ package com.lattisi.peg.engine.entities;
  * Date: 05/10/13
  * Time: 13:13
  */
-public class Item {
+public class Item implements IItem {
 
     private String name;
+    private ItemType type;
 
+    @Override
     public String getName() {
         return name;
     }
@@ -17,8 +19,17 @@ public class Item {
         this.name = name;
     }
 
-    public String getType() {
-        return this.getClass().getSimpleName();
+    public ItemType getType() {
+        return type;
+    }
+
+    public void setType(ItemType type) {
+        this.type = type;
+    }
+
+    @Override
+    public String getTypeName() {
+        return type.name();
     }
 
     @Override

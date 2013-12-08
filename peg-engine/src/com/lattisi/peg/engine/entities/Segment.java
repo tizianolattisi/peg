@@ -11,7 +11,7 @@ import java.util.Collection;
  * Date: 05/10/13
  * Time: 13:17
  */
-public class Segment extends Item implements IItem, IContainer {
+public class Segment extends Item implements IContainer {
 
     private Collection<Point> points = new ArrayList();
 
@@ -32,6 +32,7 @@ public class Segment extends Item implements IItem, IContainer {
             }
             Segment segment = new Segment();
             segment.setName(name);
+            segment.setType(ItemType.segment);
             Problem.addItem(segment);
 
             // children

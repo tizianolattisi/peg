@@ -31,7 +31,7 @@ public class Controller implements Initializable {
     private TableColumn columnName;
 
     @FXML
-    private TableColumn columnType;
+    private TableColumn columnTypeName;
 
     @FXML
     private TableColumn columnMetric;
@@ -56,6 +56,6 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         columnName.setCellValueFactory(new PropertyValueFactory<IItem, String>("name"));
-        columnType.setCellValueFactory(new PropertyValueFactory<IItem, String>("type"));
+        columnTypeName.setCellValueFactory(new PropertyValueFactory<IItem, String>("typeName"));
     }
 }

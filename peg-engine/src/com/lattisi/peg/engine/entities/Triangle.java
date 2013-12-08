@@ -11,7 +11,7 @@ import java.util.Collection;
  * Date: 05/10/13
  * Time: 13:14
  */
-public class Triangle extends Item implements IItem, IContainer {
+public class Triangle extends Item implements IContainer {
 
     private Collection<Segment> segments = new ArrayList();
     private Collection<Angle> angles = new ArrayList();;
@@ -31,6 +31,7 @@ public class Triangle extends Item implements IItem, IContainer {
             }
             Triangle triangle = new Triangle();
             triangle.setName(name);
+            triangle.setType(ItemType.triangle);
             Problem.addItem(triangle);
 
             // children

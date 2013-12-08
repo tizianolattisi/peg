@@ -13,7 +13,7 @@
 </top>
 <right><TableView fx:id="itemsView" prefHeight="200.0" prefWidth="300.0" xmlns:fx="http://javafx.com/fxml">
   <columns>
-    <TableColumn fx:id="columnType" prefWidth="75.0" text="type" />
+    <TableColumn fx:id="columnTypeName" prefWidth="75.0" text="type" />
     <TableColumn fx:id="columnName" prefWidth="75.0" text="name" /><TableColumn fx:id="columnMetric" prefWidth="75.0" text="metric" />
   </columns>
 </TableView>

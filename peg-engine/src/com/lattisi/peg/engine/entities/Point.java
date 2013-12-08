@@ -8,7 +8,7 @@ import com.sun.javafx.tools.packager.Log;
  * Date: 05/10/13
  * Time: 13:20
  */
-public class Point extends Item implements IItem {
+public class Point extends Item {
 
     public static Point build(String name){
         if( name.length() == 1 ){
@@ -19,6 +19,7 @@ public class Point extends Item implements IItem {
             }
             Point point = new Point();
             point.setName(name);
+            point.setType(ItemType.point);
             Problem.addItem(point);
             return point;
         }
