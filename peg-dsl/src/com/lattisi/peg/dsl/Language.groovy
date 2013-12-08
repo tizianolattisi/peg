@@ -3,6 +3,7 @@ package com.lattisi.peg.dsl
 import com.lattisi.peg.engine.Problem
 import com.lattisi.peg.engine.entities.IItem
 import com.lattisi.peg.engine.entities.ItemType
+import com.lattisi.peg.engine.entities.Metrics
 import com.lattisi.peg.engine.entities.Segment
 import com.lattisi.peg.engine.entities.Triangle
 
@@ -42,9 +43,16 @@ class Language {
     def equals(String itemName){
         IItem item1 = Problem.find(this.item1Name, null)
         IItem item2 = Problem.find(itemName, null)
-        def metric = "s"
-        item1.setMetric(metric)
-        item2.setMetric(metric)
+        def metric
+        if( item1.getMetric() != null && item2.getMetric() == null ){
+            item2.setMetric(item1.getMetric())
+        } else if( item2.getMetric() != null && item1.getMetric() == null ){
+            item1.setMetric(item2.getMetric())
+        } else {
+            metric = Metrics.nextMetric(ItemType.segment)
+            item1.setMetric(metric)
+            item2.setMetric(metric)
+        }
         item1Name=null
     }
 
