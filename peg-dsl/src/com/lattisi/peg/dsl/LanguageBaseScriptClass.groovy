@@ -22,7 +22,6 @@ abstract class LanguageBaseScriptClass extends Script {
      */
     def declare(String item1){
         this.binding.language.declare(item1)
-        this
     }
 
     def equals(String item2){

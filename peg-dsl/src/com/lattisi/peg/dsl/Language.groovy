@@ -38,6 +38,7 @@ class Language {
 
     def declare(String itemName){
         this.item1Name = itemName
+        this
     }
 
     def equals(String itemName){
