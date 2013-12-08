@@ -13,8 +13,16 @@ abstract class LanguageBaseScriptClass extends Script {
     /*
      * make
      */
-    def make(Map map, ItemType type){
-        this.binding.language.make(map, type)
+    def make(ItemType type){
+        this.binding.language.make(type)
+    }
+
+    def with(){
+        this.binding.language.with()
+    }
+
+    def name(String name){
+        this.binding.language.name(name)
     }
 
     /*

@@ -15,19 +15,27 @@ import com.lattisi.peg.engine.entities.Triangle
 class Language {
 
     Problem problem = new Problem()
+    IItem item
+    ItemType type
 
-    String item1Name =null;
+    def make(ItemType type){
+        this.type = type
+        this
+    }
 
-    def make(Map map, ItemType type) {
+    // XXX: does not work
+    def with(){
+        this
+    }
 
-        def item
-        def name = map["name"]
+    def name(String itemName) {
+
         switch( type ){
             case ItemType.triangle:
-                item = Triangle.build(name)
+                item = Triangle.build(itemName)
                 break
             case ItemType.segment:
-                item = Segment.build(name)
+                item = Segment.build(itemName)
                 break
             default:
                 break
@@ -37,24 +45,23 @@ class Language {
     }
 
     def declare(String itemName){
-        this.item1Name = itemName
+        this.item = Problem.find(itemName, null)
         this
     }
 
     def equals(String itemName){
-        IItem item1 = Problem.find(this.item1Name, null)
         IItem item2 = Problem.find(itemName, null)
         def metric
-        if( item1.getMetric() != null && item2.getMetric() == null ){
-            item2.setMetric(item1.getMetric())
-        } else if( item2.getMetric() != null && item1.getMetric() == null ){
-            item1.setMetric(item2.getMetric())
+        if( item.getMetric() != null && item2.getMetric() == null ){
+            item2.setMetric(item.getMetric())
+        } else if( item2.getMetric() != null && item.getMetric() == null ){
+            item.setMetric(item2.getMetric())
         } else {
             metric = Metrics.nextMetric(ItemType.segment)
-            item1.setMetric(metric)
+            item.setMetric(metric)
             item2.setMetric(metric)
         }
-        item1Name=null
+        item=null
     }
 
 }

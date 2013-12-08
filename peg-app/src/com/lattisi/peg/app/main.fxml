@@ -39,7 +39,7 @@
 </Accordion>
 </left>
 <center><SplitPane dividerPositions="0.5714285714285714" focusTraversable="true" layoutX="220.0" layoutY="100.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
-  <items><Pane prefHeight="200.0" prefWidth="200.0" /><TextArea fx:id="dsl" prefHeight="200.0" prefWidth="200.0" text="log.info &quot;Test Plane Euclidean Geometry Domain Specific Language&quot;&#10;make triangle, name:&quot;ABC&quot;&#10;make segment, name:&quot;BC&quot;&#10;make segment, name:&quot;CD&quot;&#10;declare &quot;BC&quot; equals &quot;CD&quot;" />
+  <items><Pane prefHeight="200.0" prefWidth="200.0" /><TextArea fx:id="dsl" prefHeight="200.0" prefWidth="200.0" text="log.info &quot;Test Plane Euclidean Geometry Domain Specific Language&quot;&#10;make triangle name &quot;ABC&quot;&#10;make segment name &quot;BC&quot;&#10;make segment name &quot;CD&quot;&#10;declare &quot;BC&quot; equals &quot;CD&quot;" />
   </items>
 </SplitPane>
 </center></BorderPane>
