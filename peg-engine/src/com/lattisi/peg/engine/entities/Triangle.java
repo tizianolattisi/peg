@@ -13,8 +13,8 @@ import java.util.Collection;
  */
 public class Triangle extends Item implements IContainer {
 
-    private Collection<Segment> segments = new ArrayList();
-    private Collection<Angle> angles = new ArrayList();;
+    private Collection<Segment> segments = new ArrayList<Segment>();
+    private Collection<Angle> angles = new ArrayList<Angle>();
 
     private void addSegment(Segment segment){
         if( segments.size()<3 ){
