@@ -12,7 +12,7 @@ public class Point extends Item {
 
     public static Point build(String name){
         if( name.length() == 1 ){
-            IItem found = Problem.find(name, Point.class);
+            IItem found = Problem.find(name, ItemType.point);
             if( found != null ){
                 Log.info("Point present in problem");
                 return (Point) found;

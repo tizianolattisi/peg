@@ -25,7 +25,7 @@ public class Segment extends Item implements IContainer {
 
     public static Segment build(String name){
         if( name.length() == 2 ){
-            IItem found = Problem.find(name, Segment.class);
+            IItem found = Problem.find(name, ItemType.segment);
             if( found != null ){
                 Log.info("Segment present in problem");
                 return (Segment) found;

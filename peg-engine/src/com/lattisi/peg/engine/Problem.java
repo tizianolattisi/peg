@@ -27,7 +27,7 @@ public class Problem {
         }
         Map<String, IItem> filteredItems = new HashMap<String, IItem>();
         for( IItem item: items.values() ){
-            if( ItemType.point.equals(item.getType()) ){
+            if( type.equals(item.getType()) ){
                 filteredItems.put(item.getName(), item);
             }
         }
@@ -40,12 +40,14 @@ public class Problem {
     }
 
     // TODO: implements klass parameter
-    public static IItem find(String name, Class klass){
+    public static IItem find(String name, ItemType type){
         IItem found = null;
         for( IItem item: items.values() ){
-            Collection<String> aliases = resolveAliases(name);
-            if( aliases.contains(item.getName()) ){
-                return item;
+            if( type == null || type.equals(item.getType()) ){
+                Collection<String> aliases = resolveAliases(name);
+                if( aliases.contains(item.getName()) ){
+                    return item;
+                }
             }
         }
         return found;

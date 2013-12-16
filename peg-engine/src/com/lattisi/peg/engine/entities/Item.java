@@ -45,6 +45,6 @@ public class Item implements IItem {
 
     @Override
     public String toString() {
-        return this.getClass().getSimpleName().concat(name) + " (" + super.hashCode() +")" + "metric: " + metric;
+        return this.getClass().getSimpleName().concat(" ").concat(name) + " (" + super.hashCode() +")" + "metric: " + metric;
     }
 }

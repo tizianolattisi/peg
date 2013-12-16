@@ -16,16 +16,10 @@ public class Triangle extends Item implements IContainer {
     private Collection<Segment> segments = new ArrayList<Segment>();
     private Collection<Angle> angles = new ArrayList<Angle>();
 
-    private void addSegment(Segment segment){
-        if( segments.size()<3 ){
-            segments.add(segment);
-        }
-    }
-
     public static Triangle build(String name){
         if( name.length() == 3 ){
-            IItem found = Problem.find(name, Triangle.class);
-            if( found != null ){
+            IItem found = Problem.find(name, ItemType.triangle);
+            if( found != null && found instanceof Triangle ){
                 Log.info("Triangle present in problem");
                 return (Triangle) found;
             }
@@ -44,6 +38,12 @@ public class Triangle extends Item implements IContainer {
             triangle.addSegment(Segment.build(segment2name));
             String segment3name = point3name.concat(point1name);
             triangle.addSegment(Segment.build(segment3name));
+            String angle1name = point1name + point2name + point3name;
+            triangle.addAngle(Angle.build(angle1name));
+            String angle2name = point2name + point3name + point1name;
+            triangle.addAngle(Angle.build(angle2name));
+            String angle3name = point3name + point1name + point2name;
+            triangle.addAngle(Angle.build(angle3name));
 
             return triangle;
         }
@@ -51,11 +51,26 @@ public class Triangle extends Item implements IContainer {
         return null;
     }
 
+    private void addSegment(Segment segment){
+        if( segments.size()<3 ){
+            segments.add(segment);
+        }
+    }
+
+    private void addAngle(Angle angle){
+        if( angles.size()<3 ){
+            angles.add(angle);
+        }
+    }
+
     @Override
     public Collection<IItem> getChildren() {
         Collection<IItem> children = new ArrayList<IItem>();
         for( Segment segment: segments ){
             children.add(segment);
+        }
+        for( Angle angle: angles ){
+            children.add(angle);
         }
         return children;
     }
