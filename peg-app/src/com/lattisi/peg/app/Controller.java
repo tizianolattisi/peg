@@ -46,6 +46,7 @@ public class Controller implements Initializable {
         Shell shell = Shell.build();
         shell.evaluate(text);
         Problem problem = shell.getLanguage().getProblem();
+        problem.refresh();
         Map<String, IItem> map = problem.getItems();
 
         ObservableList<IItem> items = FXCollections.observableArrayList(map.values());

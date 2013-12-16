@@ -20,6 +20,7 @@ class DslTest extends GroovyTestCase {
         shell.evaluate(new File("test/com/lattisi/peg/dsl/command.groovy"))
 
         Problem problem = shell.getLanguage().getProblem()
+        problem.refresh()
 
         scan = { node, i ->
             println "  "*i + node
@@ -36,6 +37,15 @@ class DslTest extends GroovyTestCase {
             scan item, 0
         }
 
+    }
+
+    void testFind() {
+        Shell shell = Shell.build()
+        shell.evaluate('make triangle name "ABC"')
+        def problem = shell.getLanguage().getProblem()
+        def item1 = problem.find("AB")
+        def item2 = problem.find("BA")
+        assert item1 == item2
     }
 
     void testLanguage() {

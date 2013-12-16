@@ -11,6 +11,8 @@ public interface IItem {
 
     public String getName();
 
+    public ItemType getType();
+
     public String getTypeName();
 
     public String getMetric();

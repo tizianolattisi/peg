@@ -1,7 +1,6 @@
 package com.lattisi.peg.engine;
 
-import com.lattisi.peg.engine.entities.IContainer;
-import com.lattisi.peg.engine.entities.IItem;
+import com.lattisi.peg.engine.entities.*;
 
 import java.util.*;
 
@@ -12,14 +11,27 @@ import java.util.*;
  */
 public class Problem {
 
-    private static Map<String, IItem> items = new HashMap();
+    private static Map<String, IItem> items = new HashMap<String, IItem>();
 
     public static void addItem(IItem item){
         items.put(item.getName(), item);
     }
 
     public static Map<String, IItem> getItems(){
-        return items;
+        return getItems(null);
+    }
+
+    public static Map<String, IItem> getItems(ItemType type){
+        if( type == null ){
+            return items;
+        }
+        Map<String, IItem> filteredItems = new HashMap<String, IItem>();
+        for( IItem item: items.values() ){
+            if( ItemType.point.equals(item.getType()) ){
+                filteredItems.put(item.getName(), item);
+            }
+        }
+        return filteredItems;
     }
 
 
@@ -27,30 +39,13 @@ public class Problem {
         return find(name, null);
     }
 
+    // TODO: implements klass parameter
     public static IItem find(String name, Class klass){
         IItem found = null;
         for( IItem item: items.values() ){
-            if( item.getName().equals(name) ){
+            Collection<String> aliases = resolveAliases(name);
+            if( aliases.contains(item.getName()) ){
                 return item;
-            }
-            found = scan(item, name, klass);
-            if( found != null ){
-                return found;
-            }
-        }
-        return found;
-    }
-
-    // TODO: implements klass parameter
-    private static IItem scan(IItem item, String name, Class klass){
-        IItem found = null;
-        Collection<String> aliases = resolveAliases(name);
-        if( item instanceof IContainer ){
-            for( IItem child: ((IContainer) item).getChildren() ){
-                if( aliases.contains(child.getName()) ){
-                    return child;
-                }
-                found = scan(child, name, klass);
             }
         }
         return found;
@@ -60,8 +55,9 @@ public class Problem {
         Collection<String> aliases = new ArrayList<String>();
         aliases.add(itemName);
         if( itemName.length() == 2 ){
-            StringBuilder sb = new StringBuilder(itemName);
-            aliases.add(sb.reverse().toString());
+            String a = itemName.substring(0, 1);
+            String b = itemName.substring(1, 2);
+            aliases.add(b+a);
         } else if( itemName.length() == 3 ){
             String a = itemName.substring(0, 1);
             String b = itemName.substring(1, 2);
@@ -73,6 +69,25 @@ public class Problem {
             aliases.add(c+b+a);
         }
         return aliases;
+    }
+
+    public static void refresh(){
+        Map<String, IItem> pointsMap = getItems(ItemType.point);
+        List<IItem> points = new ArrayList(pointsMap.values());
+        for( Integer i=0; i<points.size()-2; i++ ){
+            for( Integer j=i+1; j<points.size()-1; j++ ){
+                for( Integer k=j+1; k<points.size(); k++ ){
+                    IItem s1 = find(points.get(i).getName() + points.get(j).getName());
+                    IItem s2 = find(points.get(j).getName() + points.get(k).getName());
+                    IItem s3 = find(points.get(k).getName() + points.get(i).getName());
+                    if( s1 != null && s2 != null && s3 != null ){
+                        String triangleName = points.get(i).getName() + points.get(j).getName() + points.get(k).getName();
+                        addItem(Triangle.build(triangleName));
+                    }
+                }
+            }
+        }
+
     }
 
 }

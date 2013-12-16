@@ -7,5 +7,5 @@ declare "BC" equals "CD"
 */
 make triangle name "ABC"
 extend "AC" to "D" with metric:"BC"
-//extend "BC" to "E" with metric:"AC"
-//make segment name "ED"
+extend "BC" to "E" with metric:"AC"
+make segment name "ED"

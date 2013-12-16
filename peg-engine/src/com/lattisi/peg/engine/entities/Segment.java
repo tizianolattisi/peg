@@ -13,7 +13,7 @@ import java.util.Collection;
  */
 public class Segment extends Item implements IContainer {
 
-    private Collection<Point> points = new ArrayList();
+    private Collection<Point> points = new ArrayList<Point>();
 
     public void addPoint(Point point){
         if( points.size() < 2 ){
@@ -49,7 +49,7 @@ public class Segment extends Item implements IContainer {
 
     @Override
     public Collection<IItem> getChildren() {
-        Collection<IItem> children = new ArrayList();
+        Collection<IItem> children = new ArrayList<IItem>();
         for( Point point: points ){
             children.add(point);
         }
