@@ -72,7 +72,7 @@ class Language {
             def metric = Metrics.nextMetric(ItemType.segment)
             item.segments.get(0).setMetric(metric)
             item.segments.get(1).setMetric(metric)
-            if( TriangleType.equilateral ){
+            if( TriangleType.equilateral.equals(type) ){
                 item.segments.get(2).setMetric(metric)
             }
         }
