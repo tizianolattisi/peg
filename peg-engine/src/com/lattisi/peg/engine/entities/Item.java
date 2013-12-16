@@ -9,7 +9,7 @@ public class Item implements IItem {
 
     private String name;
     private ItemType type;
-    private String metric;
+    private String metric=null;
 
     @Override
     public String getName() {
@@ -45,6 +45,6 @@ public class Item implements IItem {
 
     @Override
     public String toString() {
-        return this.getClass().getSimpleName().concat(name) + " (" + super.hashCode() +")";
+        return this.getClass().getSimpleName().concat(name) + " (" + super.hashCode() +")" + "metric: " + metric;
     }
 }

@@ -3,6 +3,7 @@ package com.lattisi.peg.dsl
 import com.lattisi.peg.engine.Problem
 import com.lattisi.peg.engine.entities.Item
 import com.lattisi.peg.engine.entities.IContainer
+import com.lattisi.peg.engine.entities.ItemType
 
 /**
  * User: tiziano
@@ -35,6 +36,16 @@ class DslTest extends GroovyTestCase {
             scan item, 0
         }
 
+    }
+
+    void testLanguage() {
+        /*
+        def language = new Language()
+        language.make(ItemType.triangle).with().name("ABC");
+        def problem = language.getProblem()
+        println "Test Language"
+        println problem.getItems().values()
+        */
     }
 
 }

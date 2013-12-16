@@ -6,6 +6,7 @@ import com.lattisi.peg.engine.entities.ItemType
 import com.lattisi.peg.engine.entities.Metrics
 import com.lattisi.peg.engine.entities.Segment
 import com.lattisi.peg.engine.entities.Triangle
+import com.lattisi.peg.engine.entities.TriangleType
 
 /**
  * User: tiziano
@@ -23,8 +24,10 @@ class Language {
         this
     }
 
-    // XXX: does not work
-    def with(){
+    def with(Map map){
+        for( key in map.keySet() ){
+            this."$key"(map.get(key))
+        }
         this
     }
 
@@ -41,7 +44,18 @@ class Language {
                 break
 
         }
+        this
+    }
 
+    def type(TriangleType type){
+        if( !TriangleType.scalene.equals(type) ){
+            def metric = Metrics.nextMetric(ItemType.segment)
+            item.segments.get(0).setMetric(metric)
+            item.segments.get(1).setMetric(metric)
+            if( TriangleType.equilateral ){
+                item.segments.get(2).setMetric(metric)
+            }
+        }
     }
 
     def declare(String itemName){

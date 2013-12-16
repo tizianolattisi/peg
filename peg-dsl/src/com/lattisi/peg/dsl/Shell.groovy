@@ -1,6 +1,7 @@
 package com.lattisi.peg.dsl
 
 import com.lattisi.peg.engine.entities.ItemType
+import com.lattisi.peg.engine.entities.TriangleType
 import groovy.util.logging.Log
 import org.codehaus.groovy.control.CompilerConfiguration
 import org.codehaus.groovy.control.customizers.ASTTransformationCustomizer
@@ -27,7 +28,7 @@ class Shell extends GroovyShell{
         conf.scriptBaseClass = LanguageBaseScriptClass.class.name
 
         def imports = new ImportCustomizer()
-        imports.addStaticStars(ItemType.name)
+        imports.addStaticStars(ItemType.name, TriangleType.name)
 
         def secure = new SecureASTCustomizer()
         secure.with {
@@ -38,10 +39,10 @@ class Shell extends GroovyShell{
             importsWhitelist = []
             staticImportsWhitelist = []
 
-            staticStarImportsWhitelist = [ItemType.name]
+            staticStarImportsWhitelist = [ItemType.name, TriangleType.name]
 
-            tokensWhitelist = [ItemType.triangle,
-                    ItemType.segment]
+            tokensWhitelist = [ItemType.triangle, ItemType.segment,
+                    TriangleType.equilateral, TriangleType.isosceles, TriangleType.scalene]
 
             // to secure...
             //constantTypesClassesWhiteList = []

@@ -17,23 +17,11 @@ abstract class LanguageBaseScriptClass extends Script {
         this.binding.language.make(type)
     }
 
-    def with(){
-        this.binding.language.with()
-    }
-
-    def name(String name){
-        this.binding.language.name(name)
-    }
-
     /*
      *  declare
      */
     def declare(String item1){
         this.binding.language.declare(item1)
-    }
-
-    def equals(String item2){
-        this.binding.language.equals(item2)
     }
 
 }
