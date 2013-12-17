@@ -41,7 +41,7 @@ class Shell extends GroovyShell{
 
             staticStarImportsWhitelist = [ItemType.name, TriangleType.name]
 
-            tokensWhitelist = [ItemType.triangle, ItemType.segment,
+            tokensWhitelist = [ItemType.triangle, ItemType.segment, ItemType.direction,
                     TriangleType.equilateral, TriangleType.isosceles, TriangleType.scalene]
 
             // to secure...

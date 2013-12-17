@@ -6,5 +6,5 @@ package com.lattisi.peg.engine.entities;
  * Time: 18:52
  */
 public enum ItemType {
-    triangle, segment, point, angle
+    triangle, segment, point, angle, direction
 }

@@ -1,6 +1,7 @@
 package com.lattisi.peg.dsl
 
 import com.lattisi.peg.engine.Problem
+import com.lattisi.peg.engine.entities.Direction
 import com.lattisi.peg.engine.entities.IItem
 import com.lattisi.peg.engine.entities.ItemType
 import com.lattisi.peg.engine.entities.Metrics
@@ -33,6 +34,9 @@ class Language {
                 break
             case ItemType.segment:
                 item = Segment.build(itemName)
+                break
+            case ItemType.direction:
+                item = Direction.build(itemName)
                 break
             default:
                 break
