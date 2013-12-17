@@ -17,7 +17,8 @@ import com.lattisi.peg.engine.entities.TriangleType
 class Language {
 
     Problem problem = new Problem()
-    IItem item
+    IItem item1
+    IItem item2
     ItemType type
 
     /*
@@ -30,13 +31,13 @@ class Language {
     def name(String itemName) {
         switch( type ){
             case ItemType.triangle:
-                item = Triangle.build(itemName)
+                item1 = Triangle.build(itemName)
                 break
             case ItemType.segment:
-                item = Segment.build(itemName)
+                item1 = Segment.build(itemName)
                 break
             case ItemType.direction:
-                item = Direction.build(itemName)
+                item1 = Direction.build(itemName)
                 break
             default:
                 break
@@ -49,12 +50,15 @@ class Language {
      *  extend segmentName to pointName
      */
     def extend(String segmentName){
-        item = Problem.find(segmentName[-1])
+        item1 = Problem.find(segmentName[1])
+        item2 = Problem.find(segmentName[0])
         this
     }
     def to(String pointName){
-        def segmentName = item.name[-1]+pointName
-        item = Segment.build(segmentName)
+        def segmentName = item1.name+pointName
+        item1 = Segment.build(segmentName)
+        def direction = Direction.build(segmentName)
+        direction.addPoint(item2)
         this
     }
 
@@ -74,10 +78,10 @@ class Language {
     def type(TriangleType type){
         if( !TriangleType.scalene.equals(type) ){
             def metric = Metrics.nextMetric(ItemType.segment)
-            item.segments.get(0).setMetric(metric)
-            item.segments.get(1).setMetric(metric)
+            item1.segments.get(0).setMetric(metric)
+            item1.segments.get(1).setMetric(metric)
             if( TriangleType.equilateral.equals(type) ){
-                item.segments.get(2).setMetric(metric)
+                item1.segments.get(2).setMetric(metric)
             }
         }
     }
@@ -90,7 +94,7 @@ class Language {
             metric = Metrics.nextMetric(ItemType.segment)
             metricItem.setMetric(metric)
         }
-        item.setMetric(metricItem.metric)
+        item1.setMetric(metricItem.metric)
     }
 
 
@@ -99,23 +103,23 @@ class Language {
      */
 
     def declare(String itemName){
-        this.item = Problem.find(itemName, null)
+        this.item1 = Problem.find(itemName, null)
         this
     }
 
     def equals(String itemName){
         IItem item2 = Problem.find(itemName, null)
         def metric
-        if( item.getMetric() != null && item2.getMetric() == null ){
-            item2.setMetric(item.getMetric())
-        } else if( item2.getMetric() != null && item.getMetric() == null ){
-            item.setMetric(item2.getMetric())
+        if( item1.getMetric() != null && item2.getMetric() == null ){
+            item2.setMetric(item1.getMetric())
+        } else if( item2.getMetric() != null && item1.getMetric() == null ){
+            item1.setMetric(item2.getMetric())
         } else {
             metric = Metrics.nextMetric(ItemType.segment)
-            item.setMetric(metric)
+            item1.setMetric(metric)
             item2.setMetric(metric)
         }
-        item=null
+        item1=null
     }
 
 }
