@@ -2,7 +2,6 @@ package com.lattisi.peg.dsl
 
 import com.lattisi.peg.engine.Problem
 import com.lattisi.peg.engine.entities.Direction
-import com.lattisi.peg.engine.entities.IItem
 import com.lattisi.peg.engine.entities.ItemType
 import com.lattisi.peg.engine.entities.Metrics
 import com.lattisi.peg.engine.entities.Point
@@ -70,7 +69,7 @@ class Language {
         def segmentName = item2Name+pointName                               // "BD"
         def segment = Segment.build(segmentName)                            // Segment "BD"
         def direction = Direction.build(segmentName)                        // Direction "BD"
-        direction.addPoint(Point.build(item1Name))                                       // add Point "A" to Direction "BD"
+        direction.addPoint(Point.build(item1Name))                          // add Point "A" to Direction "BD"
         item1Name = segment.name                                            // "BD"
         item2Name = null
         this
@@ -111,7 +110,9 @@ class Language {
             metric = Metrics.nextMetric(ItemType.segment)
             metricItem.setMetric(metric)
         }
-        Problem.find(item1Name).setMetric(metric)                           // Segment "BD" setMetric
+        def item1 = Problem.find(item1Name)                                 // Segment "BD"
+        item1.setMetric(metric)
+        println ""
     }
 
 

@@ -27,7 +27,7 @@ public class Direction extends Item implements IContainer {
                 return (Direction) found;
             }
             Direction direction = new Direction();
-            direction.setName(name);
+            direction.setName(name.toLowerCase());
             direction.setType(ItemType.direction);
             Problem.addItem(direction);
 
