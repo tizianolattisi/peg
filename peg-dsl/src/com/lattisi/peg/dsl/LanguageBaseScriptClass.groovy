@@ -11,10 +11,10 @@ import com.lattisi.peg.engine.entities.ItemType
 abstract class LanguageBaseScriptClass extends Script {
 
     /*
-     *  make ItemType itemName with prop1:value1, prop2:value2
+     *  create ItemType itemName with prop1:value1, prop2:value2
      */
-    def make(ItemType type){
-        this.binding.language.make(type)
+    def create(ItemType type){
+        this.binding.language.create(type)
     }
 
     /*

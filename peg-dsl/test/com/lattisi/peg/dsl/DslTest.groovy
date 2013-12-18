@@ -41,7 +41,7 @@ class DslTest extends GroovyTestCase {
 
     void testFind() {
         Shell shell = Shell.build()
-        shell.evaluate('make triangle name "ABC"')
+        shell.evaluate('create triangle name "ABC"')
         def problem = shell.getLanguage().getProblem()
         def item1 = problem.find("AB")
         def item2 = problem.find("BA")
@@ -51,7 +51,7 @@ class DslTest extends GroovyTestCase {
     void testLanguage() {
         /*
         def language = new Language()
-        language.make(ItemType.triangle).with().name("ABC");
+        language.create(ItemType.triangle).with().name("ABC");
         def problem = language.getProblem()
         println "Test Language"
         println problem.getItems().values()

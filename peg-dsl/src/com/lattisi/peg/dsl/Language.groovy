@@ -22,10 +22,10 @@ class Language {
     ItemType type
 
     /*
-     *  make ItemType itemName with prop1:value1, prop2:value2
+     *  create ItemType itemName with prop1:value1, prop2:value2
      */
-    def make(ItemType type){
-        // make triangle name "ABC" with type:scalene
+    def create(ItemType type){
+        // create triangle name "ABC" with type:scalene
         item1Name = null
         item2Name = null
         this.type = type                                                    // ItemType.triangle
@@ -89,7 +89,7 @@ class Language {
      */
 
     def type(TriangleType type){
-        // make triangle name "ABC" with type:scalene
+        // create triangle name "ABC" with type:scalene
         if( !TriangleType.scalene.equals(type) ){
             def metric = Metrics.nextMetric(ItemType.segment)
             def triangle = Problem.find(item1Name, ItemType.triangle)       // Triangle "ABC"
