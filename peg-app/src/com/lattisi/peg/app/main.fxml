@@ -11,24 +11,25 @@
   </items>
 </ToolBar>
 </top>
-<right><TableView fx:id="itemsView" prefHeight="200.0" prefWidth="300.0" xmlns:fx="http://javafx.com/fxml">
+<center><SplitPane dividerPositions="0.5714285714285714" focusTraversable="true" layoutX="220.0" layoutY="100.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
+  <items><Pane prefHeight="200.0" prefWidth="200.0" /><TextArea fx:id="dsl" prefHeight="200.0" prefWidth="200.0" text="log.info &quot;Test Plane Euclidean Geometry Domain Specific Language&quot;&#10;make triangle name &quot;ABC&quot;&#10;make segment name &quot;BC&quot;&#10;make segment name &quot;CD&quot;&#10;declare &quot;BC&quot; equals &quot;CD&quot;" />
+  </items>
+</SplitPane>
+</center>
+<right><Accordion xmlns:fx="http://javafx.com/fxml">
+  <panes>
+    <TitledPane animated="false" text="Plain view">
+<content><TableView fx:id="itemsView" prefHeight="200.0" prefWidth="300.0" xmlns:fx="http://javafx.com/fxml">
   <columns>
     <TableColumn fx:id="columnTypeName" prefWidth="75.0" text="type" />
     <TableColumn fx:id="columnName" prefWidth="75.0" text="name" /><TableColumn fx:id="columnMetric" prefWidth="75.0" text="metric" />
   </columns>
 </TableView>
-</right>
-<left><Accordion xmlns:fx="http://javafx.com/fxml">
-  <panes>
-    <TitledPane animated="false" text="untitled 1">
-      <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-      </content>
+</content>
     </TitledPane>
-    <TitledPane animated="false" text="untitled 2">
-      <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-      </content>
+    <TitledPane animated="false" text="Tree view">
+<content><TreeView fx:id="treeView" prefHeight="200.0" prefWidth="200.0" />
+</content>
     </TitledPane>
     <TitledPane animated="false" text="untitled 3">
       <content>
@@ -37,9 +38,4 @@
     </TitledPane>
   </panes>
 </Accordion>
-</left>
-<center><SplitPane dividerPositions="0.5714285714285714" focusTraversable="true" layoutX="220.0" layoutY="100.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
-  <items><Pane prefHeight="200.0" prefWidth="200.0" /><TextArea fx:id="dsl" prefHeight="200.0" prefWidth="200.0" text="log.info &quot;Test Plane Euclidean Geometry Domain Specific Language&quot;&#10;make triangle name &quot;ABC&quot;&#10;make segment name &quot;BC&quot;&#10;make segment name &quot;CD&quot;&#10;declare &quot;BC&quot; equals &quot;CD&quot;" />
-  </items>
-</SplitPane>
-</center></BorderPane>
+</right></BorderPane>
