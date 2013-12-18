@@ -1,6 +1,6 @@
 package com.lattisi.peg.engine.entities;
 
-import com.lattisi.peg.engine.Problem;
+import java.util.Collection;
 
 /**
  * User: tiziano
@@ -18,5 +18,7 @@ public interface IItem {
     public String getMetric();
 
     void setMetric(String metric);
+
+    public Collection<String> getAliases();
 
 }

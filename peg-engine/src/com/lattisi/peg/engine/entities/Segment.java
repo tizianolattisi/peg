@@ -5,6 +5,7 @@ import com.sun.javafx.tools.packager.Log;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * User: tiziano
@@ -54,6 +55,16 @@ public class Segment extends Item implements IContainer {
             children.add(point);
         }
         return children;
+    }
+
+    @Override
+    public Collection<String> getAliases() {
+        List<String> aliases = new ArrayList<String>();
+        String a = getName().substring(0, 1);
+        String b = getName().substring(1, 2);
+        aliases.add(a+b);
+        aliases.add(b+a);
+        return aliases;
     }
 
 }

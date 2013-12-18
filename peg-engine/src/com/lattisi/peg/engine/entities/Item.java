@@ -5,7 +5,7 @@ package com.lattisi.peg.engine.entities;
  * Date: 05/10/13
  * Time: 13:13
  */
-public class Item implements IItem {
+public abstract class Item implements IItem {
 
     private String name;
     private ItemType type;

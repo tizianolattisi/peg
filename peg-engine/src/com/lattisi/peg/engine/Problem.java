@@ -44,33 +44,18 @@ public class Problem {
         IItem found = null;
         for( IItem item: items.values() ){
             if( type == null || type.equals(item.getType()) ){
+                /*
                 Collection<String> aliases = resolveAliases(name);
                 if( aliases.contains(item.getName()) ){
+                    return item;
+                }
+                */
+                if( item.getAliases().contains(name) ){
                     return item;
                 }
             }
         }
         return found;
-    }
-
-    private static Collection<String> resolveAliases(String itemName){
-        Collection<String> aliases = new ArrayList<String>();
-        aliases.add(itemName);
-        if( itemName.length() == 2 ){
-            String a = itemName.substring(0, 1);
-            String b = itemName.substring(1, 2);
-            aliases.add(b+a);
-        } else if( itemName.length() == 3 ){
-            String a = itemName.substring(0, 1);
-            String b = itemName.substring(1, 2);
-            String c = itemName.substring(2, 3);
-            aliases.add(a+c+b);
-            aliases.add(b+a+c);
-            aliases.add(b+c+a);
-            aliases.add(c+a+b);
-            aliases.add(c+b+a);
-        }
-        return aliases;
     }
 
     public static void refresh(){
