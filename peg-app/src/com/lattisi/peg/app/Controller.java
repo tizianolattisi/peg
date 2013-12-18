@@ -2,6 +2,7 @@ package com.lattisi.peg.app;
 
 import com.lattisi.peg.dsl.Shell;
 import com.lattisi.peg.engine.Problem;
+import com.lattisi.peg.engine.entities.IContainer;
 import com.lattisi.peg.engine.entities.IItem;
 import com.lattisi.peg.engine.entities.Item;
 import javafx.collections.FXCollections;
@@ -9,13 +10,11 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
+import java.util.Collection;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -26,6 +25,9 @@ public class Controller implements Initializable {
 
     @FXML
     private TableView itemsView;
+
+    @FXML
+    private TreeView treeView;
 
     @FXML
     private TableColumn columnName;
@@ -47,11 +49,37 @@ public class Controller implements Initializable {
         shell.evaluate(text);
         Problem problem = shell.getLanguage().getProblem();
         problem.refresh();
+
         Map<String, IItem> map = problem.getItems();
 
-        ObservableList<IItem> items = FXCollections.observableArrayList(map.values());
-        itemsView.setItems(items);
+        // TableView
+        ObservableList<IItem> observableList = FXCollections.observableArrayList(map.values());
+        itemsView.setItems(observableList);
 
+        // TreeView
+        TreeItem<String> root = new TreeItem<String>("Problem");
+        root.setExpanded(true);
+        Collection<IItem> values = map.values();
+
+        addChidrenToNode(root, values);
+
+        treeView.setRoot(root);
+    }
+
+    private void addChidrenToNode(TreeItem<String> node, Collection<IItem> items) {
+        ObservableList<TreeItem<String>> children = node.getChildren();
+        for( IItem item: items){
+            String label = item.getType().toString().concat(" ").concat(item.getName());
+            if( item.getMetric() != null ){
+                label = label.concat(" (").concat(item.getMetric()).concat(")");
+            }
+            TreeItem<String> childNode = new TreeItem<String>(label);
+            children.add(childNode);
+            if( item instanceof IContainer ){
+                Collection<IItem> childItems = ((IContainer) item).getChildren();
+                addChidrenToNode(childNode, childItems);
+            }
+        }
     }
 
     @Override
