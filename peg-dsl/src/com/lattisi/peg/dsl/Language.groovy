@@ -5,6 +5,7 @@ import com.lattisi.peg.engine.entities.Direction
 import com.lattisi.peg.engine.entities.IItem
 import com.lattisi.peg.engine.entities.ItemType
 import com.lattisi.peg.engine.entities.Metrics
+import com.lattisi.peg.engine.entities.Point
 import com.lattisi.peg.engine.entities.Segment
 import com.lattisi.peg.engine.entities.Triangle
 import com.lattisi.peg.engine.entities.TriangleType
@@ -17,31 +18,38 @@ import com.lattisi.peg.engine.entities.TriangleType
 class Language {
 
     Problem problem = new Problem()
-    IItem item1
-    IItem item2
+    String item1Name
+    String item2Name
     ItemType type
 
     /*
      *  make ItemType itemName with prop1:value1, prop2:value2
      */
     def make(ItemType type){
-        this.type = type
+        // make triangle name "ABC" with type:scalene
+        item1Name = null
+        item2Name = null
+        this.type = type                                                    // ItemType.triangle
         this
     }
     def name(String itemName) {
+        def item = null
         switch( type ){
             case ItemType.triangle:
-                item1 = Triangle.build(itemName)
+                item = Triangle.build(itemName)                             // Triangle "ABC"
                 break
             case ItemType.segment:
-                item1 = Segment.build(itemName)
+                item = Segment.build(itemName)
                 break
             case ItemType.direction:
-                item1 = Direction.build(itemName)
+                item = Direction.build(itemName)
                 break
             default:
                 break
 
+        }
+        if( item != null ){
+            item1Name = item.name                                           // "ABC"
         }
         this
     }
@@ -50,15 +58,21 @@ class Language {
      *  extend segmentName to pointName
      */
     def extend(String segmentName){
-        item1 = Problem.find(segmentName[1])
-        item2 = Problem.find(segmentName[0])
+        // extend "AB" to "D" with metric:"AC"
+        def item1 = Problem.find(segmentName[0])                            // Point "A"
+        item1Name = item1.name                                              // "A"
+        def item2 = Problem.find(segmentName[1])                            // Point "B"
+        item2Name = item2.name                                              // "B"
         this
     }
     def to(String pointName){
-        def segmentName = item1.name+pointName
-        item1 = Segment.build(segmentName)
-        def direction = Direction.build(segmentName)
-        direction.addPoint(item2)
+        // extend "AB" to "D" with metric:"AC"
+        def segmentName = item2Name+pointName                               // "BD"
+        def segment = Segment.build(segmentName)                            // Segment "BD"
+        def direction = Direction.build(segmentName)                        // Direction "BD"
+        direction.addPoint(Point.build(item1Name))                                       // add Point "A" to Direction "BD"
+        item1Name = segment.name                                            // "BD"
+        item2Name = null
         this
     }
 
@@ -76,17 +90,20 @@ class Language {
      */
 
     def type(TriangleType type){
+        // make triangle name "ABC" with type:scalene
         if( !TriangleType.scalene.equals(type) ){
             def metric = Metrics.nextMetric(ItemType.segment)
-            item1.segments.get(0).setMetric(metric)
-            item1.segments.get(1).setMetric(metric)
+            def triangle = Problem.find(item1Name, ItemType.triangle)       // Triangle "ABC"
+            triangle.segments.get(0).setMetric(metric)
+            triangle.segments.get(1).setMetric(metric)
             if( TriangleType.equilateral.equals(type) ){
-                item1.segments.get(2).setMetric(metric)
+                triangle.segments.get(2).setMetric(metric)
             }
         }
     }
     def metric(String itemName){
-        def metricItem = Problem.find(itemName)
+        // extend "AB" to "D" with metric:"AC"
+        def metricItem = Problem.find(itemName)                             // Segment "AC"
         def metric
         if( metricItem.metric != null ){
             metric = metricItem.metric
@@ -94,7 +111,7 @@ class Language {
             metric = Metrics.nextMetric(ItemType.segment)
             metricItem.setMetric(metric)
         }
-        item1.setMetric(metricItem.metric)
+        Problem.find(item1Name).setMetric(metric)                           // Segment "BD" setMetric
     }
 
 
@@ -103,12 +120,17 @@ class Language {
      */
 
     def declare(String itemName){
-        this.item1 = Problem.find(itemName, null)
+        // declare "CD" equal "AC"
+        item1Name = itemName                                                // "CD"
+        item2Name = null
+        type = null
         this
     }
 
     def equals(String itemName){
-        IItem item2 = Problem.find(itemName, null)
+        def item1 = Problem.find(item1Name, null)                            // Segment "CD"
+        def item2 = Problem.find(itemName, null)
+        item2Name = itemName
         def metric
         if( item1.getMetric() != null && item2.getMetric() == null ){
             item2.setMetric(item1.getMetric())
@@ -119,7 +141,8 @@ class Language {
             item1.setMetric(metric)
             item2.setMetric(metric)
         }
-        item1=null
+        item1Name=null
+        item2Name = null
     }
 
 }
