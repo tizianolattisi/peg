@@ -58,6 +58,19 @@ public class Triangle extends Item implements IContainer {
         }
     }
 
+    public Collection<Segment> getSegments() {
+        return segments;
+    }
+
+    public Segment getSegment(String name) {
+        for( Segment segment: segments ){
+            if( segment.getName().equals(name) ){
+                return segment;
+            }
+        }
+        return null;
+    }
+
     private void addAngle(Angle angle){
         if( angles.size()<3 ){
             angles.add(angle);

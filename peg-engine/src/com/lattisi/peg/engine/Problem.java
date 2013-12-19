@@ -2,6 +2,7 @@ package com.lattisi.peg.engine;
 
 import com.lattisi.peg.engine.entities.*;
 
+import java.net.URL;
 import java.util.*;
 
 /**
@@ -39,17 +40,10 @@ public class Problem {
         return find(name, null);
     }
 
-    // TODO: implements klass parameter
     public static IItem find(String name, ItemType type){
         IItem found = null;
         for( IItem item: items.values() ){
             if( type == null || type.equals(item.getType()) ){
-                /*
-                Collection<String> aliases = resolveAliases(name);
-                if( aliases.contains(item.getName()) ){
-                    return item;
-                }
-                */
                 if( item.getAliases().contains(name) ){
                     return item;
                 }
@@ -64,11 +58,12 @@ public class Problem {
         for( Integer i=0; i<points.size()-2; i++ ){
             for( Integer j=i+1; j<points.size()-1; j++ ){
                 for( Integer k=j+1; k<points.size(); k++ ){
-                    IItem s1 = find(points.get(i).getName() + points.get(j).getName());
-                    IItem s2 = find(points.get(j).getName() + points.get(k).getName());
-                    IItem s3 = find(points.get(k).getName() + points.get(i).getName());
+                    IItem s1 = find(points.get(i).getName().concat(points.get(j).getName()));
+                    IItem s2 = find(points.get(j).getName().concat(points.get(k).getName()));
+                    IItem s3 = find(points.get(k).getName().concat(points.get(i).getName()));
                     if( s1 != null && s2 != null && s3 != null ){
-                        String triangleName = points.get(i).getName() + points.get(j).getName() + points.get(k).getName();
+                        String triangleName = points.get(i).getName().concat(points.get(j).getName())
+                                .concat(points.get(k).getName());
                         addItem(Triangle.build(triangleName));
                     }
                 }
