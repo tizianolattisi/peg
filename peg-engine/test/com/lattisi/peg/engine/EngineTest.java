@@ -2,9 +2,7 @@ package com.lattisi.peg.engine;
 
 import com.lattisi.peg.engine.entities.ItemType;
 import com.lattisi.peg.engine.entities.Metrics;
-import com.lattisi.peg.engine.entities.Segment;
 import com.lattisi.peg.engine.entities.Triangle;
-import com.lattisi.peg.engine.theorems.Tester;
 import org.junit.*;
 
 /**
@@ -51,7 +49,5 @@ public class EngineTest {
         triangle2.getSegment("EF").setMetric(s2);
         triangle2.getSegment("FD").setMetric(s3);
 
-        Boolean res = Tester.applica("primo", triangle1, triangle2);
-        System.out.println(res);
     }
 }

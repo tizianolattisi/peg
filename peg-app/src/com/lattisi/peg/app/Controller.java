@@ -4,7 +4,6 @@ import com.lattisi.peg.dsl.Shell;
 import com.lattisi.peg.engine.Problem;
 import com.lattisi.peg.engine.entities.IContainer;
 import com.lattisi.peg.engine.entities.IItem;
-import com.lattisi.peg.engine.entities.Item;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
