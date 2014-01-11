@@ -3,9 +3,7 @@ package com.lattisi.peg.engine.entities;
 import com.lattisi.peg.engine.Problem;
 import com.sun.javafx.tools.packager.Log;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 /**
  * User: tiziano
@@ -59,12 +57,26 @@ public class Triangle extends Item implements IContainer {
     }
 
     public Collection<Segment> getSegments() {
-        return segments;
+        return getSegments(false);
+    }
+
+    public Collection<Segment> getSegments(Boolean measured) {
+        if( !measured ){
+            return segments;
+        } else {
+            Collection<Segment> measuredSegments = new ArrayList<Segment>();
+            for( Segment segment: getSegments() ){
+                if( segment.getMetric() != null ){
+                    measuredSegments.add(segment);
+                }
+            }
+            return measuredSegments;
+        }
     }
 
     public Segment getSegment(String name) {
-        for( Segment segment: segments ){
-            if( segment.getName().equals(name) ){
+        for( Segment segment: getSegments() ){
+            if( segment.getAliases().contains(name) ){
                 return segment;
             }
         }
@@ -76,6 +88,55 @@ public class Triangle extends Item implements IContainer {
             angles.add(angle);
         }
     }
+
+    public Collection<Angle> getAngles() {
+        return angles;
+    }
+
+    public Angle getAngle(String name) {
+        for( Angle angle: getAngles() ){
+            if( angle.getAliases().contains(name) ){
+                return angle;
+            }
+        }
+        return null;
+    }
+
+    public Angle getAngle(Segment segment1, Segment segment2) {
+        return getAngle(segment1.getName(), segment2.getName());
+    }
+
+    public Angle getAngle(String segment1Name, String segment2Name) {
+        String angleName;
+        String center;
+        if( segment2Name.indexOf(segment1Name.substring(0, 1)) == -1 ){
+            angleName = segment1Name;
+        } else {
+            angleName = segment1Name.substring(1, 2) + segment1Name.substring(0, 1);
+        }
+        if( angleName.substring(1, 2).equals(segment2Name.substring(0, 1)) ){
+            angleName += segment2Name.substring(1, 0);
+        } else {
+            angleName += segment2Name.substring(1, 0);
+        }
+        return getAngle(angleName.toLowerCase());
+    }
+
+
+    /*public List<IItem> getOrderedItems() {
+        List<IItem> items = new ArrayList<IItem>();
+        Segment oldSegment=null;
+        for( Segment segment: getSegments() ){
+            if( items.size() > 0 ){
+                String angleName = ""; // TODO
+                Angle angle = getAngle(angleName);
+                items.add(angle);
+            }
+            oldSegment = segment;
+            items.add(segment);
+        }
+    }*/
+
 
     @Override
     public Collection<IItem> getChildren() {
