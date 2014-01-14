@@ -61,17 +61,17 @@ public class Theorems {
      *
      */
     public static Boolean congruentTriangleSameSides(Triangle triangle1, Triangle triangle2){
-        List<String> metrics1 = getSegmentMetrics(triangle1);
-        if( metrics1.size()<3 ){
+        List<String> measures1 = getSegmentMeasures(triangle1);
+        if( measures1.size()<3 ){
             return false;
         }
-        List<String> metrics2 = getSegmentMetrics(triangle2);
-        if( metrics2.size()<3 ){
+        List<String> measures2 = getSegmentMeasures(triangle2);
+        if( measures2.size()<3 ){
             return false;
         }
-        Collections.sort(metrics1);
-        Collections.sort(metrics2);
-        return metrics1.equals(metrics2);
+        Collections.sort(measures1);
+        Collections.sort(measures2);
+        return measures1.equals(measures2);
     }
 
     /*
@@ -88,24 +88,24 @@ public class Theorems {
      * Metodi di supporto
      */
 
-    private static List<String> getSegmentMetrics(Triangle triangle){
+    private static List<String> getSegmentMeasures(Triangle triangle){
         List<String> metrics = new ArrayList<String>();
         for( Segment segment: triangle.getSegments() ){
-            if( segment.getMetric() != null ){
-                metrics.add(segment.getMetric());
+            if( segment.getMeasure() != null ){
+                metrics.add(segment.getMeasure());
             }
         }
         return metrics;
     }
 
-    private static List<String> getAngleMetrics(Triangle triangle){
-        List<String> metrics = new ArrayList<String>();
+    private static List<String> getAngleMeasures(Triangle triangle){
+        List<String> measures = new ArrayList<String>();
         for( Angle angle: triangle.getAngles() ){
-            if( angle.getMetric() != null ){
-                metrics.add(angle.getMetric());
+            if( angle.getMeasure() != null ){
+                measures.add(angle.getMeasure());
             }
         }
-        return metrics;
+        return measures;
     }
 
     public static void equalizeTriangles(Triangle triangle1, Triangle triangle2){

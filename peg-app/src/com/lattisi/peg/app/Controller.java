@@ -69,8 +69,8 @@ public class Controller implements Initializable {
         ObservableList<TreeItem<String>> children = node.getChildren();
         for( IItem item: items){
             String label = item.getType().toString().concat(" ").concat(item.getName());
-            if( item.getMetric() != null ){
-                label = label.concat(" (").concat(item.getMetric()).concat(")");
+            if( item.getMeasure() != null ){
+                label = label.concat(" (").concat(item.getMeasure()).concat(")");
             }
             TreeItem<String> childNode = new TreeItem<String>(label);
             children.add(childNode);

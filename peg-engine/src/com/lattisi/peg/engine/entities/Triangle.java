@@ -66,7 +66,7 @@ public class Triangle extends Item implements IContainer {
         } else {
             Collection<Segment> measuredSegments = new ArrayList<Segment>();
             for( Segment segment: getSegments() ){
-                if( segment.getMetric() != null ){
+                if( segment.getMeasure() != null ){
                     measuredSegments.add(segment);
                 }
             }

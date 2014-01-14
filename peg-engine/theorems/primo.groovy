@@ -6,11 +6,11 @@ import com.lattisi.peg.engine.entities.Segment
 
     def metrics1 = [] as Set
     for( child in triangle1.children ){
-        if( child instanceof Segment && child.metric ) metrics1.add(child.metric)
+        if( child instanceof Segment && child.measure ) metrics1.add(child.measure)
     }
     def metrics2 = [] as Set
     for( child in triangle2.children ){
-        if( child instanceof Segment && child.metric ) metrics2.add(child.metric)
+        if( child instanceof Segment && child.measure ) metrics2.add(child.measure)
     }
 
     if( metrics1.intersect(metrics2).size()==2 ){

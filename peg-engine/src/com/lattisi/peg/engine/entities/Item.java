@@ -9,7 +9,7 @@ public abstract class Item implements IItem {
 
     private String name;
     private ItemType type;
-    private String metric=null;
+    private String measure =null;
 
     @Override
     public String getName() {
@@ -34,18 +34,18 @@ public abstract class Item implements IItem {
     }
 
     @Override
-    public String getMetric() {
-        return metric;
+    public String getMeasure() {
+        return measure;
     }
 
     @Override
-    public void setMetric(String metric) {
-        this.metric = metric;
+    public void setMeasure(String measure) {
+        this.measure = measure;
     }
 
     @Override
     public String toString() {
         return "<".concat(this.getClass().getSimpleName()).concat(" ").concat(name).concat(">");
-                //.concat(" (").concat(String.valueOf(super.hashCode())).concat(") metric: ").concat(metric).concat(">");
+                //.concat(" (").concat(String.valueOf(super.hashCode())).concat(") measure: ").concat(measure).concat(">");
     }
 }

@@ -15,9 +15,9 @@ public interface IItem {
 
     public String getTypeName();
 
-    public String getMetric();
+    public String getMeasure();
 
-    void setMetric(String metric);
+    void setMeasure(String measure);
 
     public Collection<String> getAliases();
 
