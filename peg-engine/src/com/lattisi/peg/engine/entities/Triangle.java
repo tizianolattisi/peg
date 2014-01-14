@@ -115,9 +115,9 @@ public class Triangle extends Item implements IContainer {
             angleName = segment1Name.substring(1, 2) + segment1Name.substring(0, 1);
         }
         if( angleName.substring(1, 2).equals(segment2Name.substring(0, 1)) ){
-            angleName += segment2Name.substring(1, 0);
+            angleName += segment2Name.substring(1, 2);
         } else {
-            angleName += segment2Name.substring(1, 0);
+            angleName += segment2Name.substring(0, 1);
         }
         return getAngle(angleName.toLowerCase());
     }
