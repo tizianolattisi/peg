@@ -40,9 +40,9 @@ public class Angle extends Item {
         aliases.add(a+b+c);
         //aliases.add(a+c+b);
         //aliases.add(b+a+c);
-        aliases.add(b+c+a);
+        //aliases.add(b+c+a);
         //aliases.add(c+a+b);
-        //aliases.add(c+b+a);
+        aliases.add(c+b+a);
         return aliases;
     }
 }
