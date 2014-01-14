@@ -6,7 +6,7 @@ create triangle name "ABC"
  *
  */
 
-extend "AC" to "D" with metric:"BC"
+extend "AC" to "D" with measure:"BC"
 /*
  * extend "AC" to "D"
  * declare "CD" equal "AC"
@@ -18,6 +18,10 @@ extend "AC" to "D" with metric:"BC"
  *
  */
 
-extend "BC" to "E" with metric:"AC"
+extend "BC" to "E" with measure:"AC"
 
 create segment name "ED"
+
+extend "DE" to "H"
+
+extend "BA" to "H"
