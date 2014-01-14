@@ -3,9 +3,7 @@ package com.lattisi.peg.engine.entities;
 import com.lattisi.peg.engine.Problem;
 import com.sun.javafx.tools.packager.Log;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 /**
  * User: tiziano
@@ -62,6 +60,16 @@ public class Direction extends Item implements IContainer {
         aliases.add(a+b);
         aliases.add(b+a);
         return aliases;
+    }
+
+    public Point intersecate(Direction direction){
+        List list1 = new ArrayList(getChildren());
+        List list2 = new ArrayList(direction.getChildren());
+        list1.retainAll(list2);
+        if( list1.size() == 1 ){
+            return (Point) list1.get(0);
+        }
+        return null;
     }
 
 }
