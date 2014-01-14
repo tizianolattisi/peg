@@ -1,8 +1,6 @@
 package com.lattisi.peg.engine;
 
-import com.lattisi.peg.engine.entities.Angle;
-import com.lattisi.peg.engine.entities.Segment;
-import com.lattisi.peg.engine.entities.Triangle;
+import com.lattisi.peg.engine.entities.*;
 
 import java.util.*;
 
@@ -71,7 +69,11 @@ public class Theorems {
         }
         Collections.sort(measures1);
         Collections.sort(measures2);
-        return measures1.equals(measures2);
+        if( measures1.equals(measures2) ){
+            equalizeItem(triangle1, triangle2);
+            return true;
+        }
+        return false;
     }
 
     /*
@@ -81,6 +83,18 @@ public class Theorems {
      */
 
 
+    /*
+     * Teorema 10.7
+     * In due triangoli uguali ad angoli uguali sono opposti lati uguali.
+     *
+     */
+
+
+    /*
+     * Teorema 10.8
+     * Angoli opposti al vertice sono uguali.
+     *
+     */
 
 
 
@@ -108,7 +122,19 @@ public class Theorems {
         return measures;
     }
 
-    public static void equalizeTriangles(Triangle triangle1, Triangle triangle2){
+    /*
+     * Item1 and item2 got the same measure
+     */
+    public static void equalizeItem(IItem item1, IItem item2){
+        if( item1.getMeasure() != null ){
+            item2.setMeasure(item1.getMeasure());
+        } else if( item2.getMeasure() != null ){
+            item1.setMeasure(item2.getMeasure());
+        } else {
+            String measure = Metrics.nextMetric(item1.getType());
+            item1.setMeasure(measure);
+            item2.setMeasure(measure);
+        }
 
     }
 

@@ -12,10 +12,11 @@ public class TriangleTest {
     @Test
     public void testGetAngle() throws Exception {
 
-        Triangle t = Triangle.build("ABC");
+        Triangle triangle = Triangle.build("ABC");
 
-        Angle angle = t.getAngle("AB", "BC");
-        System.out.println(angle.getName());
+        Angle angle = triangle.getAngle("AB", "BC");
+        assert angle.equals(triangle.getAngle("abc"));
+        assert angle.equals(triangle.getAngle("cba"));
 
     }
 }

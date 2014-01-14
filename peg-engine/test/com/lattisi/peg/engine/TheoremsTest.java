@@ -28,10 +28,14 @@ public class TheoremsTest {
         triangle2.getSegment("EF").setMeasure(s1);
 
         assert Theorems.congruentTriangleSameSides(triangle1, triangle2) == Boolean.FALSE;
+        assert triangle1.getMeasure() == null;
+        assert triangle2.getMeasure() == null;
 
         triangle2.getSegment("FD").setMeasure(s2);
 
         assert Theorems.congruentTriangleSameSides(triangle1, triangle2) == Boolean.TRUE;
+        assert triangle1.getMeasure() != null;
+        assert triangle2.getMeasure() == triangle1.getMeasure();
     }
 
 }
