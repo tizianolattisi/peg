@@ -1,8 +1,6 @@
 package com.lattisi.peg.engine;
 
-import com.lattisi.peg.engine.entities.ItemType;
-import com.lattisi.peg.engine.entities.Metrics;
-import com.lattisi.peg.engine.entities.Triangle;
+import com.lattisi.peg.engine.entities.*;
 import org.junit.Test;
 
 /**
@@ -36,6 +34,23 @@ public class TheoremsTest {
         assert Theorems.congruentTriangleSameSides(triangle1, triangle2) == Boolean.TRUE;
         assert triangle1.getMeasure() != null;
         assert triangle2.getMeasure() == triangle1.getMeasure();
+    }
+
+    @Test
+    public void testEqualOppositeAngles() throws Exception {
+        Direction direction1 = Direction.build("ab");
+        direction1.addPoint(Point.build("c"));
+
+        Direction direction2 = Direction.build("db");
+        direction2.addPoint(Point.build("e"));
+
+        assert direction1.getChildren().size() == 3;
+        assert direction2.getChildren().size() == 3;
+
+        Point b = direction1.intersecate(direction2);
+        assert "b".equals(b.getName());
+
+        Theorems.equalOppositeAngles(direction1, direction2);
     }
 
 }

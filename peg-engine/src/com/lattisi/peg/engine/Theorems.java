@@ -95,6 +95,14 @@ public class Theorems {
      * Angoli opposti al vertice sono uguali.
      *
      */
+    public static Boolean equalOppositeAngles(Direction direction1, Direction direction2){
+        Point point = direction1.intersecate(direction2);
+        if( point != null ){
+            // XXX: I need orderet points in the direction
+
+        }
+        return Boolean.FALSE;
+    }
 
 
 
