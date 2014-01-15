@@ -2,7 +2,6 @@ package com.lattisi.peg.engine;
 
 import com.lattisi.peg.engine.entities.*;
 
-import java.net.URL;
 import java.util.*;
 
 /**
