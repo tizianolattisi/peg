@@ -45,13 +45,16 @@ public class TheoremsTest extends BaseTest {
         Direction direction2 = Direction.build("db");
         direction2.addPoint(Point.build("e"));
 
-        assert direction1.getChildren().size() == 3;
-        assert direction2.getChildren().size() == 3;
+        assert direction1.getOrderedPoints().size() == 3;
+        assert direction2.getOrderedPoints().size() == 3;
 
         Point b = direction1.intersecate(direction2);
         assert "b".equals(b.getName());
 
         Theorems.equalOppositeAngles(direction1, direction2);
+
+        assert Problem.findAngle("abe").getMeasure().equals(Problem.findAngle("dbc").getMeasure());
+        assert Problem.findAngle("abd").getMeasure().equals(Problem.findAngle("ebc").getMeasure());
     }
 
 }

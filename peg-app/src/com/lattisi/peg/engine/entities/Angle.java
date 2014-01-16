@@ -31,6 +31,10 @@ public class Angle extends AbstractMeasurableItem {
         return null;
     }
 
+    public static Angle build(Point point1, Point point2, Point point3){
+        return build(point1.getName() + point2.getName() + point3.getName());
+    }
+
     @Override
     public Collection<String> getAliases() {
         List<String> aliases = new ArrayList<String>();

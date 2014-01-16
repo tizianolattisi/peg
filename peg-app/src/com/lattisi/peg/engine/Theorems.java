@@ -98,8 +98,36 @@ public class Theorems {
     public static Boolean equalOppositeAngles(Direction direction1, Direction direction2){
         Point point = direction1.intersecate(direction2);
         if( point != null ){
-            // XXX: I need orderet points in the direction
 
+            List<Point> points1 = direction1.getOrderedPoints();
+            Integer i = points1.indexOf(point);
+            List<Point> points2 = direction2.getOrderedPoints();
+            Integer j = points2.indexOf(point);
+            if( i>0 && i< points1.size()-1 &&
+                    j>0 && j< points2.size()-1 ){
+                Angle angle1 = Problem.findAngle(points1.get(i - 1), point, points2.get(j - 1));
+                if( angle1 == null ){
+                    angle1 = Angle.build(points1.get(i - 1), point, points2.get(j - 1));
+                    Problem.addItem(angle1);
+                }
+                Angle angle2 = Problem.findAngle(points1.get(i + 1), point, points2.get(j + 1));
+                if( angle2 == null ){
+                    angle2 = Angle.build(points1.get(i + 1), point, points2.get(j + 1));
+                    Problem.addItem(angle2);
+                }
+                Angle angle3 = Problem.findAngle(points1.get(i - 1), point, points2.get(j + 1));
+                if( angle3 == null ){
+                    angle3 = Angle.build(points1.get(i - 1), point, points2.get(j + 1));
+                    Problem.addItem(angle3);
+                }
+                Angle angle4 = Problem.findAngle(points1.get(i + 1), point, points2.get(j - 1));
+                if( angle4 == null ){
+                    angle4 = Angle.build(points1.get(i + 1), point, points2.get(j - 1));
+                    Problem.addItem(angle4);
+                }
+                equalizeItem(angle1, angle2);
+                equalizeItem(angle3, angle4);
+            }
         }
         return Boolean.FALSE;
     }
