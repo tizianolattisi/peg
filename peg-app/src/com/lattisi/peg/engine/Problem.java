@@ -60,6 +60,29 @@ public class Problem {
         return findAngle(name);
     }
 
+    public static Point findPoint(String name){
+        return (Point) find(name, ItemType.point);
+    }
+
+    public static Segment findSegment(String name){
+        return (Segment) find(name, ItemType.segment);
+    }
+
+    public static Segment findSegment(Point point1, Point point2){
+        String name = point1.getName() + point2.getName();
+        return findSegment(name);
+    }
+
+    public static Direction findDirection(String name){
+        return (Direction) find(name, ItemType.direction);
+    }
+
+    public static Direction findDirection(Point point1, Point point2){
+        String name = point1.getName() + point2.getName();
+        return findDirection(name);
+    }
+
+
     public static void refresh(){
         // new triangles
         Map<String, Item> pointsMap = getItems(ItemType.point);
