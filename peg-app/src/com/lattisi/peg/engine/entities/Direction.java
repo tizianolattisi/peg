@@ -53,12 +53,16 @@ public class Direction extends AbstractItem implements Container {
 
     @Override
     public Collection<String> getAliases() {
-        // XXX: consider all the points in the direction?
         List<String> aliases = new ArrayList<String>();
-        String a = getName().substring(0, 1);
-        String b = getName().substring(1, 2);
-        aliases.add(a+b);
-        aliases.add(b+a);
+        List<Point> orderedPoints = getOrderedPoints();
+        for( int i=0; i<orderedPoints.size(); i++ ){
+            for( int j=i+1; j<orderedPoints.size(); j++ ){
+                String a = orderedPoints.get(i).getName();
+                String b = orderedPoints.get(j).getName();
+                aliases.add(a+b);
+                aliases.add(b+a);
+            }
+        }
         return aliases;
     }
 

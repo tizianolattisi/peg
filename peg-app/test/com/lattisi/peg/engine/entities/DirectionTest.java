@@ -54,4 +54,12 @@ public class DirectionTest extends BaseTest {
         }
         return out;
     }
+
+    @Test
+    public void testAliases() throws Exception {
+        Direction direction = Direction.build("ab");
+        direction.addPoint(Point.build("c"));
+
+        assert direction.getAliases().toString().equals("[ab, ba, ac, ca, bc, cb]");
+    }
 }
