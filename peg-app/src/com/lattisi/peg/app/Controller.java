@@ -4,6 +4,7 @@ import com.lattisi.peg.dsl.Shell;
 import com.lattisi.peg.engine.Problem;
 import com.lattisi.peg.engine.entities.IContainer;
 import com.lattisi.peg.engine.entities.IItem;
+import com.lattisi.peg.engine.entities.ItemType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -73,7 +74,12 @@ public class Controller implements Initializable {
                 label = label.concat(" (").concat(item.getMeasure()).concat(")");
             }
             TreeItem<String> childNode = new TreeItem<String>(label);
-            children.add(childNode);
+            if( node.getValue().equals("Problem") &&
+                    (item.getType().equals(ItemType.point) || item.getType().equals(ItemType.angle)) ) {
+                // skip
+            } else {
+                children.add(childNode);
+            }
             if( item instanceof IContainer ){
                 Collection<IItem> childItems = ((IContainer) item).getChildren();
                 addChidrenToNode(childNode, childItems);
