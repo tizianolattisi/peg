@@ -29,6 +29,7 @@ public class Direction extends AbstractItem implements Container {
             direction.setName(name.toLowerCase());
             direction.setType(ItemType.direction);
             Problem.addItem(direction);
+            Problem.addItem(Segment.build(name));
 
             // children
             String point1name = name.substring(0, 1);
