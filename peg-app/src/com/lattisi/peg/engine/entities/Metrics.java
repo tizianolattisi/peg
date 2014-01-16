@@ -8,16 +8,16 @@ package com.lattisi.peg.engine.entities;
 public class Metrics {
 
     private static Integer triangleMeasuresIndex = 0;
-    private static final String[] triangleMeasures = {"t", "t1", "t2", "t3"};
+    private static final String[] triangleMeasures = {"t", "t1", "t2", "t3", "t4", "t5", "t6", "t7", "t8", "t9"};
 
     private static Integer angleMeasuresIndex = 0;
-    private static final String[] angleMeasures = {"a", "a1", "a2", "a3"};
+    private static final String[] angleMeasures = {"a", "a1", "a2", "a3", "a4", "a5", "a6", "a7", "a8", "a9"};
 
     private static Integer segmentMeasuresIndex = 0;
-    private static final String[] segmentMeasures = {"s", "s1", "s2", "s3"};
+    private static final String[] segmentMeasures = {"s", "s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9"};
 
     private static Integer directionMeasuresIndex = 0;
-    private static final String[] directionMeasures = {"r", "r1", "r2", "r3"};
+    private static final String[] directionMeasures = {"r", "r1", "r2", "r3", "r4", "r5", "r6", "r7", "r8", "r9"};
 
     public static String nextMetric(ItemType itemType){
         if( itemType.equals(ItemType.triangle) ){
