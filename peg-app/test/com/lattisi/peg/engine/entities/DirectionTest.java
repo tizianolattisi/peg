@@ -24,6 +24,10 @@ public class DirectionTest extends BaseTest {
         assert nd == null;
         assert "b".equals(b.getName());
 
+        ab.insertPointAfter(Point.build("f"), b);
+
+        assert ab.intersecate(bc).equals(b);
+
     }
 
     @Test
