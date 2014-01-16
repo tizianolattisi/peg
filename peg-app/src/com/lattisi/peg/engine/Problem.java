@@ -53,7 +53,7 @@ public class Problem {
 
     public static void refresh(){
         Map<String, IItem> pointsMap = getItems(ItemType.point);
-        List<IItem> points = new ArrayList(pointsMap.values());
+        List<IItem> points = new ArrayList<IItem>(pointsMap.values());
         for( Integer i=0; i<points.size()-2; i++ ){
             for( Integer j=i+1; j<points.size()-1; j++ ){
                 for( Integer k=j+1; k<points.size(); k++ ){
