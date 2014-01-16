@@ -58,8 +58,8 @@ public class Direction extends AbstractItem implements Container {
         List<Point> orderedPoints = getOrderedPoints();
         for( int i=0; i<orderedPoints.size(); i++ ){
             for( int j=i+1; j<orderedPoints.size(); j++ ){
-                String a = orderedPoints.get(i).getName();
-                String b = orderedPoints.get(j).getName();
+                String a = orderedPoints.get(i).getName().toLowerCase();
+                String b = orderedPoints.get(j).getName().toLowerCase();
                 aliases.add(a+b);
                 aliases.add(b+a);
             }
