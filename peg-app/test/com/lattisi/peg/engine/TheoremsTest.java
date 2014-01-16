@@ -1,6 +1,7 @@
 package com.lattisi.peg.engine;
 
 import com.lattisi.peg.engine.entities.*;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -8,7 +9,7 @@ import org.junit.Test;
  * Date: 04/01/14
  * Time: 13:10
  */
-public class TheoremsTest {
+public class TheoremsTest extends BaseTest {
 
     @Test
     public void testCongruentTriangleSameSides() throws Exception {

@@ -13,7 +13,7 @@ import org.junit.Test;
  *  Sia H l'intersezione delle rette DE ed AB.
  *  Dimostrare  che il triangolo AEH è isoscele.
  */
-public class ProblemTest {
+public class ProblemTest extends BaseTest {
 
     @Test
     public void test() throws Exception {

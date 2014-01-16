@@ -12,7 +12,7 @@ import java.util.*;
  */
 public class Direction extends Item implements IContainer {
 
-    private Collection<Point> points = new ArrayList<Point>();
+    private List<Point> points = new ArrayList<Point>();
 
     public void addPoint(Point point){
         points.add(point);
@@ -63,13 +63,32 @@ public class Direction extends Item implements IContainer {
     }
 
     public Point intersecate(Direction direction){
-        List list1 = new ArrayList(getChildren());
-        List list2 = new ArrayList(direction.getChildren());
-        list1.retainAll(list2);
-        if( list1.size() == 1 ){
-            return (Point) list1.get(0);
+        List intersection = new ArrayList(getChildren());
+        intersection.retainAll(direction.getChildren());
+        if( intersection.size() == 1 ){
+            return (Point) intersection.get(0);
         }
         return null;
     }
+
+    /*
+     * Ordered points
+     */
+
+    public List<Point> getOrderedPoints() {
+        return points;
+    }
+    public void insertPointAt(Point point, Integer index) {
+        points.add(index, point);
+    }
+    public void insertPointAfter(Point point, Point after) {
+        Integer index = points.indexOf(after) + 1;
+        points.add(index, point);
+    }
+    public void insertPointBefore(Point point, Point before) {
+        Integer index = points.indexOf(before);
+        points.add(index, point);
+    }
+
 
 }

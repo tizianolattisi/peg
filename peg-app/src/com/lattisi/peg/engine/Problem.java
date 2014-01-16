@@ -68,7 +68,10 @@ public class Problem {
                 }
             }
         }
+    }
 
+    public static void clear(){
+        items.clear();
     }
 
 }

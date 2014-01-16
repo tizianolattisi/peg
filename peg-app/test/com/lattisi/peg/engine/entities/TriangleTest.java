@@ -1,5 +1,6 @@
 package com.lattisi.peg.engine.entities;
 
+import com.lattisi.peg.engine.BaseTest;
 import org.junit.Test;
 
 /**
@@ -7,7 +8,7 @@ import org.junit.Test;
  * Date: 10/01/14
  * Time: 18:03
  */
-public class TriangleTest {
+public class TriangleTest extends BaseTest {
 
     @Test
     public void testGetAngle() throws Exception {
