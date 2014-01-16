@@ -11,22 +11,22 @@ import java.util.*;
  */
 public class Problem {
 
-    private static Map<String, IItem> items = new HashMap<String, IItem>();
+    private static Map<String, Item> items = new HashMap<String, Item>();
 
-    public static void addItem(IItem item){
+    public static void addItem(Item item){
         items.put(item.getName(), item);
     }
 
-    public static Map<String, IItem> getItems(){
+    public static Map<String, Item> getItems(){
         return getItems(null);
     }
 
-    public static Map<String, IItem> getItems(ItemType type){
+    public static Map<String, Item> getItems(ItemType type){
         if( type == null ){
             return items;
         }
-        Map<String, IItem> filteredItems = new HashMap<String, IItem>();
-        for( IItem item: items.values() ){
+        Map<String, Item> filteredItems = new HashMap<String, Item>();
+        for( Item item: items.values() ){
             if( type.equals(item.getType()) ){
                 filteredItems.put(item.getName(), item);
             }
@@ -35,13 +35,13 @@ public class Problem {
     }
 
 
-    public static IItem find(String name){
+    public static Item find(String name){
         return find(name, null);
     }
 
-    public static IItem find(String name, ItemType type){
-        IItem found = null;
-        for( IItem item: items.values() ){
+    public static Item find(String name, ItemType type){
+        Item found = null;
+        for( Item item: items.values() ){
             if( type == null || type.equals(item.getType()) ){
                 if( item.getAliases().contains(name) ){
                     return item;
@@ -52,14 +52,14 @@ public class Problem {
     }
 
     public static void refresh(){
-        Map<String, IItem> pointsMap = getItems(ItemType.point);
-        List<IItem> points = new ArrayList<IItem>(pointsMap.values());
+        Map<String, Item> pointsMap = getItems(ItemType.point);
+        List<Item> points = new ArrayList<Item>(pointsMap.values());
         for( Integer i=0; i<points.size()-2; i++ ){
             for( Integer j=i+1; j<points.size()-1; j++ ){
                 for( Integer k=j+1; k<points.size(); k++ ){
-                    IItem s1 = find(points.get(i).getName().concat(points.get(j).getName()));
-                    IItem s2 = find(points.get(j).getName().concat(points.get(k).getName()));
-                    IItem s3 = find(points.get(k).getName().concat(points.get(i).getName()));
+                    Item s1 = find(points.get(i).getName().concat(points.get(j).getName()));
+                    Item s2 = find(points.get(j).getName().concat(points.get(k).getName()));
+                    Item s3 = find(points.get(k).getName().concat(points.get(i).getName()));
                     if( s1 != null && s2 != null && s3 != null ){
                         String triangleName = points.get(i).getName().concat(points.get(j).getName())
                                 .concat(points.get(k).getName());

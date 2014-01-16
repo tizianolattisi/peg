@@ -1,9 +1,8 @@
 package com.lattisi.peg.dsl
 
 import com.lattisi.peg.engine.Problem
-import com.lattisi.peg.engine.entities.Item
-import com.lattisi.peg.engine.entities.IContainer
-import com.lattisi.peg.engine.entities.ItemType
+import com.lattisi.peg.engine.entities.AbstractItem
+import com.lattisi.peg.engine.entities.Container
 
 /**
  * User: tiziano
@@ -24,7 +23,7 @@ class DslTest extends GroovyTestCase {
 
         scan = { node, i ->
             println "  "*i + node
-            if( node instanceof IContainer ){
+            if( node instanceof Container ){
                 i++
                 for(def child: node.getChildren() ){
                     scan child, i
@@ -32,7 +31,7 @@ class DslTest extends GroovyTestCase {
             }
         }
 
-        for(Item item: problem.getItems().values()){
+        for(AbstractItem item: problem.getItems().values()){
             println ""
             scan item, 0
         }

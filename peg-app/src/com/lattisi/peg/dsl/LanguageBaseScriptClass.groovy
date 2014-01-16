@@ -1,6 +1,5 @@
 package com.lattisi.peg.dsl
 
-import com.lattisi.peg.engine.entities.IItem
 import com.lattisi.peg.engine.entities.ItemType
 
 /**

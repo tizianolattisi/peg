@@ -7,8 +7,8 @@ import java.util.Collection;
  * Date: 05/10/13
  * Time: 21:20
  */
-public interface IContainer {
+public interface Container {
 
-    public Collection<IItem> getChildren();
+    public Collection<Item> getChildren();
 
 }

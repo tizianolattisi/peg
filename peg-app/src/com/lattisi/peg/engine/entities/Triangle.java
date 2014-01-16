@@ -10,14 +10,14 @@ import java.util.*;
  * Date: 05/10/13
  * Time: 13:14
  */
-public class Triangle extends Item implements IContainer {
+public class Triangle extends AbstractItem implements Container {
 
     private Collection<Segment> segments = new ArrayList<Segment>();
     private Collection<Angle> angles = new ArrayList<Angle>();
 
     public static Triangle build(String name){
         if( name.length() == 3 ){
-            IItem found = Problem.find(name, ItemType.triangle);
+            Item found = Problem.find(name, ItemType.triangle);
             if( found != null && found instanceof Triangle ){
                 Log.info("Triangle present in problem");
                 return (Triangle) found;
@@ -123,8 +123,8 @@ public class Triangle extends Item implements IContainer {
     }
 
 
-    /*public List<IItem> getOrderedItems() {
-        List<IItem> items = new ArrayList<IItem>();
+    /*public List<Item> getOrderedItems() {
+        List<Item> items = new ArrayList<Item>();
         Segment oldSegment=null;
         for( Segment segment: getSegments() ){
             if( items.size() > 0 ){
@@ -139,8 +139,8 @@ public class Triangle extends Item implements IContainer {
 
 
     @Override
-    public Collection<IItem> getChildren() {
-        Collection<IItem> children = new ArrayList<IItem>();
+    public Collection<Item> getChildren() {
+        Collection<Item> children = new ArrayList<Item>();
         for( Segment segment: segments ){
             children.add(segment);
         }

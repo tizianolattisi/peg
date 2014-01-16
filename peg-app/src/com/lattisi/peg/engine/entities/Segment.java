@@ -12,7 +12,7 @@ import java.util.List;
  * Date: 05/10/13
  * Time: 13:17
  */
-public class Segment extends Item implements IContainer {
+public class Segment extends AbstractItem implements Container {
 
     private Collection<Point> points = new ArrayList<Point>();
 
@@ -26,7 +26,7 @@ public class Segment extends Item implements IContainer {
 
     public static Segment build(String name){
         if( name.length() == 2 ){
-            IItem found = Problem.find(name, ItemType.segment);
+            Item found = Problem.find(name, ItemType.segment);
             if( found != null ){
                 Log.info("Segment present in problem");
                 return (Segment) found;
@@ -49,8 +49,8 @@ public class Segment extends Item implements IContainer {
     }
 
     @Override
-    public Collection<IItem> getChildren() {
-        Collection<IItem> children = new ArrayList<IItem>();
+    public Collection<Item> getChildren() {
+        Collection<Item> children = new ArrayList<Item>();
         for( Point point: points ){
             children.add(point);
         }

@@ -1,50 +1,24 @@
 package com.lattisi.peg.engine.entities;
 
+import java.util.Collection;
+
 /**
  * User: tiziano
  * Date: 05/10/13
- * Time: 13:13
+ * Time: 21:21
  */
-public abstract class Item implements IItem {
+public interface Item {
 
-    private String name;
-    private ItemType type;
-    private String measure =null;
+    public String getName();
 
-    @Override
-    public String getName() {
-        return name;
-    }
+    public ItemType getType();
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    public String getTypeName();
 
-    public ItemType getType() {
-        return type;
-    }
+    public String getMeasure();
 
-    public void setType(ItemType type) {
-        this.type = type;
-    }
+    void setMeasure(String measure);
 
-    @Override
-    public String getTypeName() {
-        return type.name();
-    }
+    public Collection<String> getAliases();
 
-    @Override
-    public String getMeasure() {
-        return measure;
-    }
-
-    @Override
-    public void setMeasure(String measure) {
-        this.measure = measure;
-    }
-
-    @Override
-    public String toString() {
-        return "<" + this.getClass().getSimpleName() + " " + name + " at " + super.hashCode() + ">";
-    }
 }

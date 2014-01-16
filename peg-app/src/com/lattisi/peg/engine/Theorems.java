@@ -133,7 +133,7 @@ public class Theorems {
     /*
      * Item1 and item2 got the same measure
      */
-    public static void equalizeItem(IItem item1, IItem item2){
+    public static void equalizeItem(Item item1, Item item2){
         if( item1.getMeasure() != null ){
             item2.setMeasure(item1.getMeasure());
         } else if( item2.getMeasure() != null ){

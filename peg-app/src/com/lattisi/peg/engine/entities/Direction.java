@@ -10,7 +10,7 @@ import java.util.*;
  * Date: 17/12/13
  * Time: 14:18
  */
-public class Direction extends Item implements IContainer {
+public class Direction extends AbstractItem implements Container {
 
     private List<Point> points = new ArrayList<Point>();
 
@@ -20,7 +20,7 @@ public class Direction extends Item implements IContainer {
 
     public static Direction build(String name){
         if( name.length() == 2 ){
-            IItem found = Problem.find(name, ItemType.direction);
+            Item found = Problem.find(name, ItemType.direction);
             if( found != null ){
                 Log.info("Direction present in problem");
                 return (Direction) found;
@@ -43,8 +43,8 @@ public class Direction extends Item implements IContainer {
     }
 
     @Override
-    public Collection<IItem> getChildren() {
-        Collection<IItem> children = new ArrayList<IItem>();
+    public Collection<Item> getChildren() {
+        Collection<Item> children = new ArrayList<Item>();
         for( Point point: points ){
             children.add(point);
         }

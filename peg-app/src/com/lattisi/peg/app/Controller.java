@@ -2,8 +2,8 @@ package com.lattisi.peg.app;
 
 import com.lattisi.peg.dsl.Shell;
 import com.lattisi.peg.engine.Problem;
-import com.lattisi.peg.engine.entities.IContainer;
-import com.lattisi.peg.engine.entities.IItem;
+import com.lattisi.peg.engine.entities.Container;
+import com.lattisi.peg.engine.entities.Item;
 import com.lattisi.peg.engine.entities.ItemType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -50,25 +50,25 @@ public class Controller implements Initializable {
         Problem problem = shell.getLanguage().getProblem();
         problem.refresh();
 
-        Map<String, IItem> map = problem.getItems();
+        Map<String, Item> map = problem.getItems();
 
         // TableView
-        ObservableList<IItem> observableList = FXCollections.observableArrayList(map.values());
+        ObservableList<Item> observableList = FXCollections.observableArrayList(map.values());
         itemsView.setItems(observableList);
 
         // TreeView
         TreeItem<String> root = new TreeItem<String>("Problem");
         root.setExpanded(true);
-        Collection<IItem> values = map.values();
+        Collection<Item> values = map.values();
 
         addChidrenToNode(root, values);
 
         treeView.setRoot(root);
     }
 
-    private void addChidrenToNode(TreeItem<String> node, Collection<IItem> items) {
+    private void addChidrenToNode(TreeItem<String> node, Collection<Item> items) {
         ObservableList<TreeItem<String>> children = node.getChildren();
-        for( IItem item: items){
+        for( Item item: items){
             String label = item.getType().toString().concat(" ").concat(item.getName());
             if( item.getMeasure() != null ){
                 label = label.concat(" (").concat(item.getMeasure()).concat(")");
@@ -80,8 +80,8 @@ public class Controller implements Initializable {
             } else {
                 children.add(childNode);
             }
-            if( item instanceof IContainer ){
-                Collection<IItem> childItems = ((IContainer) item).getChildren();
+            if( item instanceof Container){
+                Collection<Item> childItems = ((Container) item).getChildren();
                 addChidrenToNode(childNode, childItems);
             }
         }
@@ -89,8 +89,8 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        columnName.setCellValueFactory(new PropertyValueFactory<IItem, String>("name"));
-        columnTypeName.setCellValueFactory(new PropertyValueFactory<IItem, String>("typeName"));
-        columnMeasure.setCellValueFactory(new PropertyValueFactory<IItem, String>("measure"));
+        columnName.setCellValueFactory(new PropertyValueFactory<Item, String>("name"));
+        columnTypeName.setCellValueFactory(new PropertyValueFactory<Item, String>("typeName"));
+        columnMeasure.setCellValueFactory(new PropertyValueFactory<Item, String>("measure"));
     }
 }

@@ -12,11 +12,11 @@ import java.util.List;
  * Date: 05/10/13
  * Time: 13:20
  */
-public class Point extends Item {
+public class Point extends AbstractItem {
 
     public static Point build(String name){
         if( name.length() == 1 ){
-            IItem found = Problem.find(name, ItemType.point);
+            Item found = Problem.find(name, ItemType.point);
             if( found != null ){
                 Log.info("Point present in problem");
                 return (Point) found;
