@@ -15,10 +15,6 @@ public interface Item {
 
     public String getTypeName();
 
-    public String getMeasure();
-
-    void setMeasure(String measure);
-
     public Collection<String> getAliases();
 
 }

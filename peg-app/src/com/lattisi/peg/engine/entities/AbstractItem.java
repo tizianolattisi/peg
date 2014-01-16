@@ -9,7 +9,6 @@ public abstract class AbstractItem implements Item {
 
     private String name;
     private ItemType type;
-    private String measure =null;
 
     @Override
     public String getName() {
@@ -31,16 +30,6 @@ public abstract class AbstractItem implements Item {
     @Override
     public String getTypeName() {
         return type.name();
-    }
-
-    @Override
-    public String getMeasure() {
-        return measure;
-    }
-
-    @Override
-    public void setMeasure(String measure) {
-        this.measure = measure;
     }
 
     @Override

@@ -12,7 +12,7 @@ import java.util.List;
  * Date: 05/10/13
  * Time: 13:17
  */
-public class Segment extends AbstractItem implements Container {
+public class Segment extends AbstractMeasurableItem implements Container {
 
     private Collection<Point> points = new ArrayList<Point>();
 

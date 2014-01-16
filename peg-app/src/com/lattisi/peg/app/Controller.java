@@ -5,6 +5,7 @@ import com.lattisi.peg.engine.Problem;
 import com.lattisi.peg.engine.entities.Container;
 import com.lattisi.peg.engine.entities.Item;
 import com.lattisi.peg.engine.entities.ItemType;
+import com.lattisi.peg.engine.entities.Measurable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -70,8 +71,8 @@ public class Controller implements Initializable {
         ObservableList<TreeItem<String>> children = node.getChildren();
         for( Item item: items){
             String label = item.getType().toString().concat(" ").concat(item.getName());
-            if( item.getMeasure() != null ){
-                label = label.concat(" (").concat(item.getMeasure()).concat(")");
+            if( item instanceof Measurable && ((Measurable) item).getMeasure() != null ){
+                label = label.concat(" (").concat(((Measurable) item).getMeasure()).concat(")");
             }
             TreeItem<String> childNode = new TreeItem<String>(label);
             if( node.getValue().equals("Problem") &&

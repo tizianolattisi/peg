@@ -10,7 +10,7 @@ import java.util.*;
  * Date: 05/10/13
  * Time: 13:14
  */
-public class Triangle extends AbstractItem implements Container {
+public class Triangle extends AbstractMeasurableItem implements Container {
 
     private Collection<Segment> segments = new ArrayList<Segment>();
     private Collection<Angle> angles = new ArrayList<Angle>();

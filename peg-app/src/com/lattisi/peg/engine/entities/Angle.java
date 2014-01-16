@@ -12,7 +12,7 @@ import java.util.List;
  * Date: 05/10/13
  * Time: 13:17
  */
-public class Angle extends AbstractItem {
+public class Angle extends AbstractMeasurableItem {
 
     public static Angle build(String name){
         if( name.length() == 3 ){

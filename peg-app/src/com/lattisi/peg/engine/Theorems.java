@@ -133,13 +133,13 @@ public class Theorems {
     /*
      * Item1 and item2 got the same measure
      */
-    public static void equalizeItem(Item item1, Item item2){
+    public static void equalizeItem(Measurable item1, Measurable item2){
         if( item1.getMeasure() != null ){
             item2.setMeasure(item1.getMeasure());
         } else if( item2.getMeasure() != null ){
             item1.setMeasure(item2.getMeasure());
         } else {
-            String measure = Metrics.nextMetric(item1.getType());
+            String measure = Metrics.nextMetric(((Item) item1).getType());
             item1.setMeasure(measure);
             item2.setMeasure(measure);
         }
