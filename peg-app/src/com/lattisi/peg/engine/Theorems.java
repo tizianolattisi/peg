@@ -11,6 +11,14 @@ import java.util.*;
  */
 public class Theorems {
 
+    public static final Map<String, String> THEOREMS_MAP;
+    static
+    {
+        THEOREMS_MAP = new HashMap<String, String>();
+        THEOREMS_MAP.put("10.5", "congruentTriangleSameSides");
+        THEOREMS_MAP.put("10.8", "equalOppositeAngles");
+    }
+
     /*
      * Teorema 10.1
      * Dati due punti distinti A e B, esiste una ed una sola retta che li contiene entrambi.

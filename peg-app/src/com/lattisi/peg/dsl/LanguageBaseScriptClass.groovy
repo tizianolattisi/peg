@@ -30,4 +30,11 @@ abstract class LanguageBaseScriptClass extends Script {
         this.binding.language.extend(segmentName)
     }
 
+    /*
+     * apply
+     */
+    def apply(String theoremName){
+        this.binding.language.apply(theoremName)
+    }
+
 }

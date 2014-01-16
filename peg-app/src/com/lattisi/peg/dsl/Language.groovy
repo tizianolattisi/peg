@@ -1,6 +1,7 @@
 package com.lattisi.peg.dsl
 
 import com.lattisi.peg.engine.Problem
+import com.lattisi.peg.engine.Theorems
 import com.lattisi.peg.engine.entities.Direction
 import com.lattisi.peg.engine.entities.ItemType
 import com.lattisi.peg.engine.entities.Metrics
@@ -19,6 +20,7 @@ class Language {
     Problem problem = new Problem()
     String item1Name
     String item2Name
+    String theoremName
     ItemType type
 
     /*
@@ -68,8 +70,9 @@ class Language {
         // extend "AB" to "D" with measure:"AC"
         def segmentName = item2Name+pointName                               // "BD"
         def segment = Segment.build(segmentName)                            // Segment "BD"
-        def direction = Direction.build(segmentName)                        // Direction "BD"
-        direction.addPoint(Point.build(item1Name))                          // add Point "A" to Direction "BD"
+        def directionName = item1Name + item2Name                           // "AB"
+        def direction = Direction.build(directionName)                      // Direction "AB"
+        direction.addPoint(Point.build(pointName))                          // add Point "D" to Direction "AB"
         item1Name = segment.name                                            // "BD"
         item2Name = null
         this
@@ -80,6 +83,23 @@ class Language {
         for( key in map.keySet() ){
             this."$key"(map.get(key))
         }
+        this
+    }
+
+
+    /*
+     *  apply theorem to item1 and item2
+     */
+    def apply (String theoremName){
+        // apply "10.8" on "ad", "be"
+        this.theoremName = theoremName
+        this
+    }
+    def on(String item1Name, String item2Name){
+        def direction1 = Problem.findDirection(item1Name)
+        def direction2 = Problem.findDirection(item2Name)
+        def methodName = Theorems.THEOREMS_MAP.get(theoremName)
+        Theorems."$methodName"(direction1, direction2)
         this
     }
 

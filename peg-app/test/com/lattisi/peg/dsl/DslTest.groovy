@@ -3,6 +3,7 @@ package com.lattisi.peg.dsl
 import com.lattisi.peg.engine.Problem
 import com.lattisi.peg.engine.entities.AbstractItem
 import com.lattisi.peg.engine.entities.Container
+import com.lattisi.peg.engine.entities.Measurable
 
 /**
  * User: tiziano
@@ -22,7 +23,11 @@ class DslTest extends GroovyTestCase {
         problem.refresh()
 
         scan = { node, i ->
-            println "  "*i + node
+            def label = "  "*i + node
+            if( node instanceof Measurable && node.measure != null ){
+                label += " - " + node.measure
+            }
+            println label
             if( node instanceof Container ){
                 i++
                 for(def child: node.getChildren() ){

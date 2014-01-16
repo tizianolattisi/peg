@@ -12,7 +12,7 @@
 </ToolBar>
 </top>
 <center><SplitPane dividerPositions="0.5714285714285714" focusTraversable="true" layoutX="220.0" layoutY="100.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
-  <items><Pane prefHeight="200.0" prefWidth="200.0" /><TextArea fx:id="dsl" prefHeight="200.0" prefWidth="200.0" text="// demo problem&#10;create triangle name &quot;ABC&quot;&#10;extend &quot;AC&quot; to &quot;D&quot; with measure:&quot;BC&quot;&#10;extend &quot;BC&quot; to &quot;E&quot; with measure:&quot;AC&quot;&#10;create segment name &quot;ED&quot;&#10;extend &quot;DE&quot; to &quot;H&quot;&#10;extend &quot;BA&quot; to &quot;H&quot;&#10;create segment name &quot;AE&quot;" />
+  <items><Pane prefHeight="200.0" prefWidth="200.0" /><TextArea fx:id="dsl" prefHeight="200.0" prefWidth="200.0" text="create triangle name &quot;ABC&quot;&#10;extend &quot;AC&quot; to &quot;D&quot; with measure:&quot;BC&quot;&#10;extend &quot;BC&quot; to &quot;E&quot; with measure:&quot;AC&quot;&#10;create segment name &quot;ED&quot;&#10;extend &quot;DE&quot; to &quot;H&quot;&#10;extend &quot;BA&quot; to &quot;H&quot;&#10;apply &quot;10.8&quot; on &quot;ad&quot;, &quot;bc&quot;" />
   </items>
 </SplitPane>
 </center>
