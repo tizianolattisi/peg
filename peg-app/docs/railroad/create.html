@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script src="railroad-diagrams.js"></script>
+    <link href="railroad-diagrams.css" rel="stylesheet" />
+</head>
+<body>
+<h2>CREATE</h2>
+<script language="javascript">
+    var out =Diagram(
+            NonTerminal('create'),
+            Choice(2,
+                    NonTerminal('triangle'),
+                    NonTerminal('segment'),
+                    NonTerminal('point'),
+                    NonTerminal('angle'),
+                    NonTerminal('direction')
+            ),
+            NonTerminal('name'),
+            Terminal('"item-name"'),
+            Optional(
+                    Sequence(
+                            NonTerminal('with'),
+                            OneOrMore(
+                                    Sequence(
+                                            Choice(1,
+                                                    Sequence(NonTerminal('type:'), Terminal('"type"')),
+                                                    Sequence(NonTerminal('measure:'), Terminal('"measure-string"'))
+                                            ),
+                                            Optional(",")
+                                    )
+                            )
+                    )
+            )
+    );
+    document.write(out);
+</script>
+
+</body>
+</html>
