@@ -75,8 +75,7 @@ public class Controller implements Initializable {
                 label = label.concat(" (").concat(((Measurable) item).getMeasure()).concat(")");
             }
             TreeItem<String> childNode = new TreeItem<String>(label);
-            if( node.getValue().equals("Problem") &&
-                    (item.getType().equals(ItemType.point) || item.getType().equals(ItemType.angle)) ) {
+            if( node.getValue().equals("Problem") && item.getType().equals(ItemType.point) ) {
                 // skip
             } else {
                 children.add(childNode);
