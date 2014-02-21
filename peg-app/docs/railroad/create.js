@@ -6,6 +6,7 @@
  * To change this template use File | Settings | File Templates.
  */
 
+var out =
 Diagram(
 
     NonTerminal('create'),
@@ -35,5 +36,6 @@ Diagram(
             )
         )
     )
+);
 
-)
+document.write(out);
