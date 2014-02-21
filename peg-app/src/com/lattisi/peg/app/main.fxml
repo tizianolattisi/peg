@@ -3,6 +3,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.web.*?>
 
 <BorderPane prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lattisi.peg.app.Controller">
 <top><ToolBar xmlns:fx="http://javafx.com/fxml">
@@ -12,7 +13,22 @@
 </ToolBar>
 </top>
 <center><SplitPane dividerPositions="0.5714285714285714" focusTraversable="true" layoutX="220.0" layoutY="100.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
-  <items><Pane prefHeight="200.0" prefWidth="200.0" /><TextArea fx:id="dsl" prefHeight="200.0" prefWidth="200.0" text="create triangle name &quot;ABC&quot;&#10;extend &quot;AC&quot; to &quot;D&quot; with measure:&quot;BC&quot;&#10;extend &quot;BC&quot; to &quot;E&quot; with measure:&quot;AC&quot;&#10;create segment name &quot;ED&quot;&#10;extend &quot;DE&quot; to &quot;H&quot;&#10;extend &quot;BA&quot; to &quot;H&quot;&#10;apply &quot;10.8&quot; on &quot;ad&quot;, &quot;bc&quot;" />
+  <items><TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" xmlns:fx="http://javafx.com/fxml">
+  <tabs>
+    <Tab text="View">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+      </content>
+    </Tab>
+    <Tab text="Help">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+<children><WebView fx:id="help" layoutX="174.0" layoutY="70.0" prefHeight="200.0" prefWidth="338.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+</children></AnchorPane>
+      </content>
+    </Tab>
+  </tabs>
+</TabPane><TextArea fx:id="dsl" prefHeight="200.0" prefWidth="200.0" text="create triangle name &quot;ABC&quot;&#10;extend &quot;AC&quot; to &quot;D&quot; with measure:&quot;BC&quot;&#10;extend &quot;BC&quot; to &quot;E&quot; with measure:&quot;AC&quot;&#10;create segment name &quot;ED&quot;&#10;extend &quot;DE&quot; to &quot;H&quot;&#10;extend &quot;BA&quot; to &quot;H&quot;&#10;apply &quot;10.8&quot; on &quot;ad&quot;, &quot;bc&quot;" />
   </items>
 </SplitPane>
 </center>

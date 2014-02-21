@@ -13,6 +13,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 
 import java.net.URL;
 import java.util.Collection;
@@ -38,6 +40,9 @@ public class Controller implements Initializable {
 
     @FXML
     private TableColumn columnMeasure;
+
+    @FXML
+    private WebView help;
 
 
     @FXML
@@ -92,5 +97,9 @@ public class Controller implements Initializable {
         columnName.setCellValueFactory(new PropertyValueFactory<Item, String>("name"));
         columnTypeName.setCellValueFactory(new PropertyValueFactory<Item, String>("typeName"));
         columnMeasure.setCellValueFactory(new PropertyValueFactory<Item, String>("measure"));
+
+        WebEngine engine = help.getEngine();
+        URL indexUrl = getClass().getResource("../help/index.html");
+        engine.load(indexUrl.toExternalForm());
     }
 }
