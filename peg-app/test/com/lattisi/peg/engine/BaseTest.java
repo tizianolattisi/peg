@@ -12,7 +12,8 @@ public class BaseTest {
 
     @Before
     public void setUp() throws Exception {
-        Problem.clear();
+        Problem problem = ProblemsTree.getProblem();
+        problem.clear();
     }
 
 }

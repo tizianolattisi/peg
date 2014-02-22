@@ -21,23 +21,24 @@ public class ProblemTest extends BaseTest {
 
         // Dato un triangolo ABC
         Triangle ABC = Triangle.build("ABC");
-        Problem.addItem(ABC);
+        Problem problem = ProblemsTree.getProblem();
+        problem.addItem(ABC);
 
         // si prolunghino i lati AC, BC, dalla parte di C, rispettivamente dei segmenti CD = BC e CE = AC
         Direction ac = Direction.build("ac");
-        Problem.addItem(ac);
-        Point C = Problem.findPoint("C");
+        problem.addItem(ac);
+        Point C = problem.findPoint("C");
         Point D = Point.build("D");
         ac.insertPointAfter(D, C);
-        Segment CD = Problem.findSegment(C, D);
+        Segment CD = problem.findSegment(C, D);
         //Segment BC = Problem.findSegment("BC");
         //Theorems.equalizeItem(CD, BC);
 
         Direction bc = Direction.build("bc");
-        Problem.addItem(bc);
+        problem.addItem(bc);
         Point E = Point.build("E");
         ac.insertPointAfter(E, C);
-        Segment CE = Problem.findSegment(C, E);
+        Segment CE = problem.findSegment(C, E);
         //Segment AC = Problem.findSegment("AC");
         //Theorems.equalizeItem(CE, AC);
 

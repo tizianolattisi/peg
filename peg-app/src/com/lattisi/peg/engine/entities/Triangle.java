@@ -1,5 +1,6 @@
 package com.lattisi.peg.engine.entities;
 
+import com.lattisi.peg.engine.ProblemsTree;
 import com.lattisi.peg.engine.Problem;
 import com.sun.javafx.tools.packager.Log;
 
@@ -17,7 +18,8 @@ public class Triangle extends AbstractMeasurableItem implements Container {
 
     public static Triangle build(String name){
         if( name.length() == 3 ){
-            Item found = Problem.find(name, ItemType.triangle);
+            Problem problem = ProblemsTree.getProblem();
+            Item found = problem.find(name, ItemType.triangle);
             if( found != null && found instanceof Triangle ){
                 Log.info("Triangle present in problem");
                 return (Triangle) found;
@@ -25,7 +27,7 @@ public class Triangle extends AbstractMeasurableItem implements Container {
             Triangle triangle = new Triangle();
             triangle.setName(name);
             triangle.setType(ItemType.triangle);
-            Problem.addItem(triangle);
+            problem.addItem(triangle);
 
             // children
             String point1name = name.substring(0, 1);

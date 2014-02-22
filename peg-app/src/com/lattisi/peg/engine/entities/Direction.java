@@ -1,5 +1,6 @@
 package com.lattisi.peg.engine.entities;
 
+import com.lattisi.peg.engine.ProblemsTree;
 import com.lattisi.peg.engine.Problem;
 import com.sun.javafx.tools.packager.Log;
 
@@ -20,7 +21,8 @@ public class Direction extends AbstractItem implements Container {
 
     public static Direction build(String name){
         if( name.length() == 2 ){
-            Item found = Problem.find(name, ItemType.direction);
+            Problem problem = ProblemsTree.getProblem();
+            Item found = problem.find(name, ItemType.direction);
             if( found != null ){
                 Log.info("Direction present in problem");
                 return (Direction) found;
@@ -28,8 +30,8 @@ public class Direction extends AbstractItem implements Container {
             Direction direction = new Direction();
             direction.setName(name.toLowerCase());
             direction.setType(ItemType.direction);
-            Problem.addItem(direction);
-            Problem.addItem(Segment.build(name));
+            problem.addItem(direction);
+            problem.addItem(Segment.build(name));
 
             // children
             String point1name = name.substring(0, 1);

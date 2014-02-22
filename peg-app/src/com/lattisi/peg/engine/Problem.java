@@ -11,17 +11,27 @@ import java.util.*;
  */
 public class Problem {
 
-    private static Map<String, Item> items = new HashMap<String, Item>();
+    private Problem parent;
+    private Map<String, Item> items = new HashMap<String, Item>();
 
-    public static void addItem(Item item){
+    public Problem getParent() {
+        return parent;
+    }
+
+    public void setParent(Problem parent) {
+        this.parent = parent;
+    }
+
+    public void addItem(Item item){
+        item.setProblem(this); // XXX: qualche tecnica di inversione di controllo?
         items.put(item.getName(), item);
     }
 
-    public static Map<String, Item> getItems(){
+    public Map<String, Item> getItems(){
         return getItems(null);
     }
 
-    public static Map<String, Item> getItems(ItemType type){
+    public Map<String, Item> getItems(ItemType type){
         if( type == null ){
             return items;
         }
@@ -35,11 +45,11 @@ public class Problem {
     }
 
 
-    public static Item find(String name){
+    public Item find(String name){
         return find(name, null);
     }
 
-    public static Item find(String name, ItemType type){
+    public Item find(String name, ItemType type){
         Item found = null;
         for( Item item: items.values() ){
             if( type == null || type.equals(item.getType()) ){
@@ -51,39 +61,39 @@ public class Problem {
         return found;
     }
 
-    public static Angle findAngle(String name){
+    public Angle findAngle(String name){
         return (Angle) find(name, ItemType.angle);
     }
 
-    public static Angle findAngle(Point point1, Point point2, Point point3){
+    public Angle findAngle(Point point1, Point point2, Point point3){
         String name = point1.getName() + point2.getName() + point3.getName();
         return findAngle(name);
     }
 
-    public static Point findPoint(String name){
+    public Point findPoint(String name){
         return (Point) find(name, ItemType.point);
     }
 
-    public static Segment findSegment(String name){
+    public Segment findSegment(String name){
         return (Segment) find(name, ItemType.segment);
     }
 
-    public static Segment findSegment(Point point1, Point point2){
+    public Segment findSegment(Point point1, Point point2){
         String name = point1.getName() + point2.getName();
         return findSegment(name);
     }
 
-    public static Direction findDirection(String name){
+    public Direction findDirection(String name){
         return (Direction) find(name, ItemType.direction);
     }
 
-    public static Direction findDirection(Point point1, Point point2){
+    public Direction findDirection(Point point1, Point point2){
         String name = point1.getName() + point2.getName();
         return findDirection(name);
     }
 
 
-    public static void refresh(){
+    public void refresh(){
         // new triangles
         Map<String, Item> pointsMap = getItems(ItemType.point);
         List<Item> points = new ArrayList<Item>(pointsMap.values());
@@ -119,7 +129,7 @@ public class Problem {
 
     }
 
-    public static void clear(){
+    public void clear(){
         items.clear();
     }
 

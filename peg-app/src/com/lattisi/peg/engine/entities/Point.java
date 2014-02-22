@@ -1,5 +1,6 @@
 package com.lattisi.peg.engine.entities;
 
+import com.lattisi.peg.engine.ProblemsTree;
 import com.lattisi.peg.engine.Problem;
 import com.sun.javafx.tools.packager.Log;
 
@@ -16,7 +17,8 @@ public class Point extends AbstractItem {
 
     public static Point build(String name){
         if( name.length() == 1 ){
-            Item found = Problem.find(name, ItemType.point);
+            Problem problem = ProblemsTree.getProblem();
+            Item found = problem.find(name, ItemType.point);
             if( found != null ){
                 Log.info("Point present in problem");
                 return (Point) found;
@@ -24,7 +26,7 @@ public class Point extends AbstractItem {
             Point point = new Point();
             point.setName(name);
             point.setType(ItemType.point);
-            Problem.addItem(point);
+            problem.addItem(point);
             return point;
         }
         Log.info("Wrong point name");

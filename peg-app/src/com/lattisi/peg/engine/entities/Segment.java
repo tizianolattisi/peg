@@ -1,5 +1,6 @@
 package com.lattisi.peg.engine.entities;
 
+import com.lattisi.peg.engine.ProblemsTree;
 import com.lattisi.peg.engine.Problem;
 import com.sun.javafx.tools.packager.Log;
 
@@ -26,7 +27,8 @@ public class Segment extends AbstractMeasurableItem implements Container {
 
     public static Segment build(String name){
         if( name.length() == 2 ){
-            Item found = Problem.find(name, ItemType.segment);
+            Problem problem = ProblemsTree.getProblem();
+            Item found = problem.find(name, ItemType.segment);
             if( found != null ){
                 Log.info("Segment present in problem");
                 return (Segment) found;
@@ -34,7 +36,7 @@ public class Segment extends AbstractMeasurableItem implements Container {
             Segment segment = new Segment();
             segment.setName(name);
             segment.setType(ItemType.segment);
-            Problem.addItem(segment);
+            problem.addItem(segment);
 
             // children
             String point1name = name.substring(0, 1);

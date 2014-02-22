@@ -1,7 +1,6 @@
 package com.lattisi.peg.engine;
 
 import com.lattisi.peg.engine.entities.*;
-import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -53,8 +52,9 @@ public class TheoremsTest extends BaseTest {
 
         Theorems.equalOppositeAngles(direction1, direction2);
 
-        assert Problem.findAngle("abe").getMeasure().equals(Problem.findAngle("dbc").getMeasure());
-        assert Problem.findAngle("abd").getMeasure().equals(Problem.findAngle("ebc").getMeasure());
+        Problem problem = ProblemsTree.getProblem();
+        assert problem.findAngle("abe").getMeasure().equals(problem.findAngle("dbc").getMeasure());
+        assert problem.findAngle("abd").getMeasure().equals(problem.findAngle("ebc").getMeasure());
     }
 
 }

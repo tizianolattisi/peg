@@ -1,5 +1,6 @@
 package com.lattisi.peg.dsl
 
+import com.lattisi.peg.engine.ProblemsTree
 import com.lattisi.peg.engine.Problem
 import com.lattisi.peg.engine.Theorems
 import com.lattisi.peg.engine.entities.Direction
@@ -17,7 +18,7 @@ import com.lattisi.peg.engine.entities.TriangleType
  */
 class Language {
 
-    Problem problem = new Problem()
+    Problem problem = ProblemsTree.getProblem();
     String item1Name
     String item2Name
     String theoremName
@@ -60,9 +61,10 @@ class Language {
      */
     def extend(String segmentName){
         // extend "AB" to "D" with measure:"AC"
-        def item1 = Problem.find(segmentName[0])                            // Point "A"
+        Problem problem = ProblemsTree.getProblem();
+        def item1 = problem.find(segmentName[0])                            // Point "A"
         item1Name = item1.name                                              // "A"
-        def item2 = Problem.find(segmentName[1])                            // Point "B"
+        def item2 = problem.find(segmentName[1])                            // Point "B"
         item2Name = item2.name                                              // "B"
         this
     }
@@ -96,8 +98,9 @@ class Language {
         this
     }
     def on(String item1Name, String item2Name){
-        def direction1 = Problem.findDirection(item1Name)
-        def direction2 = Problem.findDirection(item2Name)
+        Problem problem = ProblemsTree.getProblem();
+        def direction1 = problem.findDirection(item1Name)
+        def direction2 = problem.findDirection(item2Name)
         def methodName = Theorems.THEOREMS_MAP.get(theoremName)
         Theorems."$methodName"(direction1, direction2)
         this
@@ -111,8 +114,9 @@ class Language {
     def type(TriangleType type){
         // create triangle name "ABC" with type:scalene
         if( !TriangleType.scalene.equals(type) ){
+            Problem problem = ProblemsTree.getProblem();
             def metric = Metrics.nextMetric(ItemType.segment)
-            def triangle = Problem.find(item1Name, ItemType.triangle)       // Triangle "ABC"
+            def triangle = problem.find(item1Name, ItemType.triangle)       // Triangle "ABC"
             triangle.segments.get(0).setMeasure(metric)
             triangle.segments.get(1).setMeasure(metric)
             if( TriangleType.equilateral.equals(type) ){
@@ -122,7 +126,8 @@ class Language {
     }
     def measure(String itemName){
         // extend "AB" to "D" with measure:"AC"
-        def measureItem = Problem.find(itemName)                             // Segment "AC"
+        Problem problem = ProblemsTree.getProblem();
+        def measureItem = problem.find(itemName)                             // Segment "AC"
         def measure
         if( measureItem.measure != null ){
             measure = measureItem.measure
@@ -130,7 +135,7 @@ class Language {
             measure = Metrics.nextMetric(ItemType.segment)
             measureItem.setMeasure(measure)
         }
-        def item1 = Problem.find(item1Name)                                 // Segment "BD"
+        def item1 = problem.find(item1Name)                                 // Segment "BD"
         item1.setMeasure(measure)
         println ""
     }
@@ -149,8 +154,9 @@ class Language {
     }
 
     def equals(String itemName){
-        def item1 = Problem.find(item1Name, null)                            // Segment "CD"
-        def item2 = Problem.find(itemName, null)
+        Problem problem = ProblemsTree.getProblem();
+        def item1 = problem.find(item1Name, null)                            // Segment "CD"
+        def item2 = problem.find(itemName, null)
         item2Name = itemName
         def metric
         if( item1.getMeasure() != null && item2.getMeasure() == null ){

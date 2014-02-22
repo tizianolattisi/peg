@@ -1,5 +1,6 @@
 package com.lattisi.peg.engine.entities;
 
+import com.lattisi.peg.engine.ProblemsTree;
 import com.lattisi.peg.engine.Problem;
 import com.sun.javafx.tools.packager.Log;
 
@@ -16,7 +17,8 @@ public class Angle extends AbstractMeasurableItem {
 
     public static Angle build(String name){
         if( name.length() == 3 ){
-            Item found = Problem.find(name, ItemType.angle);
+            Problem problem = ProblemsTree.getProblem();
+            Item found = problem.find(name, ItemType.angle);
             if( found != null && found instanceof Angle ){
                 Log.info("Angle present in problem");
                 return (Angle) found;
@@ -24,7 +26,7 @@ public class Angle extends AbstractMeasurableItem {
             Angle angle = new Angle();
             angle.setName(name.toLowerCase());
             angle.setType(ItemType.angle);
-            Problem.addItem(angle);
+            problem.addItem(angle);
             return angle;
         }
         Log.info("Wrong angle name");
