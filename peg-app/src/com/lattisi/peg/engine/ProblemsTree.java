@@ -1,6 +1,6 @@
 package com.lattisi.peg.engine;
 
-import com.lattisi.peg.engine.Problem;
+import com.lattisi.peg.engine.entities.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +26,30 @@ public class ProblemsTree {
         Problem problem = new Problem();
         problem.setParent(parent);
         tree.add(problem);
+        for( String key: parent.getItems().keySet() ){
+            Item item = parent.getItems().get(key);
+            Item newItem=null;
+            switch(item.getType()){
+                case triangle:
+                    newItem = Triangle.build(item.getName());
+                    break;
+                case segment:
+                    newItem = Segment.build(item.getName());
+                    break;
+                case point:
+                    newItem = Point.build(item.getName());
+                    break;
+                case angle:
+                    newItem = Angle.build(item.getName());
+                    break;
+                case direction:
+                    newItem = Direction.build(item.getName());
+                    break;
+            }
+            if( newItem != null ){
+                problem.addItem(newItem);
+            }
+        }
         return problem;
     }
 
