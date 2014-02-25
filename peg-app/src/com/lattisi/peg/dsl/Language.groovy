@@ -99,10 +99,10 @@ class Language {
     }
     def on(String item1Name, String item2Name){
         Problem problem = ProblemsTree.getProblem();
-        def direction1 = problem.findDirection(item1Name)
-        def direction2 = problem.findDirection(item2Name)
+        def item1 = problem.find(item1Name)
+        def item2 = problem.find(item2Name)
         def methodName = Theorems.THEOREMS_MAP.get(theoremName)
-        Theorems."$methodName"(direction1, direction2)
+        Theorems."$methodName"(item1, item2)
         this
     }
 
