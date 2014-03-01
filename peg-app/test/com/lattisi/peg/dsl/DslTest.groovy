@@ -86,6 +86,9 @@ class DslTest extends GroovyTestCase {
         // uguaglianza triangoli (due lati e un angolo)
         shell.evaluate("apply \"10.3\" on \"CED\", \"ABC\"")
 
+        // angoli opposti a segmenti uguali
+        shell.evaluate("apply \"10.6\" on \"ABC\", \"cba\", \"CED\", \"edc\"")
+
         printProblem(problem)
 
     }

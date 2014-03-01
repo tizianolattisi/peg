@@ -57,4 +57,31 @@ public class TheoremsTest extends BaseTest {
         assert problem.findAngle("abd").getMeasure().equals(problem.findAngle("ebc").getMeasure());
     }
 
+    // Teorema 10.6
+    @Test
+    public void testEqualsOppositeAngles() throws Exception {
+
+        Problem problem = ProblemsTree.getProblem();
+
+        Triangle triangle1 = Triangle.build("ABC");
+        Triangle triangle2 = Triangle.build("DEF");
+
+        Angle abc = problem.findAngle("abc");
+        Angle edf = problem.findAngle("edf");
+
+        Segment AC = problem.findSegment("AC");
+        Segment EF = problem.findSegment("EF");
+
+        Theorems.equalizeItem(triangle1, triangle2);
+        Theorems.equalizeItem(AC, EF);
+
+        assert !abc.equals(edf);
+
+        Boolean res = Theorems.oppositeAnglesInCongruentTriangles(triangle1, abc, triangle2, edf);
+
+        assert res;
+        assert abc.equals(edf);
+
+    }
+
 }

@@ -17,6 +17,7 @@ public class Theorems {
         THEOREMS_MAP = new HashMap<String, String>();
         THEOREMS_MAP.put("10.3", "congruentTriangleTwoSegmentsOneAngle");
         THEOREMS_MAP.put("10.5", "congruentTriangleSameSides");
+        THEOREMS_MAP.put("10.6", "oppositeAnglesInCongruentTriangles");
         THEOREMS_MAP.put("10.8", "equalOppositeAngles");
     }
 
@@ -107,11 +108,15 @@ public class Theorems {
      * In due triangoli uguali a lati uguali sono opposti angoli uguali.
      *
      */
-    public static Boolean equalsOppositeAngles(Triangle triangle1, Angle angle1, Triangle triangle2, Angle angle2) {
+    public static Boolean oppositeAnglesInCongruentTriangles(Triangle triangle1, Angle angle1, Triangle triangle2, Angle angle2) {
         if( !triangle1.equals(triangle2) ){
             return false;
         }
-        return true; // TODO: completare
+        if( triangle1.getOppositeSegment(angle1).equals(triangle2.getOppositeSegment(angle2)) ){
+            equalizeItem(angle1, angle2);
+            return true;
+        }
+        return true;
     }
 
 
