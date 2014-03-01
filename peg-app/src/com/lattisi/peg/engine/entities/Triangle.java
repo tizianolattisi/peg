@@ -39,11 +39,11 @@ public class Triangle extends AbstractMeasurableItem implements Container {
             triangle.addSegment(Segment.build(segment2name));
             String segment3name = point3name.concat(point1name);
             triangle.addSegment(Segment.build(segment3name));
-            String angle1name = point1name + point2name + point3name;
+            String angle1name = (point1name + point2name + point3name).toLowerCase();
             triangle.addAngle(Angle.build(angle1name));
-            String angle2name = point2name + point3name + point1name;
+            String angle2name = (point2name + point3name + point1name).toLowerCase();
             triangle.addAngle(Angle.build(angle2name));
-            String angle3name = point3name + point1name + point2name;
+            String angle3name = (point3name + point1name + point2name).toLowerCase();
             triangle.addAngle(Angle.build(angle3name));
 
             return triangle;
@@ -85,6 +85,15 @@ public class Triangle extends AbstractMeasurableItem implements Container {
         return null;
     }
 
+    public Collection<Segment> getSegmentsAround(Angle angle) {
+        Segment segment1 = getSegment(angle.getName().substring(0, 2).toUpperCase());
+        Segment segment2 = getSegment(angle.getName().substring(1, 3).toUpperCase());
+        Collection<Segment> segments = new ArrayList<Segment>();
+        segments.add(segment1);
+        segments.add(segment2);
+        return segments;
+    }
+
     private void addAngle(Angle angle){
         if( angles.size()<3 ){
             angles.add(angle);
@@ -92,7 +101,21 @@ public class Triangle extends AbstractMeasurableItem implements Container {
     }
 
     public Collection<Angle> getAngles() {
-        return angles;
+        return getAngles(false);
+    }
+
+    public Collection<Angle> getAngles(Boolean measured) {
+        if( !measured ){
+            return angles;
+        } else {
+            Collection<Angle> measuredAngles = new ArrayList<Angle>();
+            for( Angle angle: getAngles() ){
+                if( angle.getMeasure() != null ){
+                    measuredAngles.add(angle);
+                }
+            }
+            return measuredAngles;
+        }
     }
 
     public Angle getAngle(String name) {
@@ -128,7 +151,7 @@ public class Triangle extends AbstractMeasurableItem implements Container {
     /*public List<Item> getOrderedItems() {
         List<Item> items = new ArrayList<Item>();
         Segment oldSegment=null;
-        for( Segment segment: getSegments() ){
+        for( Segment segment: getSegmentsAround() ){
             if( items.size() > 0 ){
                 String angleName = ""; // TODO
                 Angle angle = getAngle(angleName);
