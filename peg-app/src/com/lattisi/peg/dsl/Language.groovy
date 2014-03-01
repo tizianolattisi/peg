@@ -28,6 +28,7 @@ class Language {
      *  create ItemType itemName with prop1:value1, prop2:value2
      */
     def create(ItemType type){
+        // Language.create(ItemType.triangle).name("ABC").with(type:"scalene")
         // create triangle name "ABC" with type:scalene
         item1Name = null
         item2Name = null
@@ -103,6 +104,7 @@ class Language {
         def item2 = problem.find(item2Name)
         def methodName = Theorems.THEOREMS_MAP.get(theoremName)
         Theorems."$methodName"(item1, item2)
+        problem.refresh()
         this
     }
 
@@ -146,7 +148,7 @@ class Language {
      */
 
     def declare(String itemName){
-        // declare "CD" equal "AC"
+        // declare "CD" equals "AC"
         item1Name = itemName                                                // "CD"
         item2Name = null
         type = null

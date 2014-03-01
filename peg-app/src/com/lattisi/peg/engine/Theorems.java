@@ -15,6 +15,7 @@ public class Theorems {
     static
     {
         THEOREMS_MAP = new HashMap<String, String>();
+        THEOREMS_MAP.put("10.3", "congruentTriangleTwoSegmentsOneAngle");
         THEOREMS_MAP.put("10.5", "congruentTriangleSameSides");
         THEOREMS_MAP.put("10.8", "equalOppositeAngles");
     }
@@ -40,13 +41,30 @@ public class Theorems {
      *
      */
     public static Boolean congruentTriangleTwoSegmentsOneAngle(Triangle triangle1, Triangle triangle2){
-        Boolean nullFound=false;
-        Collection<Segment> segments1 = triangle1.getSegments(true);
-        Collection<Segment> segments2 = triangle2.getSegments(true);
-        if( segments1.size()<2 || segments2.size()<2 ){
-            return false;
+        Collection<Angle> angles1 = triangle1.getAngles(true);
+        Collection<Angle> angles2 = triangle2.getAngles(true);
+        for( Angle angle1: angles1 ){
+            for( Angle angle2: angles2 ){
+                if( angle1.getMeasure().equals(angle2.getMeasure()) ){
+                    List<Segment> segments1 = new ArrayList(triangle1.getSegmentsAround(angle1));
+                    List<Segment> segments2 = new ArrayList(triangle2.getSegmentsAround(angle2));
+                    if( segments1.get(0).getMeasure() != null
+                            && segments1.get(1).getMeasure() != null
+                            && segments2.get(0).getMeasure() != null
+                            && segments2.get(1).getMeasure() != null ){
+                        if( (segments1.get(0).getMeasure().equals(segments2.get(0).getMeasure())
+                                && segments1.get(1).getMeasure().equals(segments2.get(1).getMeasure())) ||
+                                (segments1.get(0).getMeasure().equals(segments2.get(1).getMeasure())
+                                        && segments1.get(1).getMeasure().equals(segments2.get(0).getMeasure()))
+                                ){
+                            equalizeItem(triangle1, triangle2);
+                            return true;
+                        }
+                    }
+                }
+            }
         }
-        return false; // TODO: complete
+        return false;
     }
 
     /*
@@ -86,9 +104,15 @@ public class Theorems {
 
     /*
      * Teorema 10.6
-     * In due triangoli uguali a lati uguali sono opposti ancoli uguali.
+     * In due triangoli uguali a lati uguali sono opposti angoli uguali.
      *
      */
+    public static Boolean equalsOppositeAngles(Triangle triangle1, Angle angle1, Triangle triangle2, Angle angle2) {
+        if( !triangle1.equals(triangle2) ){
+            return false;
+        }
+        return true; // TODO: completare
+    }
 
 
     /*
