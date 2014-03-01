@@ -94,6 +94,11 @@ public class Triangle extends AbstractMeasurableItem implements Container {
         return segments;
     }
 
+    public Segment getOppositeSegment(Angle angle) {
+        String segmentName = (angle.getName().substring(0, 1) + angle.getName().substring(2, 3)).toUpperCase();
+        return getSegment(segmentName);
+    }
+
     private void addAngle(Angle angle){
         if( angles.size()<3 ){
             angles.add(angle);
