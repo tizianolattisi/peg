@@ -2,6 +2,7 @@ package com.lattisi.peg.app;
 
 import com.lattisi.peg.dsl.Shell;
 import com.lattisi.peg.engine.Problem;
+import com.lattisi.peg.engine.Theorems;
 import com.lattisi.peg.engine.entities.Container;
 import com.lattisi.peg.engine.entities.Item;
 import com.lattisi.peg.engine.entities.ItemType;
@@ -12,14 +13,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.MapValueFactory;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 
 import java.net.URL;
-import java.util.Collection;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class Controller implements Initializable {
 
@@ -27,10 +28,10 @@ public class Controller implements Initializable {
     private TextArea dsl;
 
     @FXML
-    private TableView itemsView;
+    private TreeView treeView;
 
     @FXML
-    private TreeView treeView;
+    private TableView itemsView;
 
     @FXML
     private TableColumn columnName;
@@ -42,6 +43,15 @@ public class Controller implements Initializable {
     private TableColumn columnMeasure;
 
     @FXML
+    private TableColumn columnTheoremId;
+
+    @FXML
+    private TableColumn columnTheoremDescription;
+
+    @FXML
+    private TableView theoremsView;
+
+    @FXML
     private WebView help;
 
 
@@ -49,13 +59,50 @@ public class Controller implements Initializable {
     private Button test;
 
     @FXML
+    private Button enter;
+
+    @FXML
+    private TextField newLine;
+
+    private Shell shell = Shell.build();
+
+    @FXML
+    protected void newLineAction(ActionEvent event) {
+        String line = "\n" + newLine.textProperty().get();
+        dsl.appendText(line);
+        shell.evaluate(line);
+        newLine.textProperty().set("");
+        Problem problem = shell.getLanguage().getProblem();
+        problem.refresh();
+        refresh(problem);
+    }
+
+    @FXML
+    protected void applyTheorem(MouseEvent event) {
+        Map<String, String> map = (Map<String, String>) theoremsView.getSelectionModel().getSelectedItem();
+        String out = "apply \"" + map.get("id") + "\" on ";
+        newLine.clear();
+        newLine.appendText(out);
+    }
+
+    @FXML
+    protected void applyOn(MouseEvent event) {
+        Item item = (Item) itemsView.getSelectionModel().getSelectedItem();
+        String out = "\"" + item.getName() + "\", ";
+        newLine.appendText(out);
+    }
+
+    @FXML
     protected void testDslAction(ActionEvent event) {
         String text = dsl.getText();
-        Shell shell = Shell.build();
         shell.evaluate(text);
         Problem problem = shell.getLanguage().getProblem();
         problem.refresh();
 
+        refresh(problem);
+    }
+
+    private void refresh(Problem problem) {
         Map<String, Item> map = problem.getItems();
 
         // TableView
@@ -94,12 +141,40 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        // Items
         columnName.setCellValueFactory(new PropertyValueFactory<Item, String>("name"));
         columnTypeName.setCellValueFactory(new PropertyValueFactory<Item, String>("typeName"));
         columnMeasure.setCellValueFactory(new PropertyValueFactory<Item, String>("measure"));
 
+        // Theorems
+        List<Map> theorems = new ArrayList<Map>();
+        for( String key: Theorems.THEOREMS_MAP.keySet() ){
+            Map theorem = new HashMap<String, String>();
+            theorem.put("id", key);
+            theorem.put("description", Theorems.THEOREMS_MAP.get(key));
+            theorems.add(theorem);
+        }
+        columnTheoremId.setCellValueFactory(new MapValueFactory<String>("id"));
+        columnTheoremDescription.setCellValueFactory(new MapValueFactory<String>("description"));
+        ObservableList<Map> observableList = FXCollections.observableArrayList(theorems);
+        theoremsView.setItems(observableList);
+
         WebEngine engine = help.getEngine();
         URL indexUrl = getClass().getResource("../help/index.html");
         engine.load(indexUrl.toExternalForm());
+
+        // Demo
+        String problemCode = "create triangle name \"ABC\"\n" +
+                "extend \"AC\" to \"D\" with measure:\"BC\"\n" +
+                "extend \"BC\" to \"E\" with measure:\"AC\"\n" +
+                "create segment name \"ED\"\n" +
+                "extend \"DE\" to \"H\"\n" +
+                "extend \"BA\" to \"H\"";
+
+        String newLineCode = "apply \"10.8\" on \"ad\", \"bc\"";
+        dsl.textProperty().set(problemCode);
+        newLine.textProperty().set(newLineCode);
+
     }
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.web.*?>
@@ -28,14 +29,24 @@
       </content>
     </Tab>
   </tabs>
-</TabPane><TextArea fx:id="dsl" prefHeight="200.0" prefWidth="200.0" text="create triangle name &quot;ABC&quot;&#10;extend &quot;AC&quot; to &quot;D&quot; with measure:&quot;BC&quot;&#10;extend &quot;BC&quot; to &quot;E&quot; with measure:&quot;AC&quot;&#10;create segment name &quot;ED&quot;&#10;extend &quot;DE&quot; to &quot;H&quot;&#10;extend &quot;BA&quot; to &quot;H&quot;&#10;apply &quot;10.8&quot; on &quot;ad&quot;, &quot;bc&quot;" />
+</TabPane><VBox prefHeight="200.0" prefWidth="100.0">
+<children><HBox maxHeight="26.0" maxWidth="1.7976931348623157E308" minHeight="26.0" prefHeight="26.0" spacing="10.0">
+<children><TextField fx:id="newLine" maxHeight="26.0" maxWidth="1.7976931348623157E308" minHeight="26.0" minWidth="-Infinity" prefHeight="26.0" prefWidth="500.0">
+<HBox.margin>
+<Insets />
+</HBox.margin></TextField><Button fx:id="enter" mnemonicParsing="false" onAction="#newLineAction" text="Enter" />
+</children>
+<VBox.margin>
+<Insets />
+</VBox.margin></HBox><TextArea fx:id="dsl" editable="false" prefHeight="200.0" prefWidth="200.0" />
+</children></VBox>
   </items>
 </SplitPane>
 </center>
 <right><Accordion xmlns:fx="http://javafx.com/fxml">
   <panes>
     <TitledPane animated="false" text="Plain view">
-<content><TableView fx:id="itemsView" prefHeight="200.0" prefWidth="300.0" xmlns:fx="http://javafx.com/fxml">
+<content><TableView fx:id="itemsView" onMouseClicked="#applyOn" prefHeight="200.0" prefWidth="300.0" xmlns:fx="http://javafx.com/fxml">
   <columns>
     <TableColumn fx:id="columnTypeName" prefWidth="75.0" text="type" />
     <TableColumn fx:id="columnName" prefWidth="75.0" text="name" /><TableColumn fx:id="columnMeasure" prefWidth="75.0" text="measure" />
@@ -47,11 +58,20 @@
 <content><TreeView fx:id="treeView" prefHeight="200.0" prefWidth="200.0" />
 </content>
     </TitledPane>
-    <TitledPane animated="false" text="untitled 3">
-      <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-      </content>
+  </panes>
+</Accordion>
+</right>
+<left><Accordion BorderPane.alignment="CENTER">
+  <panes>
+    <TitledPane animated="false" text="Theorems">
+<content><TableView fx:id="theoremsView" onMouseClicked="#applyTheorem" prefHeight="200.0" prefWidth="200.0">
+  <columns>
+    <TableColumn fx:id="columnTheoremId" prefWidth="75.0" text="id" />
+    <TableColumn fx:id="columnTheoremDescription" prefWidth="122.0" text="description" />
+  </columns>
+</TableView>
+</content>
     </TitledPane>
   </panes>
 </Accordion>
-</right></BorderPane>
+</left></BorderPane>
