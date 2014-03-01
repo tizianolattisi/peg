@@ -98,12 +98,41 @@ class Language {
         this.theoremName = theoremName
         this
     }
+    def on(String item1Name){
+        on(item1Name, null, null, null)
+    }
     def on(String item1Name, String item2Name){
+        on(item1Name, item2Name, null, null)
+    }
+    def on(String item1Name, String item2Name, String item3Name){
+        on(item1Name, item2Name, item3Name, null)
+    }
+    def on(String item1Name, String item2Name, String item3Name, String item4Name){
         Problem problem = ProblemsTree.getProblem();
-        def item1 = problem.find(item1Name)
-        def item2 = problem.find(item2Name)
         def methodName = Theorems.THEOREMS_MAP.get(theoremName)
-        Theorems."$methodName"(item1, item2)
+        def item1 = problem.find(item1Name)
+        def item2 = null
+        def item3 = null
+        def item4 = null
+        if( item2Name!=null ){
+            item2 = problem.find(item2Name)
+        }
+        if( item3Name!=null ){
+            item3 = problem.find(item3Name)
+        }
+        if( item4Name!=null ){
+            item4 = problem.find(item4Name)
+        }
+        if( item1 != null && item2 != null && item3 != null && item4 != null ){
+            Theorems."$methodName"(item1, item2, item3, item4)
+        } else if( item1 != null && item2 != null && item3 != null ){
+            Theorems."$methodName"(item1, item2, item3)
+        } else if( item1 != null && item2 != null ){
+            Theorems."$methodName"(item1, item2)
+        } else if( item1 != null ){
+            Theorems."$methodName"(item1)
+        }
+
         problem.refresh()
         this
     }
