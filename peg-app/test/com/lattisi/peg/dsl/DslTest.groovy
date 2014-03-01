@@ -22,25 +22,29 @@ class DslTest extends GroovyTestCase {
         Problem problem = shell.getLanguage().getProblem()
         problem.refresh()
 
+        printProblem(problem)
+
+    }
+
+    private void printProblem(Problem problem) {
         scan = { node, i ->
-            def label = "  "*i + node
-            if( node instanceof Measurable && node.measure != null ){
+            def label = "  " * i + node
+            if (node instanceof Measurable && node.measure != null) {
                 label += " - " + node.measure
             }
             println label
-            if( node instanceof Container ){
+            if (node instanceof Container) {
                 i++
-                for(def child: node.getChildren() ){
+                for (def child : node.getChildren()) {
                     scan child, i
                 }
             }
         }
 
-        for(AbstractItem item: problem.getItems().values()){
+        for (AbstractItem item : problem.getItems().values()) {
             println ""
             scan item, 0
         }
-
     }
 
     void testFind() {
@@ -60,6 +64,30 @@ class DslTest extends GroovyTestCase {
         println "Test Language"
         println problem.getItems().values()
         */
+    }
+
+    void testProblem() {
+        String problemCode = "create triangle name \"ABC\"\n" +
+                "extend \"AC\" to \"D\" with measure:\"BC\"\n" +
+                "extend \"BC\" to \"E\" with measure:\"AC\"\n" +
+                "create segment name \"ED\"\n" +
+                "extend \"DE\" to \"H\"\n" +
+                "extend \"BA\" to \"H\""
+
+        Shell shell = Shell.build()
+        shell.evaluate(problemCode)
+        Problem problem = shell.getLanguage().getProblem()
+
+        problem.refresh()
+
+        // angoli opposti al vertice
+        shell.evaluate("apply \"10.8\" on \"ad\", \"bc\"")
+
+        // uguaglianza triangoli (due lati e un angolo)
+        shell.evaluate("apply \"10.3\" on \"CED\", \"ABC\"")
+
+        printProblem(problem)
+
     }
 
 }
