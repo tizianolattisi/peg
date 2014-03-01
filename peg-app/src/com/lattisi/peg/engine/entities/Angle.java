@@ -34,7 +34,7 @@ public class Angle extends AbstractMeasurableItem {
     }
 
     public static Angle build(Point point1, Point point2, Point point3){
-        return build(point1.getName() + point2.getName() + point3.getName());
+        return build((point1.getName() + point2.getName() + point3.getName()).toLowerCase());
     }
 
     @Override
