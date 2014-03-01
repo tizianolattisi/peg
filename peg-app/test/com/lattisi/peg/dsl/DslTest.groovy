@@ -66,6 +66,11 @@ class DslTest extends GroovyTestCase {
         */
     }
 
+    /*
+     *  Dato un triangolo ABC si prolunghino i lati AC, BC, dalla parte di C, rispettivamente dei segmenti CD = BC e CE = AC.
+     *  Sia H l'intersezione delle rette DE ed AB.
+     *  Dimostrare  che il triangolo AEH è isoscele.
+     */
     void testProblem() {
         String problemCode = "create triangle name \"ABC\"\n" +
                 "extend \"AC\" to \"D\" with measure:\"BC\"\n" +
@@ -88,6 +93,9 @@ class DslTest extends GroovyTestCase {
 
         // angoli opposti a segmenti uguali
         shell.evaluate("apply \"10.6\" on \"ABC\", \"cba\", \"CED\", \"edc\"")
+
+        // costruisco il segmento BD (troverà da solo il triangolo BCD)
+        shell.evaluate("create segment name \"BD\"")
 
         printProblem(problem)
 
