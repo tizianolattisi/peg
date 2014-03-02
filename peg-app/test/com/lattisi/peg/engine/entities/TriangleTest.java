@@ -20,4 +20,17 @@ public class TriangleTest extends BaseTest {
         assert angle.equals(triangle.getAngle("cba"));
 
     }
+
+    @Test
+    public void testGetOppositeAngle() throws Exception {
+
+        Triangle triangle = Triangle.build("ABC");
+        Segment AC = triangle.getSegment("AC");
+        Angle abc = triangle.getAngle("abc");
+        Angle opposite = triangle.getOppositeAngle(AC);
+
+        assert opposite.equals(abc);
+
+    }
+
 }

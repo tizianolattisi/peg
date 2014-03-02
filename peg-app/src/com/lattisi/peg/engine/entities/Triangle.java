@@ -152,6 +152,16 @@ public class Triangle extends AbstractMeasurableItem implements Container {
         return getAngle(angleName.toLowerCase());
     }
 
+    public Angle getOppositeAngle(Segment segment) {
+        HashSet<Point> segmentPoints = new HashSet(segment.getPoints());
+        HashSet<Point> points = new HashSet(getPoints());
+        points.removeAll(segmentPoints);
+        for( Point point: points ){
+            String angleName = segment.getName().substring(0, 1) + point.getName() + segment.getName().substring(1, 2);
+            return getAngle(angleName.toLowerCase());
+        }
+        return null;
+    }
 
     /*public List<Item> getOrderedItems() {
         List<Item> items = new ArrayList<Item>();
