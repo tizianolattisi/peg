@@ -138,7 +138,6 @@ public class Triangle extends AbstractMeasurableItem implements Container {
 
     public Angle getAngle(String segment1Name, String segment2Name) {
         String angleName;
-        String center;
         if( segment2Name.indexOf(segment1Name.substring(0, 1)) == -1 ){
             angleName = segment1Name;
         } else {
@@ -161,6 +160,16 @@ public class Triangle extends AbstractMeasurableItem implements Container {
             return getAngle(angleName.toLowerCase());
         }
         return null;
+    }
+
+    public Collection<Point> getPoints() {
+        Set<Point> points = new HashSet<Point>();
+        for( Segment segment: getSegments() ){
+            for( Point point: segment.getPoints() ){
+                points.add(point);
+            }
+        }
+        return points;
     }
 
     /*public List<Item> getOrderedItems() {

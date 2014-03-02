@@ -50,6 +50,11 @@ public class Segment extends AbstractMeasurableItem implements Container {
         return null;
     }
 
+    public Collection<Point> getPoints() {
+        return points;
+
+    }
+
     @Override
     public Collection<Item> getChildren() {
         Collection<Item> children = new ArrayList<Item>();
