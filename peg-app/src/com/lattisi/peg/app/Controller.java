@@ -95,9 +95,11 @@ public class Controller implements Initializable {
     @FXML
     protected void testDslAction(ActionEvent event) {
         String text = dsl.getText();
-        shell.evaluate(text);
         Problem problem = shell.getLanguage().getProblem();
-        problem.refresh();
+        for( String line: text.split("\\n") ){
+            shell.evaluate(line);
+            problem.refresh();
+        }
 
         refresh(problem);
     }
@@ -170,11 +172,16 @@ public class Controller implements Initializable {
                 "extend \"BC\" to \"E\" with measure:\"AC\"\n" +
                 "create segment name \"ED\"\n" +
                 "extend \"DE\" to \"H\"\n" +
-                "extend \"BA\" to \"H\"";
+                "extend \"BA\" to \"H\"\n" +
+                "apply \"10.8\" on \"ad\", \"bc\"\n" +
+                "apply \"10.3\" on \"CED\", \"ABC\"\n" +
+                "apply \"10.6\" on \"ABC\", \"cba\", \"CED\", \"edc\"\n" +
+                "create segment name \"BD\"\n" +
+                "apply \"10.10\" on \"BCD\", \"BC\", \"CD\"\n";
 
-        String newLineCode = "apply \"10.8\" on \"ad\", \"bc\"";
+        //String newLineCode = "apply \"10.8\" on \"ad\", \"bc\"";
         dsl.textProperty().set(problemCode);
-        newLine.textProperty().set(newLineCode);
+        //newLine.textProperty().set(newLineCode);
 
     }
 }
