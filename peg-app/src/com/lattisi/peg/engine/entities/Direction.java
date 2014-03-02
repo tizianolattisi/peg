@@ -53,6 +53,10 @@ public class Direction extends AbstractItem implements Container {
         }
         return children;
     }
+    @Override
+    public Boolean contains(Item item) {
+        return getChildren().contains(item);
+    }
 
     @Override
     public Collection<String> getAliases() {

@@ -181,6 +181,11 @@ public class Triangle extends AbstractMeasurableItem implements Container {
     }
 
     @Override
+    public Boolean contains(Item item) {
+        return getChildren().contains(item);
+    }
+
+    @Override
     public Collection<String> getAliases() {
         List<String> aliases = new ArrayList<String>();
         String a = getName().substring(0, 1);
