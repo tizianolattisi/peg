@@ -97,6 +97,9 @@ class DslTest extends GroovyTestCase {
         // costruisco il segmento BD (troverà da solo il triangolo BCD)
         shell.evaluate("create segment name \"BD\"")
 
+        // il triangolo BCD è isoscele, quindi gli angoli cbd e cdb sono uguali
+        shell.evaluate("apply \"10.10\" on \"BCD\", \"BC\", \"CD\"")
+
         printProblem(problem)
 
     }

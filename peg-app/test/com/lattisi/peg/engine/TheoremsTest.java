@@ -84,4 +84,21 @@ public class TheoremsTest extends BaseTest {
 
     }
 
+    // Teorema 10.10
+    @Test
+    public void testCorrespondingAnglesInIsoscelesTriangle() throws Exception {
+
+        Triangle triangle = Triangle.build("ABC");
+        String s = Metrics.nextMetric(ItemType.segment);
+        Segment segment1 = triangle.getSegment("AB");
+        segment1.setMeasure(s);
+        Segment segment2 = triangle.getSegment("AC");
+        segment2.setMeasure(s);
+
+        Boolean res = Theorems.correspondingAnglesInIsoscelesTriangle(triangle, segment1, segment2);
+
+        assert res;
+        assert triangle.getAngle("abc").equals(triangle.getAngle("acb"));
+    }
+
 }

@@ -15,10 +15,11 @@ public class Theorems {
     static
     {
         THEOREMS_MAP = new HashMap<String, String>();
-        THEOREMS_MAP.put("10.3", "congruentTriangleTwoSegmentsOneAngle");
-        THEOREMS_MAP.put("10.5", "congruentTriangleSameSides");
-        THEOREMS_MAP.put("10.6", "oppositeAnglesInCongruentTriangles");
-        THEOREMS_MAP.put("10.8", "equalOppositeAngles");
+        THEOREMS_MAP.put("10.3", "congruentTriangleTwoSegmentsOneAngle"); // 1
+        THEOREMS_MAP.put("10.5", "congruentTriangleSameSides");   // 3
+        THEOREMS_MAP.put("10.6", "oppositeAnglesInCongruentTriangles");  // 4a
+        THEOREMS_MAP.put("10.8", "equalOppositeAngles"); // 5a
+        THEOREMS_MAP.put("10.10", "correspondingAnglesInIsoscelesTriangle");
     }
 
     /*
@@ -169,6 +170,29 @@ public class Theorems {
         return Boolean.FALSE;
     }
 
+    /*
+     * Teorema 10.9
+     * Angoli supplementari di angoli uguali sono uguali
+     *
+     */
+
+
+    /*
+     * Teorema 10.10
+     * In un triangolo isoscele gli angoli alla base sono uguali
+     *
+     */
+    public static Boolean correspondingAnglesInIsoscelesTriangle(Triangle triangle, Segment segment1, Segment segment2){
+        if( triangle.contains(segment1) && triangle.contains(segment2) ){
+            if( segment1.equals(segment2) ){
+                Angle angle1 = triangle.getOppositeAngle(segment1);
+                Angle angle2 = triangle.getOppositeAngle(segment2);
+                equalizeItem(angle1, angle2);
+                return true;
+            }
+        }
+        return Boolean.FALSE;
+    }
 
 
     /*
