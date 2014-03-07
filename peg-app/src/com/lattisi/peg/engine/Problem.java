@@ -12,7 +12,7 @@ import java.util.*;
 public class Problem {
 
     private Problem parent;
-    private Map<String, Item> items = new HashMap<String, Item>();
+    private Map<String, Item> itemsMap = new HashMap<String, Item>();
 
     public Problem getParent() {
         return parent;
@@ -24,26 +24,29 @@ public class Problem {
 
     public void addItem(Item item){
         item.setProblem(this); // XXX: qualche tecnica di inversione di controllo?
-        items.put(item.getName(), item);
+        itemsMap.put(item.getName(), item);
     }
 
-    public Map<String, Item> getItems(){
+    public Collection<Item> getItems(){
         return getItems(null);
     }
 
-    public Map<String, Item> getItems(ItemType type){
+    public Collection<Item> getItems(ItemType type){
         if( type == null ){
-            return items;
+            return itemsMap.values();
         }
-        Map<String, Item> filteredItems = new HashMap<String, Item>();
-        for( Item item: items.values() ){
+        List<Item> filteredItems = new ArrayList<Item>();
+        for( Item item: itemsMap.values() ){
             if( type.equals(item.getType()) ){
-                filteredItems.put(item.getName(), item);
+                filteredItems.add(item);
             }
         }
         return filteredItems;
     }
 
+    public Map<String, Item> getItemsMap() {
+        return itemsMap;
+    }
 
     public Item find(String name){
         return find(name, null);
@@ -51,7 +54,7 @@ public class Problem {
 
     public Item find(String name, ItemType type){
         Item found = null;
-        for( Item item: items.values() ){
+        for( Item item: itemsMap.values() ){
             if( type == null || type.equals(item.getType()) ){
                 if( item.getAliases().contains(name) ){
                     return item;
@@ -95,8 +98,11 @@ public class Problem {
 
     public void refresh(){
         // new triangles
+        /*
         Map<String, Item> pointsMap = getItems(ItemType.point);
         List<Item> points = new ArrayList<Item>(pointsMap.values());
+        */
+        List<Item> points = new ArrayList<Item>(getItems(ItemType.point));
         for( Integer i=0; i<points.size()-2; i++ ){
             for( Integer j=i+1; j<points.size()-1; j++ ){
                 for( Integer k=j+1; k<points.size(); k++ ){
@@ -130,7 +136,7 @@ public class Problem {
     }
 
     public void clear(){
-        items.clear();
+        itemsMap.clear();
     }
 
 }

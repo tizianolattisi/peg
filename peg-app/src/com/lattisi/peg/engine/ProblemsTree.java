@@ -26,8 +26,8 @@ public class ProblemsTree {
         Problem problem = new Problem();
         problem.setParent(parent);
         tree.add(problem);
-        for( String key: parent.getItems().keySet() ){
-            Item item = parent.getItems().get(key);
+        for( String key: parent.getItemsMap().keySet() ){
+            Item item = parent.getItemsMap().get(key);
             Item newItem=null;
             switch(item.getType()){
                 case triangle:

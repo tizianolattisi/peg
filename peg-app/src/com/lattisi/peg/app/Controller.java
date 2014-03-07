@@ -105,7 +105,7 @@ public class Controller implements Initializable {
     }
 
     private void refresh(Problem problem) {
-        Map<String, Item> map = problem.getItems();
+        Map<String, Item> map = problem.getItemsMap();
 
         // TableView
         ObservableList<Item> observableList = FXCollections.observableArrayList(map.values());

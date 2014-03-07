@@ -41,7 +41,7 @@ class DslTest extends GroovyTestCase {
             }
         }
 
-        for (AbstractItem item : problem.getItems().values()) {
+        for (AbstractItem item : problem.getItemsMap().values()) {
             println ""
             scan item, 0
         }
