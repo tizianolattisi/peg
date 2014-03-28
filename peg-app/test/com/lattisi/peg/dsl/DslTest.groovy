@@ -17,9 +17,15 @@ class DslTest extends GroovyTestCase {
     void test() {
 
         Shell shell = Shell.build()
-        shell.evaluate(new File("test/com/lattisi/peg/dsl/command.groovy"))
-
         Problem problem = shell.getLanguage().getProblem()
+        //shell.evaluate(new File("test/com/lattisi/peg/dsl/command.groovy"))
+        String text = (new File("test/com/lattisi/peg/dsl/command.groovy")).text
+
+        for( String line: text.split("\\n") ){
+            shell.evaluate(line);
+            problem.refresh();
+        }
+
         problem.refresh()
 
         printProblem(problem)
