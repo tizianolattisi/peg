@@ -177,7 +177,9 @@ public class Controller implements Initializable {
                 "apply \"10.3\" on \"CED\", \"ABC\"\n" +
                 "apply \"10.6\" on \"ABC\", \"cba\", \"CED\", \"edc\"\n" +
                 "create segment name \"BD\"\n" +
-                "apply \"10.10\" on \"BCD\", \"BC\", \"CD\"\n";
+                "apply \"10.10\" on \"BCD\", \"BC\", \"CD\"\n" +
+                "sum \"edc\" and \"cdb\"\n" +
+                "sum \"cba\" and \"dbc\"";
 
         //String newLineCode = "apply \"10.8\" on \"ad\", \"bc\"";
         dsl.textProperty().set(problemCode);

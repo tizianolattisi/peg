@@ -42,8 +42,32 @@ public class ProblemTest extends BaseTest {
         //Segment AC = Problem.findSegment("AC");
         //Theorems.equalizeItem(CE, AC);
 
+    }
 
+    @Test
+    public void testSum() throws Exception {
 
+        Problem problem = ProblemsTree.getProblem();
+
+        Segment s1 = Segment.build("AB");
+        Segment s2 = Segment.build("AC");
+        Segment s3 = Segment.build("DA");
+
+        problem.addItem(s1);
+        problem.addItem(s2);
+        problem.addItem(s3);
+
+        problem.refresh();
+
+        Angle angle1 = problem.findAngle("bac");
+        angle1.setMeasure("a1");
+        Angle angle2 = problem.findAngle("cad");
+        angle2.setMeasure("a2");
+
+        Angle angle3 = problem.sum(angle1, angle2);
+
+        assert angle3.getAliases().contains("bad");
+        assert angle3.getMeasure().equals("a1+a2") || angle3.getMeasure().equals("a2+a1");
     }
 
 }

@@ -135,4 +135,40 @@ public class Problem {
         itemsMap.clear();
     }
 
+    public Angle sum(Angle angle1, Angle angle2) {
+        List<String> measures = new ArrayList<String>();
+        measures.add(angle1.getMeasure());
+        measures.add(angle2.getMeasure());
+        Collections.sort(measures);
+        String measure = measures.get(0) + "+" + measures.get(1);
+
+        List<Point> points1 = angle1.getOrderedPoints();
+        Point central = points1.get(1);
+        points1.remove(central); // remove central point
+        List<Point> points2 = angle2.getOrderedPoints();
+        points2.remove(central); // remove central point
+
+        List<Point> shareds = angle2.getOrderedPoints();
+        shareds.retainAll(points1);
+        Point shared = shareds.get(0);
+
+        if( points1.get(0).equals(shared) ){
+            points1.remove(0);
+        } else {
+            points1.remove(1);
+        }
+        if( points2.get(0).equals(shared) ){
+            points2.remove(0);
+        } else {
+            points2.remove(1);
+        }
+
+        Point left = points1.get(0);
+        Point right = points2.get(0);
+
+        Angle angle = findAngle(left, central, right);
+        angle.setMeasure(measure);
+        return angle;
+    }
+
 }

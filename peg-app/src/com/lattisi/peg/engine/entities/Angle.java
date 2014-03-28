@@ -4,9 +4,7 @@ import com.lattisi.peg.engine.ProblemsTree;
 import com.lattisi.peg.engine.Problem;
 import com.sun.javafx.tools.packager.Log;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 /**
  * User: tiziano
@@ -53,7 +51,27 @@ public class Angle extends AbstractMeasurableItem {
         return Angle.build(left, central, right);
     }
 
-    @Override
+    public Set<Point> getPoints() {
+        return new HashSet<Point>(getOrderedPoints());
+    }
+
+    public List<Point> getOrderedPoints() {
+        Problem problem = ProblemsTree.getProblem();
+        String a = getName().substring(0, 1);
+        String b = getName().substring(1, 2);
+        String c = getName().substring(2, 3);
+        Point A = problem.findPoint(a.toUpperCase());
+        Point B = problem.findPoint(b.toUpperCase());
+        Point C = problem.findPoint(c.toUpperCase());
+        List<Point> points = new ArrayList<Point>();
+        points.add(A);
+        points.add(B);
+        points.add(C);
+        return points;
+    }
+
+
+        @Override
     public Collection<String> getAliases() {
         List<String> aliases = new ArrayList<String>();
         String a = getName().substring(0, 1);

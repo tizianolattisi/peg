@@ -137,6 +137,22 @@ class Language {
         this
     }
 
+    /*
+     * sum
+     */
+    def sum(String measurable1Name){
+        // sum "abc" and "cbd"
+        Problem problem = ProblemsTree.getProblem();
+        item1Name = measurable1Name
+        this
+    }
+    def and(String measurable2Name){
+        Problem problem = ProblemsTree.getProblem();
+        def item1 = problem.find(item1Name)            // Angle "abc"
+        def item2 = problem.find(measurable2Name)      // Angle "cbd"
+        problem.sum(item1, item2)
+    }
+
 
     /*
      *  with properties

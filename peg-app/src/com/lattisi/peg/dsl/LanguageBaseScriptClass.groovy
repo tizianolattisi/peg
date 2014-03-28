@@ -37,4 +37,11 @@ abstract class LanguageBaseScriptClass extends Script {
         this.binding.language.apply(theoremName)
     }
 
+    /*
+     * sum
+     */
+    def sum(String measurableName){
+        this.binding.language.sum(measurableName)
+    }
+
 }

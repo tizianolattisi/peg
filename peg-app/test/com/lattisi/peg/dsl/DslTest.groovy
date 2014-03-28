@@ -96,9 +96,16 @@ class DslTest extends GroovyTestCase {
 
         // costruisco il segmento BD (troverà da solo il triangolo BCD)
         shell.evaluate("create segment name \"BD\"")
+        problem.refresh()
 
         // il triangolo BCD è isoscele, quindi gli angoli cbd e cdb sono uguali
         shell.evaluate("apply \"10.10\" on \"BCD\", \"BC\", \"CD\"")
+
+        // l'angolo edb è somma di edc e cdb
+        shell.evaluate("sum \"edc\" and \"cdb\"")
+
+        // l'angolo abd è somma di cba e dbc
+        shell.evaluate("sum \"cba\" and \"dbc\"")
 
         printProblem(problem)
 
