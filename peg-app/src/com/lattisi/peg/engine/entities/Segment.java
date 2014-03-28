@@ -55,6 +55,34 @@ public class Segment extends AbstractMeasurableItem implements Container {
 
     }
 
+    public Point getPoint(String name) {
+        for( Item item: getChildren() ){
+            Point point = (Point) item;
+            if( point.getName().equals(name) ){
+                return point;
+            }
+        }
+        return null;
+    }
+
+    public Point getOtherPoint(Point point) {
+        for( Point other: getPoints() ){
+            if( !other.equals(point) ){
+                return other;
+            }
+        }
+        return null;
+    }
+
+    public Point intersecate(Segment segment) {
+        List intersection = new ArrayList(getChildren());
+        intersection.retainAll(segment.getChildren());
+        if( intersection.size() == 1 ){
+            return (Point) intersection.get(0);
+        }
+        return null;
+    }
+
     @Override
     public Collection<Item> getChildren() {
         Collection<Item> children = new ArrayList<Item>();

@@ -33,6 +33,37 @@ public class Point extends AbstractItem {
         return null;
     }
 
+
+    public Collection<Angle> getAngles(){
+        Collection<Angle> angles = new ArrayList<Angle>();
+        Problem problem = ProblemsTree.getProblem();
+        List<Point> points = new ArrayList<Point>();
+        for( Item item: problem.getItems(ItemType.segment) ){
+            Segment segment = (Segment) item;
+            if( segment.getPoints().contains(this) ){
+                for( Point point: segment.getPoints() ){
+                    if( point != this ){
+                        // chek if not point between
+                        points.add(point);
+                    }
+                }
+            }
+        }
+        for( Integer i=0; i<points.size()-1; i++ ){
+            for( Integer j=i+1; j<points.size(); j++ ){
+                Point point1 = points.get(i);
+                Point point2 = points.get(j);
+                Angle angle = problem.findAngle(point1, this, point2);
+                if( !angles.contains(angle) ){
+                     angles.add(angle);
+                }
+            }
+
+        }
+        System.out.println(points);
+        return angles;
+    }
+
     @Override
     public Collection<String> getAliases() {
         List<String> aliases = new ArrayList<String>();

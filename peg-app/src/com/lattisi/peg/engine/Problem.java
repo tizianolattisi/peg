@@ -69,7 +69,7 @@ public class Problem {
     }
 
     public Angle findAngle(Point point1, Point point2, Point point3){
-        String name = point1.getName() + point2.getName() + point3.getName();
+        String name = (point1.getName() + point2.getName() + point3.getName()).toLowerCase();
         return findAngle(name);
     }
 
@@ -117,22 +117,18 @@ public class Problem {
                 }
             }
         }
-        // new angles? now the theorem is to create new angles (equalOppositeAngles)
-        /*
-        Map<String, Item> directionssMap = getItems(ItemType.direction);
-        List<Item> directions = new ArrayList<Item>(directionssMap.values());
-        for( Integer i=0; i<points.size()-2; i++ ){
-            for( Integer j=i+1; j<points.size()-1; j++ ){
-                Direction direction1 = (Direction) directions.get(i);
-                Direction direction2 = (Direction) directions.get(j);
-                Point point = direction1.intersecate(direction2);
+        // new angles
+        List<Item> segments = new ArrayList<Item>(getItems(ItemType.segment));
+        for( Integer i=0; i<segments.size()-1; i++ ){
+            for( Integer j=i+1; j<segments.size(); j++ ){
+                Segment s1 = (Segment) segments.get(i);
+                Segment s2 = (Segment) segments.get(j);
+                Point point = s1.intersecate(s2);
                 if( point != null ){
-
+                    addItem(Angle.build(s1, s2));
                 }
             }
         }
-        */
-
     }
 
     public void clear(){

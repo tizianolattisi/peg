@@ -37,6 +37,22 @@ public class Angle extends AbstractMeasurableItem {
         return build((point1.getName() + point2.getName() + point3.getName()).toLowerCase());
     }
 
+    public static Angle build(Segment segment1, Segment segment2){
+        // central point
+        List<Point> toRetain = new ArrayList<Point>(segment1.getPoints());
+        toRetain.retainAll(segment2.getPoints());
+        assert toRetain.size() == 1;
+        Point central = toRetain.get(0);
+
+        List<Point> points1 = new ArrayList<Point>();
+        points1.addAll(segment1.getPoints());
+        points1.remove(central);
+        Point left = segment1.getOtherPoint(central);
+        Point right = segment2.getOtherPoint(central);
+
+        return Angle.build(left, central, right);
+    }
+
     @Override
     public Collection<String> getAliases() {
         List<String> aliases = new ArrayList<String>();
