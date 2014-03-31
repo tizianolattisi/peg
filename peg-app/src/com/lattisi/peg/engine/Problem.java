@@ -98,10 +98,6 @@ public class Problem {
 
     public void refresh(){
         // new triangles
-        /*
-        Map<String, Item> pointsMap = getItems(ItemType.point);
-        List<Item> points = new ArrayList<Item>(pointsMap.values());
-        */
         List<Item> points = new ArrayList<Item>(getItems(ItemType.point));
         for( Integer i=0; i<points.size()-2; i++ ){
             for( Integer j=i+1; j<points.size()-1; j++ ){
@@ -126,6 +122,22 @@ public class Problem {
                 Point point = s1.intersecate(s2);
                 if( point != null ){
                     addItem(Angle.build(s1, s2));
+                }
+            }
+        }
+        // plane angles
+        List<Item> directions = new ArrayList<Item>(getItems(ItemType.direction));
+        for( Integer i=0; i<directions.size(); i++ ){
+            Direction direction = (Direction) directions.get(i);
+            List<Point> orderedPoints = direction.getOrderedPoints();
+            if( orderedPoints.size()>2 ){
+                for( Integer j=0; j<orderedPoints.size()-2; j++ ){
+                    Point a = orderedPoints.get(j);
+                    Point b = orderedPoints.get(j+1);
+                    Point c = orderedPoints.get(j+2);
+                    Angle angle = Angle.build(a, b, c);
+                    angle.setMeasure("_");
+                    addItem(angle);
                 }
             }
         }
