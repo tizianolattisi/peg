@@ -44,4 +44,11 @@ abstract class LanguageBaseScriptClass extends Script {
         this.binding.language.sum(measurableName)
     }
 
+    /*
+     * difference
+     */
+    def difference(String measurableName){
+        this.binding.language.difference(measurableName)
+    }
+
 }

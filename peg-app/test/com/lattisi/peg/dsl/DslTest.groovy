@@ -113,6 +113,12 @@ class DslTest extends GroovyTestCase {
         // l'angolo abd è somma di cba e dbc
         shell.evaluate("sum \"cba\" and \"dbc\"")
 
+        // l'angolo hdb è la differenza tra l'angolo piano edh e l'angolo edb
+        shell.evaluate("difference \"edh\" and \"edb\"")
+
+        // l'angolo dbh è la differenza tra l'angolo piano abh e l'angolo abd
+        shell.evaluate("difference \"abh\" and \"abd\"")
+
         printProblem(problem)
 
     }

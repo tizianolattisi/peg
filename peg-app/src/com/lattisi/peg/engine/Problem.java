@@ -152,9 +152,9 @@ public class Problem {
         measures.add(angle1.getMeasure());
         measures.add(angle2.getMeasure());
         Collections.sort(measures);
-        String measure = measures.get(0) + "+" + measures.get(1);
+        String measure = Metrics.nextMetric(ItemType.angle);
 
-        List<Point> points1 = angle1.getOrderedPoints();
+                List<Point> points1 = angle1.getOrderedPoints();
         Point central = points1.get(1);
         points1.remove(central); // remove central point
         List<Point> points2 = angle2.getOrderedPoints();
@@ -182,5 +182,11 @@ public class Problem {
         angle.setMeasure(measure);
         return angle;
     }
+
+    public Angle difference(Angle angle1, Angle angle2) {
+        // it's the same as sum
+        return sum(angle1, angle2);
+    }
+
 
 }

@@ -138,10 +138,16 @@ class Language {
     }
 
     /*
-     * sum
+     * sum and difference
      */
     def sum(String measurable1Name){
         // sum "abc" and "cbd"
+        Problem problem = ProblemsTree.getProblem();
+        item1Name = measurable1Name
+        this
+    }
+    def difference(String measurable1Name){
+        // difference "abc" and "cbd"
         Problem problem = ProblemsTree.getProblem();
         item1Name = measurable1Name
         this
