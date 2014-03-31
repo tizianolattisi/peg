@@ -75,7 +75,7 @@ public class Segment extends AbstractMeasurableItem implements Container {
     }
 
     public Point intersecate(Segment segment) {
-        List intersection = new ArrayList(getChildren());
+        List<Item> intersection = new ArrayList<Item>(getChildren());
         intersection.retainAll(segment.getChildren());
         if( intersection.size() == 1 ){
             return (Point) intersection.get(0);

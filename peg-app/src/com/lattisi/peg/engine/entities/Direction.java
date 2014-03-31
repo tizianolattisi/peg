@@ -74,7 +74,7 @@ public class Direction extends AbstractItem implements Container {
     }
 
     public Point intersecate(Direction direction){
-        List intersection = new ArrayList(getChildren());
+        List<Item> intersection = new ArrayList<Item>(getChildren());
         intersection.retainAll(direction.getChildren());
         if( intersection.size() == 1 ){
             return (Point) intersection.get(0);
