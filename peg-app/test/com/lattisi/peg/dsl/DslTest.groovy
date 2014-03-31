@@ -82,8 +82,8 @@ class DslTest extends GroovyTestCase {
                 "extend \"AC\" to \"D\" with measure:\"BC\"\n" +
                 "extend \"BC\" to \"E\" with measure:\"AC\"\n" +
                 "create segment name \"ED\"\n" +
-                "extend \"DE\" to \"H\"\n" +
-                "extend \"BA\" to \"H\""
+                "extend \"ED\" to \"H\"\n" +
+                "extend \"AB\" to \"H\""
 
         Shell shell = Shell.build()
         shell.evaluate(problemCode)
