@@ -15,11 +15,11 @@ public class Theorems {
     static
     {
         THEOREMS_MAP = new HashMap<String, String>();
-        THEOREMS_MAP.put("10.3", "congruentTriangleTwoSegmentsOneAngle"); // 1
-        THEOREMS_MAP.put("10.5", "congruentTriangleSameSides");   // 3
-        THEOREMS_MAP.put("10.6", "oppositeAnglesInCongruentTriangles");  // 4a
-        THEOREMS_MAP.put("10.8", "equalOppositeAngles"); // 5a
-        THEOREMS_MAP.put("10.10", "correspondingAnglesInIsoscelesTriangle");
+        THEOREMS_MAP.put("T3", "congruentTriangleTwoSegmentsOneAngle"); // 1
+        THEOREMS_MAP.put("T5", "congruentTriangleSameSides");   // 3
+        THEOREMS_MAP.put("T6", "oppositeAnglesInCongruentTriangles");  // 4a
+        THEOREMS_MAP.put("T8", "equalOppositeAngles"); // 5a
+        THEOREMS_MAP.put("T10", "correspondingAnglesInIsoscelesTriangle");
     }
 
     /*

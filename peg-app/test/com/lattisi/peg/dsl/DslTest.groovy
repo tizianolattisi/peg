@@ -92,20 +92,20 @@ class DslTest extends GroovyTestCase {
         problem.refresh()
 
         // angoli opposti al vertice
-        shell.evaluate("apply \"10.8\" on \"ad\", \"bc\"")
+        shell.evaluate("apply \"T8\" on \"ad\", \"bc\"")
 
         // uguaglianza triangoli (due lati e un angolo)
-        shell.evaluate("apply \"10.3\" on \"CED\", \"ABC\"")
+        shell.evaluate("apply \"T3\" on \"CED\", \"ABC\"")
 
         // angoli opposti a segmenti uguali
-        shell.evaluate("apply \"10.6\" on \"ABC\", \"cba\", \"CED\", \"edc\"")
+        shell.evaluate("apply \"T6\" on \"ABC\", \"cba\", \"CED\", \"edc\"")
 
         // costruisco il segmento BD (troverà da solo il triangolo BCD)
         shell.evaluate("create segment name \"BD\"")
         problem.refresh()
 
         // il triangolo BCD è isoscele, quindi gli angoli cbd e cdb sono uguali
-        shell.evaluate("apply \"10.10\" on \"BCD\", \"BC\", \"CD\"")
+        shell.evaluate("apply \"T10\" on \"BCD\", \"BC\", \"CD\"")
 
         // l'angolo edb è somma di edc e cdb
         shell.evaluate("sum \"edc\" and \"cdb\"")

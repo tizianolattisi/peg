@@ -173,11 +173,11 @@ public class Controller implements Initializable {
                 "create segment name \"ED\"\n" +
                 "extend \"DE\" to \"H\"\n" +
                 "extend \"BA\" to \"H\"\n" +
-                "apply \"10.8\" on \"ad\", \"bc\"\n" +
-                "apply \"10.3\" on \"CED\", \"ABC\"\n" +
-                "apply \"10.6\" on \"ABC\", \"cba\", \"CED\", \"edc\"\n" +
+                "apply \"T8\" on \"ad\", \"bc\"\n" +
+                "apply \"T3\" on \"CED\", \"ABC\"\n" +
+                "apply \"T6\" on \"ABC\", \"cba\", \"CED\", \"edc\"\n" +
                 "create segment name \"BD\"\n" +
-                "apply \"10.10\" on \"BCD\", \"BC\", \"CD\"\n" +
+                "apply \"T10\" on \"BCD\", \"BC\", \"CD\"\n" +
                 "sum \"edc\" and \"cdb\"\n" +
                 "sum \"cba\" and \"dbc\"";
 
