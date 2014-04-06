@@ -121,7 +121,7 @@ public class Controller implements Initializable {
         treeView.setRoot(root);
     }
 
-    private void addChidrenToNode(TreeItem<String> node, Collection<Item> items) {
+    private void addChidrenToNode(TreeItem<String> node, Collection<? extends Item> items) {
         ObservableList<TreeItem<String>> children = node.getChildren();
         for( Item item: items){
             String label = item.getType().toString().concat(" ").concat(item.getName());
@@ -135,7 +135,7 @@ public class Controller implements Initializable {
                 children.add(childNode);
             }
             if( item instanceof Container){
-                Collection<Item> childItems = ((Container) item).getChildren();
+                Collection<? extends Item> childItems = ((Container) item).getChildren();
                 addChidrenToNode(childNode, childItems);
             }
         }
