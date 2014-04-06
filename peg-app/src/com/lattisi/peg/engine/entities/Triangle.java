@@ -5,6 +5,8 @@ import com.lattisi.peg.engine.Problem;
 import com.sun.javafx.tools.packager.Log;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * User: tiziano
@@ -34,17 +36,13 @@ public class Triangle extends AbstractMeasurableItem implements Container {
             String point2name = name.substring(1, 2);
             String point3name = name.substring(2);
             String segment1name = point1name.concat(point2name);
-            triangle.addSegment(Segment.build(segment1name));
             String segment2name = point2name.concat(point3name);
-            triangle.addSegment(Segment.build(segment2name));
             String segment3name = point3name.concat(point1name);
-            triangle.addSegment(Segment.build(segment3name));
+            triangle.setSegments(Segment.build(segment1name), Segment.build(segment2name), Segment.build(segment3name));
             String angle1name = (point1name + point2name + point3name).toLowerCase();
-            triangle.addAngle(Angle.build(angle1name));
             String angle2name = (point2name + point3name + point1name).toLowerCase();
-            triangle.addAngle(Angle.build(angle2name));
             String angle3name = (point3name + point1name + point2name).toLowerCase();
-            triangle.addAngle(Angle.build(angle3name));
+            triangle.setAngles(Angle.build(angle1name), Angle.build(angle2name), Angle.build(angle3name));
 
             return triangle;
         }
@@ -52,10 +50,18 @@ public class Triangle extends AbstractMeasurableItem implements Container {
         return null;
     }
 
-    private void addSegment(Segment segment){
-        if( segments.size()<3 ){
-            segments.add(segment);
-        }
+    private void setAngles(Angle angle1, Angle angle2, Angle angle3){
+        assert angles.size() == 0;
+        angles.add(angle1);
+        angles.add(angle2);
+        angles.add(angle3);
+    }
+
+    private void setSegments(Segment segment1, Segment segment2, Segment segment3){
+        assert segments.size() == 0;
+        segments.add(segment1);
+        segments.add(segment2);
+        segments.add(segment3);
     }
 
     public Collection<Segment> getSegments() {
@@ -66,23 +72,12 @@ public class Triangle extends AbstractMeasurableItem implements Container {
         if( !measured ){
             return segments;
         } else {
-            Collection<Segment> measuredSegments = new ArrayList<Segment>();
-            for( Segment segment: getSegments() ){
-                if( segment.getMeasure() != null ){
-                    measuredSegments.add(segment);
-                }
-            }
-            return measuredSegments;
+            return segments.stream().filter(s -> s.getMeasure() != null).collect(Collectors.toList());
         }
     }
 
     public Segment getSegment(String name) {
-        for( Segment segment: getSegments() ){
-            if( segment.getAliases().contains(name) ){
-                return segment;
-            }
-        }
-        return null;
+        return getSegments().stream().filter(s -> s.getAliases().contains(name)).findFirst().get();
     }
 
     public Collection<Segment> getSegmentsAround(Angle angle) {
@@ -99,12 +94,6 @@ public class Triangle extends AbstractMeasurableItem implements Container {
         return getSegment(segmentName);
     }
 
-    private void addAngle(Angle angle){
-        if( angles.size()<3 ){
-            angles.add(angle);
-        }
-    }
-
     public Collection<Angle> getAngles() {
         return getAngles(false);
     }
@@ -113,56 +102,33 @@ public class Triangle extends AbstractMeasurableItem implements Container {
         if( !measured ){
             return angles;
         } else {
-            Collection<Angle> measuredAngles = new ArrayList<Angle>();
-            for( Angle angle: getAngles() ){
-                if( angle.getMeasure() != null ){
-                    measuredAngles.add(angle);
-                }
-            }
-            return measuredAngles;
+            return angles.stream().filter(a -> a.getMeasure() != null).collect(Collectors.toList());
         }
     }
 
     public Angle getAngle(String name) {
-        for( Angle angle: getAngles() ){
-            if( angle.getAliases().contains(name) ){
-                return angle;
-            }
-        }
-        return null;
+        return getAngles().stream().filter(a -> a.getAliases().contains(name)).findFirst().get();
     }
 
-    public Angle getAngle(Segment segment1, Segment segment2) {
-        return getAngle(segment1.getName(), segment2.getName());
+    public Angle getAngle(Segment s1, Segment s2) {
+        Segment oppositeSegment = getSegments().stream().filter(s -> !(s == s1 || s == s2)).findFirst().get();
+        return getOppositeAngle(oppositeSegment);
     }
 
     public Angle getAngle(String segment1Name, String segment2Name) {
-        String angleName;
-        if( segment2Name.indexOf(segment1Name.substring(0, 1)) == -1 ){
-            angleName = segment1Name;
-        } else {
-            angleName = segment1Name.substring(1, 2) + segment1Name.substring(0, 1);
-        }
-        if( angleName.substring(1, 2).equals(segment2Name.substring(0, 1)) ){
-            angleName += segment2Name.substring(1, 2);
-        } else {
-            angleName += segment2Name.substring(0, 1);
-        }
-        return getAngle(angleName.toLowerCase());
+        return getAngle(getSegment(segment1Name), getSegment(segment2Name));
     }
 
     public Angle getOppositeAngle(Segment segment) {
-        HashSet<Point> segmentPoints = new HashSet(segment.getPoints());
-        HashSet<Point> points = new HashSet(getPoints());
-        points.removeAll(segmentPoints);
-        for( Point point: points ){
-            String angleName = segment.getName().substring(0, 1) + point.getName() + segment.getName().substring(1, 2);
-            return getAngle(angleName.toLowerCase());
-        }
-        return null;
+        assert this.contains(segment);
+        Point centralPoint = getPoints().stream().filter(p -> !segment.getPoints().contains(p)).findFirst().get();
+        List<Point> points = new ArrayList(segment.getPoints());
+        String angleName = (points.get(0).getName() + centralPoint.getName() + points.get(1).getName()).toLowerCase();
+        return getAngle(angleName.toLowerCase());
     }
 
     public Collection<Point> getPoints() {
+        //getSegments().stream().
         Set<Point> points = new HashSet<Point>();
         for( Segment segment: getSegments() ){
             for( Point point: segment.getPoints() ){
@@ -189,14 +155,7 @@ public class Triangle extends AbstractMeasurableItem implements Container {
 
     @Override
     public Collection<Item> getChildren() {
-        Collection<Item> children = new ArrayList<Item>();
-        for( Segment segment: segments ){
-            children.add(segment);
-        }
-        for( Angle angle: angles ){
-            children.add(angle);
-        }
-        return children;
+        return Stream.concat(segments.stream(), angles.stream()).collect(Collectors.toList());
     }
 
     @Override
