@@ -4,9 +4,8 @@ import com.lattisi.peg.engine.ProblemsTree;
 import com.lattisi.peg.engine.Problem;
 import com.sun.javafx.tools.packager.Log;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * User: tiziano
@@ -17,12 +16,10 @@ public class Segment extends AbstractMeasurableItem implements Container {
 
     private Collection<Point> points = new ArrayList<Point>();
 
-    public void addPoint(Point point){
-        if( points.size() < 2 ){
-            points.add(point);
-        } else {
-            Log.info("Only two points for segment.");
-        }
+    private void setPoints(Point point1, Point point2){
+        assert points.size() == 0;
+        points.add(point1);
+        points.add(point2);
     }
 
     public static Segment build(String name){
@@ -40,9 +37,8 @@ public class Segment extends AbstractMeasurableItem implements Container {
 
             // children
             String point1name = name.substring(0, 1);
-            segment.addPoint(Point.build(point1name));
             String point2name = name.substring(1);
-            segment.addPoint(Point.build(point2name));
+            segment.setPoints(Point.build(point1name), Point.build(point2name));
 
             return segment;
         }
@@ -56,22 +52,14 @@ public class Segment extends AbstractMeasurableItem implements Container {
     }
 
     public Point getPoint(String name) {
-        for( Item item: getChildren() ){
-            Point point = (Point) item;
-            if( point.getName().equals(name) ){
-                return point;
-            }
-        }
-        return null;
+        return getChildren().stream().filter(p -> p.getName().equals(name)).collect(Collectors.toList()).get(0);
     }
 
     public Point getOtherPoint(Point point) {
-        for( Point other: getPoints() ){
-            if( !other.equals(point) ){
-                return other;
-            }
-        }
-        return null;
+        //return getChildren().stream().filter(p -> p != point).findFirst().orElse(null);  // null value is not possible
+        //return getChildren().stream().filter(p -> p != point).collect(Collectors.toList()).get(0);
+        assert getChildren().contains(point);
+        return getChildren().stream().filter(p -> p != point).findFirst().get();
     }
 
     public Point intersecate(Segment segment) {
@@ -84,12 +72,8 @@ public class Segment extends AbstractMeasurableItem implements Container {
     }
 
     @Override
-    public Collection<Item> getChildren() {
-        Collection<Item> children = new ArrayList<Item>();
-        for( Point point: points ){
-            children.add(point);
-        }
-        return children;
+    public Collection<Point> getChildren() {
+        return points;
     }
 
     @Override

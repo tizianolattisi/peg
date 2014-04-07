@@ -9,7 +9,7 @@ import java.util.Collection;
  */
 public interface Container {
 
-    public Collection<Item> getChildren();
+    public Collection<? extends Item> getChildren();
     public Boolean contains(Item item);
 
 }
