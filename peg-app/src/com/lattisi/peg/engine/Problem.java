@@ -188,5 +188,11 @@ public class Problem {
         return sum(angle1, angle2);
     }
 
+    public List<Item> extract(List<? extends Class> segnature){
+        List<Item> items = new ArrayList<Item>();
+
+        return items;
+    }
+
 
 }
