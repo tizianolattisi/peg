@@ -51,4 +51,11 @@ abstract class LanguageBaseScriptClass extends Script {
         this.binding.language.difference(measurableName)
     }
 
+    /*
+     * check
+     */
+    def check(String assertion){
+        this.binding.language.check(assertion)
+    }
+
 }

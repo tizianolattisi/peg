@@ -1,5 +1,6 @@
 package com.lattisi.peg.dsl
 
+import com.lattisi.peg.engine.Assertions
 import com.lattisi.peg.engine.ProblemsTree
 import com.lattisi.peg.engine.Problem
 import com.lattisi.peg.engine.Theorems
@@ -157,6 +158,14 @@ class Language {
         def item1 = problem.find(item1Name)            // Angle "abc"
         def item2 = problem.find(measurable2Name)      // Angle "cbd"
         problem.sum(item1, item2)
+    }
+
+    /*
+     * check
+     */
+    def check(String assertion){
+        def methodName = Assertions.ASSERTIONS_MAP.get(assertion)
+        // TODO
     }
 
 
