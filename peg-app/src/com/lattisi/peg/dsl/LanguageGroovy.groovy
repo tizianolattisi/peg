@@ -17,7 +17,7 @@ import com.lattisi.peg.engine.entities.TriangleType
  * Date: 02/10/13
  * Time: 17:58
  */
-class Language {
+class LanguageGroovy {
 
     Problem problem = ProblemsTree.getProblem();
     String item1Name
@@ -29,7 +29,7 @@ class Language {
      *  create ItemType itemName with prop1:value1, prop2:value2
      */
     def create(ItemType type){
-        // Language.create(ItemType.triangle).name("ABC").with(type:"scalene")
+        // LanguageGroovy.create(ItemType.triangle).name("ABC").with(type:"scalene")
         // create triangle name "ABC" with type:scalene
         item1Name = null
         item2Name = null

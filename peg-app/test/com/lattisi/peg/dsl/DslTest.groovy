@@ -19,7 +19,7 @@ class DslTest extends GroovyTestCase {
         Shell shell = Shell.build()
         Problem problem = shell.getLanguage().getProblem()
         //shell.evaluate(new File("test/com/lattisi/peg/dsl/command.groovy"))
-        String text = (new File("test/com/lattisi/peg/dsl/command.groovy")).text
+        String text = (new File("test/com/lattisi/peg/dsl/command2.groovy")).text
 
         for( String line: text.split("\\n") ){
             shell.evaluate(line);
@@ -64,10 +64,10 @@ class DslTest extends GroovyTestCase {
 
     void testLanguage() {
         /*
-        def language = new Language()
+        def language = new LanguageGroovy()
         language.create(ItemType.triangle).with().name("ABC");
         def problem = language.getProblem()
-        println "Test Language"
+        println "Test LanguageGroovy"
         println problem.getItems().values()
         */
     }
