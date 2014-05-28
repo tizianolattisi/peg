@@ -122,6 +122,7 @@ public class Controller implements Initializable {
     }
 
     private void addChidrenToNode(TreeItem<String> node, Collection<? extends Item> items) {
+        Problem problem = shell.getLanguage().getProblem();
         ObservableList<TreeItem<String>> children = node.getChildren();
         for( Item item: items){
             String label = item.getType().toString().concat(" ").concat(item.getName());
@@ -129,8 +130,7 @@ public class Controller implements Initializable {
                 label = label.concat(" (").concat(((Measurable) item).getMeasure()).concat(")");
             }
             TreeItem<String> childNode = new TreeItem<String>(label);
-            if( node.getValue().equals("Problem") &&
-                    ( item.getType().equals(ItemType.point) || item.getType().equals(ItemType.angle) ) ) {
+            if( node.getValue().equals("Problem") && problem.getParents(item).size()>0 ){
                 // skip
             } else {
                 children.add(childNode);

@@ -19,18 +19,11 @@ public abstract class AbstractMeasurableItem extends AbstractItem implements Mea
         this.measure = measure;
     }
 
-    @Override // XXX
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof AbstractMeasurableItem)) return false;
-
-        AbstractMeasurableItem that = (AbstractMeasurableItem) o;
-
-        if( that.getMeasure()!=null && this.getMeasure()!=null ){
+    @Override
+    public boolean equalMeasure(Measurable item) {
+        if( item.getMeasure()!=null && this.getMeasure()!=null ){
             return this.getMeasure().equals(this.getMeasure());
         }
-
         return false;
     }
-
 }

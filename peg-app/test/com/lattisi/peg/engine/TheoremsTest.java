@@ -82,7 +82,7 @@ public class TheoremsTest extends BaseTest {
         Boolean res = Theorems.equalsTrianglesOppositeAngles(abc, edf);
 
         assert res;
-        assert abc.equals(edf);
+        assert abc.equalMeasure(edf);
 
     }
 
@@ -105,7 +105,7 @@ public class TheoremsTest extends BaseTest {
         Boolean res = Theorems.triangleIsoscelesCorrespondingAngles(angle1, angle2);
 
         assert res;
-        assert angle1.equals(angle2);
+        assert angle1.equalMeasure(angle2);
     }
 
 }
