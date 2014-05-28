@@ -2,6 +2,7 @@ package com.lattisi.peg.dsl;
 
 import com.lattisi.peg.engine.Problem;
 import com.lattisi.peg.engine.ProblemsTree;
+import com.lattisi.peg.engine.Theorems;
 import com.lattisi.peg.engine.entities.*;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ public class Language {
 
     private Problem problem;
     private Command command;
+    private Argument withAgument;
     private List<Item> args;
 
     public Language() {
@@ -25,43 +27,71 @@ public class Language {
         command = null;
     }
 
-
     /*
-     *  create ItemType itemName with prop1:value1, prop2:value2
+     *  Items
      */
-    public Language create(){
-        // Language.create().triangle("ABC")
-        // create triangle "ABC"
-        command = Command.CREATE;
-        resetArgs();
-        return this;
-    }
     public Language triangle(String name){
-        Triangle triangle = Triangle.build(name);
-        args.add(triangle);
+        switch(command) {
+            case CREATE:
+                Triangle triangle = Triangle.build(name);
+                args.add(triangle);
+                break;
+        }
         return this;
     }
     public Language segment(String name){
-        Segment segment = Segment.build(name);
-        args.add(segment);
+        switch(command){
+            case CREATE:
+                Segment segment = Segment.build(name);
+                args.add(segment);
+                break;
+            case EXTEND:
+                Problem problem = ProblemsTree.getProblem();
+                args.add(problem.find(name.substring(0, 1)));                    // Point "A"
+                args.add(problem.find(name.substring(1, 2)));                    // Point "B"
+        }
         return this;
     }
     public Language direction(String name){
-        Direction direction = Direction.build(name);
-        args.add(direction);
+        switch(command) {
+            case CREATE:
+                Direction direction = Direction.build(name);
+                args.add(direction);
+                break;
+        }
         return this;
     }
 
+    /*
+     *  CREATE
+     */
+    public Language create(){
+        // Language.create().triangle("ABC")
+        // create the triangle "ABC"
+        command = Command.CREATE;
+        reset();
+        return this;
+    }
+    public Language create(String name){
+        create().triangle(name);
+        return this;
+
+    }
+
+
 
     /*
-     *  extend segmentName to pointName
+     *  EXTEND
      */
-    public Language extend(String segmentName){
-        // extend "AB" to "D" with measure:"AC"
-        Problem problem = ProblemsTree.getProblem();
-        resetArgs();
-        args.add(problem.find(segmentName.substring(0, 1)));                    // Point "A"
-        args.add(problem.find(segmentName.substring(1, 2)));                    // Point "B"
+    public Language extend(){
+        // Language.extend().segment("AB")
+        // extend the segment "AB"
+        command = Command.EXTEND;
+        reset();
+        return this;
+    }
+    public Language extend(String name){
+        extend().segment(name);
         return this;
     }
     public Language to(String pointName){
@@ -74,32 +104,83 @@ public class Language {
         args.add(segment);
         return this;
     }
-    public Language with(){
+    public Language with(Argument argument){
+        withAgument = argument;
         return this;
     }
-    public Language lenght(String segmentName){
+    public Language of(String name){
+        switch(withAgument){
+            case length:
+                Problem problem = ProblemsTree.getProblem();
+                Segment segmentWithLenght = (Segment) problem.find(name, ItemType.segment);
+                Item item = args.get(args.size() - 1);
+                if( !(item instanceof Segment) ){
+                    return this;
+                }
+                String measure;
+                if( segmentWithLenght.getMeasure() != null ){
+                    measure = segmentWithLenght.getMeasure();
+                } else {
+                    measure = Metrics.nextMetric(ItemType.segment);
+                    segmentWithLenght.setMeasure(measure);
+                }
+                ((Segment) item).setMeasure(segmentWithLenght.getMeasure());
+                break;
+        }
+        return this;
+    }
+
+    /*
+     *  VERIFY
+     */
+    public Language declare(String name){
+        // Language.declare("ABC").equal("DEF")
+        // verify "ABC" equals "DEF"
+        command = Command.DECLARE;
+        reset();
         Problem problem = ProblemsTree.getProblem();
-        Segment segmentWithLenght = (Segment) problem.find(segmentName, ItemType.segment);
-        Item item = args.get(args.size() - 1);
-        if( !(item instanceof Segment) ){
-            return this;
+        args.add(problem.find(name));
+        return this;
+    }
+    public Language equals(String name){
+        Problem problem = ProblemsTree.getProblem();
+        switch(command) {
+            case DECLARE:
+                args.add(problem.find(name));
+                return this;
         }
-        String measure;
-        if( segmentWithLenght.getMeasure() != null ){
-            measure = segmentWithLenght.getMeasure();
-        } else {
-            measure = Metrics.nextMetric(ItemType.segment);
-            segmentWithLenght.setMeasure(measure);
+        return this;
+    }
+    public Language due(String theorem){
+        switch(theorem){
+            case "NAA":
+                Theorems.notAdjacentAngles((Angle) args.get(0), (Angle) args.get(1));
+                return this;
+            case "SAS":
+                Theorems.congruentTriangleTwoSegmentsOneAngle((Triangle) args.get(0), (Triangle) args.get(1));
+                return this;
+            case "ETOA":
+                Theorems.equalsTrianglesOppositeAngles((Angle) args.get(0), (Angle) args.get(1));
+                return this;
+            case "TICA":
+                Theorems.triangleIsoscelesCorrespondingAngles((Angle) args.get(0), (Angle) args.get(1));
+                return this;
+            case "SEA":
+                Theorems.sumOfEqualsAngles((Angle) args.get(0), (Angle) args.get(1));
+                return this;
+            case "DEA":
+                Theorems.diffOfEqualsAngles((Angle) args.get(0), (Angle) args.get(1));
+                return this;
         }
-        ((Segment) item).setMeasure(segmentWithLenght.getMeasure());
         return this;
     }
 
 
 
 
-    private void resetArgs() {
+    private void reset() {
         args = new ArrayList<>();
+        withAgument = null;
     }
 
     public Problem getProblem() {

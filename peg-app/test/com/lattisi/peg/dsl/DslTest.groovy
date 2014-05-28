@@ -19,7 +19,7 @@ class DslTest extends GroovyTestCase {
         Shell shell = Shell.build()
         Problem problem = shell.getLanguage().getProblem()
         //shell.evaluate(new File("test/com/lattisi/peg/dsl/command.groovy"))
-        String text = (new File("test/com/lattisi/peg/dsl/command2.groovy")).text
+        String text = (new File("test/com/lattisi/peg/dsl/command.groovy")).text
 
         for( String line: text.split("\\n") ){
             shell.evaluate(line);
@@ -78,12 +78,12 @@ class DslTest extends GroovyTestCase {
      *  Dimostrare  che il triangolo AEH è isoscele.
      */
     void testProblem() {
-        String problemCode = "create triangle name \"ABC\"\n" +
-                "extend \"AC\" to \"D\" with measure:\"BC\"\n" +
-                "extend \"BC\" to \"E\" with measure:\"AC\"\n" +
-                "create segment name \"ED\"\n" +
-                "extend \"ED\" to \"H\"\n" +
-                "extend \"AB\" to \"H\""
+        String problemCode = "create the triangle \"ABC\"    // or: create \"ABC\"\n" +
+                "extend the segment \"AC\" to \"D\" with length of \"BC\"\n" +
+                "extend \"BC\" to \"E\" with length of \"AC\"\n" +
+                "create the segment \"ED\"\n" +
+                "extend the segment \"ED\" to \"H\"\n" +
+                "extend the segment \"AB\" to \"H\""
 
         Shell shell = Shell.build()
         shell.evaluate(problemCode)
@@ -92,32 +92,26 @@ class DslTest extends GroovyTestCase {
         problem.refresh()
 
         // angoli opposti al vertice
-        shell.evaluate("apply \"T8\" on \"ad\", \"bc\"")
+        shell.evaluate("declare \"dce\" equals \"bca\" due \"NAA\"")
 
         // uguaglianza triangoli (due lati e un angolo)
-        shell.evaluate("apply \"T3\" on \"CED\", \"ABC\"")
+        shell.evaluate("declare \"CED\" equals \"ABC\" due \"SAS\"")
 
         // angoli opposti a segmenti uguali
-        shell.evaluate("apply \"T6\" on \"ABC\", \"cba\", \"CED\", \"edc\"")
+        shell.evaluate("declare \"cba\" equals \"edc\" due \"ETOA\"")
 
         // costruisco il segmento BD (troverà da solo il triangolo BCD)
-        shell.evaluate("create segment name \"BD\"")
+        shell.evaluate("create the segment \"BD\"")
         problem.refresh()
 
         // il triangolo BCD è isoscele, quindi gli angoli cbd e cdb sono uguali
-        shell.evaluate("apply \"T10\" on \"BCD\", \"BC\", \"CD\"")
+        shell.evaluate("declare \"cdb\" equals \"dbc\" due \"TICA\"")
 
-        // l'angolo edb è somma di edc e cdb
-        shell.evaluate("sum \"edc\" and \"cdb\"")
+        // edb e abd sono uguali per somma di angoli uguali
+        shell.evaluate("declare \"edb\" equals \"abd\" due \"SEA\"")
 
-        // l'angolo abd è somma di cba e dbc
-        shell.evaluate("sum \"cba\" and \"dbc\"")
-
-        // l'angolo hdb è la differenza tra l'angolo piano edh e l'angolo edb
-        shell.evaluate("difference \"edh\" and \"edb\"")
-
-        // l'angolo dbh è la differenza tra l'angolo piano abh e l'angolo abd
-        shell.evaluate("difference \"abh\" and \"abd\"")
+        // hdb e hbd sono ugueli per differenza di angoli uguali
+        shell.evaluate("declare \"hdb\" equals \"hbd\" due \"DEA\"")
 
         printProblem(problem)
 

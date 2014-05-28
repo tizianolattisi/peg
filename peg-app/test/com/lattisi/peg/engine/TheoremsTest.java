@@ -50,9 +50,10 @@ public class TheoremsTest extends BaseTest {
         Point b = direction1.intersecate(direction2);
         assert "b".equals(b.getName());
 
-        Theorems.equalOppositeAngles(direction1, direction2);
-
+        //Theorems.equalOppositeAngles(direction1, direction2);
         Problem problem = ProblemsTree.getProblem();
+        Theorems.notAdjacentAngles(problem.findAngle("abe"), problem.findAngle("dbc"));
+
         assert problem.findAngle("abe").getMeasure().equals(problem.findAngle("dbc").getMeasure());
         assert problem.findAngle("abd").getMeasure().equals(problem.findAngle("ebc").getMeasure());
     }

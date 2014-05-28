@@ -7,29 +7,42 @@ package com.lattisi.peg.dsl
 abstract class LanguageBaseScriptClass extends Script {
 
     /*
-     *  create ItemType itemName with prop1:value1, prop2:value2
+     *  ITEMS
+     */
+    def triangle(String name){
+        this.binding.language.triangle(name)
+    }
+    def segment(String name){
+        this.binding.language.triangle(name)
+    }
+
+    /*
+     *  CREATE
      */
     def create(Constraint theConstraint){
         this.binding.language.create()
     }
-    def triangle(String name){
-        this.binding.language.triangle(name)
+    def create(String name){
+        this.binding.language.create(name)
+    }
+
+    /*
+     * EXTEND
+     */
+    def extend(Constraint theConstraint){
+        this.binding.language.extend()
+    }
+    def extend(String name){
+        this.binding.language.extend(name)
     }
 
     /*
      *  declare
      */
-    /*
-    def declare(String itemName){
-        this.binding.language.declare(itemName)
-    }*/
-
-    /*
-     * extend
-     */
-    def extend(String segmentName){
-        this.binding.language.extend(segmentName)
+    def declare(String name){
+        this.binding.language.declare(name)
     }
+
 
     /*
      * apply
