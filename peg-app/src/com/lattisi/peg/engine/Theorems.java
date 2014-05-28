@@ -13,36 +13,35 @@ import java.util.stream.Collectors;
  */
 public class Theorems {
 
-    
     public static final Map<String, String> THEOREMS_MAP;
     static
     {
         THEOREMS_MAP = new HashMap<String, String>();
-        THEOREMS_MAP.put("T3", "congruentTriangleTwoSegmentsOneAngle"); // 1
-        THEOREMS_MAP.put("SAS", "congruentTriangleTwoSegmentsOneAngle"); // 1
-        THEOREMS_MAP.put("T5", "congruentTriangleSameSides");   // 3
-        THEOREMS_MAP.put("T6", "oppositeAnglesInCongruentTriangles");  // 4a
-        THEOREMS_MAP.put("T8", "equalOppositeAngles"); // 5a
-        THEOREMS_MAP.put("NAA", "notAdjacentAngles");
-        THEOREMS_MAP.put("T10", "correspondingAnglesInIsoscelesTriangle");
+        THEOREMS_MAP.put("SAS", "congruentTriangleTwoSegmentsOneAngle");        // Teorema 3  (SAS)
+        THEOREMS_MAP.put("SSS", "congruentTriangleSameSides");                  // Teorema 5  (SAS)
+        THEOREMS_MAP.put("ETOA", "equalsTrianglesOppositeAngles");              // Teorema 6  (ETOA)
+        THEOREMS_MAP.put("NAA", "notAdjacentAngles");                           // Teorema 8  (NAA)
+        THEOREMS_MAP.put("TICA", "triangleIsoscelesCorrespondingAngles");       // Teorema 10 (TICA)
+        THEOREMS_MAP.put("SEA", "sumOfEqualsAngles");                           //            (SEA)
+        THEOREMS_MAP.put("DEA", "diffOfEqualsAngles");                          //            (DEA)
     }
 
     /*
-     * Teorema 10.1
+     * Teorema 1
      * Dati due punti distinti A e B, esiste una ed una sola retta che li contiene entrambi.
      *
      */
 
 
     /*
-     * Teorema 10.2
+     * Teorema 2
      * Due rette distinte non possono avere più di un punto in comune.
      *
      */
 
 
     /*
-     * Teorema 10.3
+     * Teorema 3 (SAS)
      * Primo criterio di uguaglianza dei triangoli:
      * due triangoli che hanno rispettivamente uguali due lati e l'angolo fra di essi compreso, sono uguali.
      *
@@ -75,7 +74,7 @@ public class Theorems {
     }
 
     /*
-     * Teorema 10.4
+     * Teorema 4 (ASA)
      * Secondo criterio di uguaglianza dei triangoli:
      * due triangoli che hanno rispettivamente uguali un lato e gli angoli ad esso adiacenti, sono uguali.
      *
@@ -86,7 +85,7 @@ public class Theorems {
 
 
     /*
-     * Teorema 10.5
+     * Teorema 5 (SSS)
      * Terzo criterio di uguaglianza dei triangoli:
      * due triangoli che hanno i tre lati rispettivament uguali, sono uguali.
      *
@@ -110,20 +109,10 @@ public class Theorems {
     }
 
     /*
-     * Teorema 10.6
+     * Teorema 6 (ETOA)
      * In due triangoli uguali a lati uguali sono opposti angoli uguali.
      *
      */
-    public static Boolean oppositeAnglesInCongruentTriangles(Triangle triangle1, Angle angle1, Triangle triangle2, Angle angle2) {
-        if( !triangle1.equals(triangle2) ){
-            return false;
-        }
-        if( triangle1.getOppositeSegment(angle1).equals(triangle2.getOppositeSegment(angle2)) ){
-            equalizeItem(angle1, angle2);
-            return true;
-        }
-        return true;
-    }
     public static Boolean equalsTrianglesOppositeAngles(Angle angle1, Angle angle2) {
         Problem problem = ProblemsTree.getProblem();
         Collection<Container> parents1 = problem.getParents(angle1);
@@ -153,14 +142,14 @@ public class Theorems {
 
 
     /*
-     * Teorema 10.7
+     * Teorema 7
      * In due triangoli uguali ad angoli uguali sono opposti lati uguali.
      *
      */
 
 
     /*
-     * Teorema 10.8
+     * Teorema 8 (NAA)
      * Angoli opposti al vertice sono uguali.
      *
      */
@@ -193,28 +182,17 @@ public class Theorems {
     }
 
     /*
-     * Teorema 10.9
+     * Teorema 9
      * Angoli supplementari di angoli uguali sono uguali
      *
      */
 
 
     /*
-     * Teorema 10.10
+     * Teorema 10 (TICA)
      * In un triangolo isoscele gli angoli alla base sono uguali
      *
      */
-    public static Boolean correspondingAnglesInIsoscelesTriangle(Triangle triangle, Segment segment1, Segment segment2){
-        if( triangle.contains(segment1) && triangle.contains(segment2) ){
-            if( segment1.equals(segment2) ){
-                Angle angle1 = triangle.getOppositeAngle(segment1);
-                Angle angle2 = triangle.getOppositeAngle(segment2);
-                equalizeItem(angle1, angle2);
-                return true;
-            }
-        }
-        return Boolean.FALSE;
-    }
     public static Boolean triangleIsoscelesCorrespondingAngles(Angle angle1, Angle angle2){
         Problem problem = ProblemsTree.getProblem();
         Collection<Container> parents1 = problem.getParents(angle1);
@@ -243,7 +221,9 @@ public class Theorems {
         return false;
     }
 
-    // Sum and difference of equals angles
+    /*
+     * Angoli uguali per somma (SEA) o differenza (DEA) di angoli uguali
+     */
     public static Boolean diffOfEqualsAngles(Angle angle1, Angle angle2){
         return sumOfEqualsAngles(angle1, angle2);
     }

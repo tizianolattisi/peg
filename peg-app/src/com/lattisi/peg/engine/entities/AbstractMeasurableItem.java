@@ -27,8 +27,6 @@ public abstract class AbstractMeasurableItem extends AbstractItem implements Mea
         AbstractMeasurableItem that = (AbstractMeasurableItem) o;
 
         if( that.getMeasure()!=null && this.getMeasure()!=null ){
-            System.out.println("/n/n****************\nEQUALS WITH MEASURABLE!/n****************\n" +
-                    "\n");
             return this.getMeasure().equals(this.getMeasure());
         }
 
