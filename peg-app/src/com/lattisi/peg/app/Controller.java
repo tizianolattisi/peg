@@ -129,7 +129,8 @@ public class Controller implements Initializable {
                 label = label.concat(" (").concat(((Measurable) item).getMeasure()).concat(")");
             }
             TreeItem<String> childNode = new TreeItem<String>(label);
-            if( node.getValue().equals("Problem") && item.getType().equals(ItemType.point) ) {
+            if( node.getValue().equals("Problem") &&
+                    ( item.getType().equals(ItemType.point) || item.getType().equals(ItemType.angle) ) ) {
                 // skip
             } else {
                 children.add(childNode);
@@ -167,19 +168,20 @@ public class Controller implements Initializable {
         engine.load(indexUrl.toExternalForm());
 
         // Demo
-        String problemCode = "create triangle name \"ABC\"\n" +
-                "extend \"AC\" to \"D\" with measure:\"BC\"\n" +
-                "extend \"BC\" to \"E\" with measure:\"AC\"\n" +
-                "create segment name \"ED\"\n" +
-                "extend \"DE\" to \"H\"\n" +
-                "extend \"BA\" to \"H\"\n" +
-                "apply \"T8\" on \"ad\", \"bc\"\n" +
-                "apply \"T3\" on \"CED\", \"ABC\"\n" +
-                "apply \"T6\" on \"ABC\", \"cba\", \"CED\", \"edc\"\n" +
-                "create segment name \"BD\"\n" +
-                "apply \"T10\" on \"BCD\", \"BC\", \"CD\"\n" +
-                "sum \"edc\" and \"cdb\"\n" +
-                "sum \"cba\" and \"dbc\"";
+        String problemCode = "create the triangle \"ABC\"    // or: create \"ABC\"\n" +
+                "extend the segment \"AC\" to \"D\" with length of \"BC\"\n" +
+                "extend \"BC\" to \"E\" with length of \"AC\"\n" +
+                "create the segment \"ED\"\n" +
+                "extend the segment \"ED\" to \"H\"\n" +
+                "extend the segment \"AB\" to \"H\"\n" +
+                "\n" +
+                "declare \"dce\" equals \"bca\" due \"NAA\" // not adjacent angles\n" +
+                "declare \"CED\" equals \"ABC\" due \"SAS\" // side angle side\n" +
+                "declare \"cba\" equals \"edc\" due \"ETOA\" // equals triangle opposite angles\n" +
+                "create the segment \"BD\"\n" +
+                "declare \"cdb\" equals \"dbc\" due \"TICA\" // triangle isosceles corresponding angles\n" +
+                "declare \"edb\" equals \"abd\" due \"SEA\" // sum of equals angles\n" +
+                "declare \"hdb\" equals \"hbd\" due \"DEA\" // difference of equals angles\n";
 
         //String newLineCode = "apply \"10.8\" on \"ad\", \"bc\"";
         dsl.textProperty().set(problemCode);
