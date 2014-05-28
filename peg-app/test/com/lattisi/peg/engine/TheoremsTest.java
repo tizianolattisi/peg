@@ -36,6 +36,7 @@ public class TheoremsTest extends BaseTest {
         assert triangle2.getMeasure() == triangle1.getMeasure();
     }
 
+    /*
     @Test
     public void testEqualOppositeAngles() throws Exception {
         Direction direction1 = Direction.build("ab");
@@ -50,12 +51,13 @@ public class TheoremsTest extends BaseTest {
         Point b = direction1.intersecate(direction2);
         assert "b".equals(b.getName());
 
-        Theorems.equalOppositeAngles(direction1, direction2);
-
+        //Theorems.equalOppositeAngles(direction1, direction2);
         Problem problem = ProblemsTree.getProblem();
+        Theorems.notAdjacentAngles(problem.findAngle("abe"), problem.findAngle("dbc"));
+
         assert problem.findAngle("abe").getMeasure().equals(problem.findAngle("dbc").getMeasure());
         assert problem.findAngle("abd").getMeasure().equals(problem.findAngle("ebc").getMeasure());
-    }
+    }*/
 
     // Teorema 10.6
     @Test
@@ -77,7 +79,7 @@ public class TheoremsTest extends BaseTest {
 
         assert !abc.equals(edf);
 
-        Boolean res = Theorems.oppositeAnglesInCongruentTriangles(triangle1, abc, triangle2, edf);
+        Boolean res = Theorems.equalsTrianglesOppositeAngles(abc, edf);
 
         assert res;
         assert abc.equals(edf);
@@ -95,10 +97,15 @@ public class TheoremsTest extends BaseTest {
         Segment segment2 = triangle.getSegment("AC");
         segment2.setMeasure(s);
 
-        Boolean res = Theorems.correspondingAnglesInIsoscelesTriangle(triangle, segment1, segment2);
+        Angle angle1 = triangle.getAngle("abc");
+        Angle angle2 = triangle.getAngle("acb");
+
+        assert !angle1.equals(angle2);
+
+        Boolean res = Theorems.triangleIsoscelesCorrespondingAngles(angle1, angle2);
 
         assert res;
-        assert triangle.getAngle("abc").equals(triangle.getAngle("acb"));
+        assert angle1.equals(angle2);
     }
 
 }

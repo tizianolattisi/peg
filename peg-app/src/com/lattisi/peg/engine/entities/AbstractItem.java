@@ -47,6 +47,6 @@ public abstract class AbstractItem implements Item {
 
     @Override
     public String toString() {
-        return "<" + this.getClass().getSimpleName() + " " + name + " at " + super.hashCode() + ">";
+        return "<" + getClass().getSimpleName() + " " + name + " at " + super.hashCode() + ">";
     }
 }

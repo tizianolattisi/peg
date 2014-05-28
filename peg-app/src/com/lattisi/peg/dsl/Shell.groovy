@@ -1,7 +1,5 @@
 package com.lattisi.peg.dsl
 
-import com.lattisi.peg.engine.entities.ItemType
-import com.lattisi.peg.engine.entities.TriangleType
 import groovy.util.logging.Log
 import org.codehaus.groovy.control.CompilerConfiguration
 import org.codehaus.groovy.control.customizers.ASTTransformationCustomizer
@@ -27,8 +25,10 @@ class Shell extends GroovyShell{
         def conf = new CompilerConfiguration()
         conf.scriptBaseClass = LanguageBaseScriptClass.class.name
 
+
         def imports = new ImportCustomizer()
-        imports.addStaticStars(ItemType.name, TriangleType.name)
+        //imports.addStaticStars(ItemType.name, TriangleType.name)
+        imports.addStaticStars(Constraint.name, Argument.name)
 
         def secure = new SecureASTCustomizer()
         secure.with {
@@ -39,10 +39,12 @@ class Shell extends GroovyShell{
             importsWhitelist = []
             staticImportsWhitelist = []
 
-            staticStarImportsWhitelist = [ItemType.name, TriangleType.name]
+            //staticStarImportsWhitelist = [ItemType.name, TriangleType.name]
+            staticStarImportsWhitelist = [Constraint.name, Argument.name]
 
-            tokensWhitelist = [ItemType.triangle, ItemType.segment, ItemType.direction,
-                    TriangleType.equilateral, TriangleType.isosceles, TriangleType.scalene]
+            //tokensWhitelist = [ItemType.triangle, ItemType.segment, ItemType.direction,
+            //        TriangleType.equilateral, TriangleType.isosceles, TriangleType.scalene]
+            tokensWhitelist = [Constraint.the, Argument.length]
 
             // to secure...
             //constantTypesClassesWhiteList = []
@@ -53,7 +55,8 @@ class Shell extends GroovyShell{
 
         conf.addCompilationCustomizers(imports, transf, secure)
 
-        def language = new Language()
+        //def language = new LanguageGroovy()
+        def language = new Language();
         def binding = new Binding([language: language])
 
         //GroovyShell shell = new GroovyShell(binding, conf)

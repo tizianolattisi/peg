@@ -1,7 +1,4 @@
 package com.lattisi.peg.dsl
-
-import com.lattisi.peg.engine.entities.ItemType
-
 /**
  * User: tiziano
  * Date: 04/10/13
@@ -10,52 +7,73 @@ import com.lattisi.peg.engine.entities.ItemType
 abstract class LanguageBaseScriptClass extends Script {
 
     /*
-     *  create ItemType itemName with prop1:value1, prop2:value2
+     *  ITEMS
      */
-    def create(ItemType type){
-        this.binding.language.create(type)
+    def triangle(String name){
+        this.binding.language.triangle(name)
+    }
+    def segment(String name){
+        this.binding.language.triangle(name)
+    }
+
+    /*
+     *  CREATE
+     */
+    def create(Constraint theConstraint){
+        this.binding.language.create()
+    }
+    def create(String name){
+        this.binding.language.create(name)
+    }
+
+    /*
+     * EXTEND
+     */
+    def extend(Constraint theConstraint){
+        this.binding.language.extend()
+    }
+    def extend(String name){
+        this.binding.language.extend(name)
     }
 
     /*
      *  declare
      */
-    def declare(String itemName){
-        this.binding.language.declare(itemName)
+    def declare(String name){
+        this.binding.language.declare(name)
     }
 
-    /*
-     * extend
-     */
-    def extend(String segmentName){
-        this.binding.language.extend(segmentName)
-    }
 
     /*
      * apply
      */
+    /*
     def apply(String theoremName){
         this.binding.language.apply(theoremName)
-    }
+    }*/
 
     /*
      * sum
      */
+    /*
     def sum(String measurableName){
         this.binding.language.sum(measurableName)
-    }
+    }*/
 
     /*
      * difference
      */
+    /*
     def difference(String measurableName){
         this.binding.language.difference(measurableName)
-    }
+    }*/
 
     /*
      * check
      */
+    /*
     def check(String assertion){
         this.binding.language.check(assertion)
-    }
+    }*/
 
 }

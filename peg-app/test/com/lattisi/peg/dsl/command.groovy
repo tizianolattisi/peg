@@ -1,17 +1,14 @@
-create triangle name "ABC"
-extend "AC" to "D" with measure:"BC"
-extend "BC" to "E" with measure:"AC"
-create segment name "ED"
-extend "ED" to "H"
-extend "AB" to "H"
+create the triangle "ABC"    // or: create "ABC"
+extend the segment "AC" to "D" with length of "BC"
+extend "BC" to "E" with length of "AC"
+create the segment "ED"
+extend the segment "ED" to "H"
+extend the segment "AB" to "H"
 
-apply "T8" on "ad", "bc"
-apply "T3" on "CED", "ABC"
-apply "T6" on "ABC", "cba", "CED", "edc"
-create segment name "BD"
-apply "T10" on "BCD", "BC", "CD"
-sum "edc" and "cdb"
-sum "cba" and "dbc"
-difference "edh" and "edb"
-difference "abh" and "abd"
-check "A1"
+declare "dce" equals "bca" due "NAA" // not adjacent angles
+declare "CED" equals "ABC" due "SAS" // side angle side
+declare "cba" equals "edc" due "ETOA" // equals triangle opposite angles
+create the segment "BD"
+declare "cdb" equals "dbc" due "TICA" // triangle isosceles corresponding angles
+declare "edb" equals "abd" due "SEA" // sum of equals angles
+declare "hdb" equals "hbd" due "DEA" // difference of equals angles

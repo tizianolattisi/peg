@@ -3,6 +3,7 @@ package com.lattisi.peg.engine;
 import com.lattisi.peg.engine.entities.*;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * User: tiziano
@@ -25,6 +26,14 @@ public class Problem {
     public void addItem(Item item){
         item.setProblem(this); // XXX: qualche tecnica di inversione di controllo?
         itemsMap.put(item.getName(), item);
+    }
+
+    public Collection<Container> getParents(Item child){
+        return getItems().stream()
+                .filter(i -> i instanceof Container)
+                .filter(i -> ((Container) i).contains(child))
+                .map(i -> (Container) i)
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     public Collection<Item> getItems(){
@@ -91,8 +100,17 @@ public class Problem {
     }
 
     public Direction findDirection(Point point1, Point point2){
-        String name = point1.getName() + point2.getName();
-        return findDirection(name);
+        for( Item item: getItems() ){
+            if( item.getType().equals(ItemType.direction) ){
+                Direction direction = (Direction) item;
+                if( direction.contains(point1) && direction.contains(point2) ){
+                    return direction;
+                }
+            }
+        }
+        return null;
+        //String name = point1.getName() + point2.getName();
+        //return findDirection(name);
     }
 
 

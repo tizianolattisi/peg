@@ -70,8 +70,40 @@ public class Angle extends AbstractMeasurableItem {
         return points;
     }
 
+    public Point getCentralPoint() {
+        Problem problem = ProblemsTree.getProblem();
+        String b = getName().substring(1, 2);
+        Point B = problem.findPoint(b.toUpperCase());
+        return B;
+    }
 
-        @Override
+    public Angle add(Angle angle){
+        Problem problem = ProblemsTree.getProblem();
+        Point central = getCentralPoint();
+        if( !central.equals(angle.getCentralPoint()) ){
+            return null;
+        }
+        List<Point> orderedPoints1 = getOrderedPoints();
+        Point first1 = orderedPoints1.get(0);
+        Point last1 = orderedPoints1.get(2);
+        List<Point> orderedPoints2 = angle.getOrderedPoints();
+        Point first2 = orderedPoints2.get(0);
+        Point last2 = orderedPoints2.get(2);
+        Angle res = null;
+        if( first1.equals(first2) ){
+            res = problem.findAngle(last1, central, last2);
+        } else if( first1.equals(last2) ){
+            res = problem.findAngle(last1, central, first2);
+        } else if( last1.equals(first2) ){
+            res = problem.findAngle(first1, central, last2);
+        } else if( last1.equals(last2) ){
+            res = problem.findAngle(first1, central, first2);
+        }
+        return res;
+    }
+
+
+    @Override
     public Collection<String> getAliases() {
         List<String> aliases = new ArrayList<String>();
         String a = getName().substring(0, 1);

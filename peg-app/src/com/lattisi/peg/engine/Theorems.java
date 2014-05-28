@@ -1,8 +1,10 @@
 package com.lattisi.peg.engine;
 
 import com.lattisi.peg.engine.entities.*;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * User: tiziano
@@ -15,29 +17,31 @@ public class Theorems {
     static
     {
         THEOREMS_MAP = new HashMap<String, String>();
-        THEOREMS_MAP.put("T3", "congruentTriangleTwoSegmentsOneAngle"); // 1
-        THEOREMS_MAP.put("T5", "congruentTriangleSameSides");   // 3
-        THEOREMS_MAP.put("T6", "oppositeAnglesInCongruentTriangles");  // 4a
-        THEOREMS_MAP.put("T8", "equalOppositeAngles"); // 5a
-        THEOREMS_MAP.put("T10", "correspondingAnglesInIsoscelesTriangle");
+        THEOREMS_MAP.put("SAS", "congruentTriangleTwoSegmentsOneAngle");        // Teorema 3  (SAS)
+        THEOREMS_MAP.put("SSS", "congruentTriangleSameSides");                  // Teorema 5  (SAS)
+        THEOREMS_MAP.put("ETOA", "equalsTrianglesOppositeAngles");              // Teorema 6  (ETOA)
+        THEOREMS_MAP.put("NAA", "notAdjacentAngles");                           // Teorema 8  (NAA)
+        THEOREMS_MAP.put("TICA", "triangleIsoscelesCorrespondingAngles");       // Teorema 10 (TICA)
+        THEOREMS_MAP.put("SEA", "sumOfEqualsAngles");                           //            (SEA)
+        THEOREMS_MAP.put("DEA", "diffOfEqualsAngles");                          //            (DEA)
     }
 
     /*
-     * Teorema 10.1
+     * Teorema 1
      * Dati due punti distinti A e B, esiste una ed una sola retta che li contiene entrambi.
      *
      */
 
 
     /*
-     * Teorema 10.2
+     * Teorema 2
      * Due rette distinte non possono avere più di un punto in comune.
      *
      */
 
 
     /*
-     * Teorema 10.3
+     * Teorema 3 (SAS)
      * Primo criterio di uguaglianza dei triangoli:
      * due triangoli che hanno rispettivamente uguali due lati e l'angolo fra di essi compreso, sono uguali.
      *
@@ -70,7 +74,7 @@ public class Theorems {
     }
 
     /*
-     * Teorema 10.4
+     * Teorema 4 (ASA)
      * Secondo criterio di uguaglianza dei triangoli:
      * due triangoli che hanno rispettivamente uguali un lato e gli angoli ad esso adiacenti, sono uguali.
      *
@@ -81,7 +85,7 @@ public class Theorems {
 
 
     /*
-     * Teorema 10.5
+     * Teorema 5 (SSS)
      * Terzo criterio di uguaglianza dei triangoli:
      * due triangoli che hanno i tre lati rispettivament uguali, sono uguali.
      *
@@ -105,93 +109,166 @@ public class Theorems {
     }
 
     /*
-     * Teorema 10.6
+     * Teorema 6 (ETOA)
      * In due triangoli uguali a lati uguali sono opposti angoli uguali.
      *
      */
-    public static Boolean oppositeAnglesInCongruentTriangles(Triangle triangle1, Angle angle1, Triangle triangle2, Angle angle2) {
-        if( !triangle1.equals(triangle2) ){
-            return false;
+    public static Boolean equalsTrianglesOppositeAngles(Angle angle1, Angle angle2) {
+        Problem problem = ProblemsTree.getProblem();
+        Collection<Container> parents1 = problem.getParents(angle1);
+        Collection<Triangle> triangles1 = parents1.stream().filter(c -> c instanceof Triangle).map(c -> (Triangle) c)
+                .collect(Collectors.toCollection(ArrayList::new));
+        Collection<Container> parents2 = problem.getParents(angle2);
+        Collection<Triangle> triangles2 = parents2.stream().filter(c -> c instanceof Triangle).map(c -> (Triangle) c)
+                .collect(Collectors.toCollection(ArrayList::new));
+        for( Triangle triangle1: triangles1 ){
+            for( Triangle triangle2: triangles2 ){
+                if( triangle1.getMeasure() != null && triangle2.getMeasure() != null ){
+                    if( triangle1.getMeasure().equals(triangle2.getMeasure()) ){
+                        Segment segment1 = triangle1.getOppositeSegment(angle1);
+                        Segment segment2 = triangle2.getOppositeSegment(angle2);
+                        if( segment1.getMeasure() != null && segment2.getMeasure() != null ){
+                            if( segment1.getMeasure().equals(segment2.getMeasure()) ){
+                                equalizeItem(angle1, angle2);
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
         }
-        if( triangle1.getOppositeSegment(angle1).equals(triangle2.getOppositeSegment(angle2)) ){
-            equalizeItem(angle1, angle2);
-            return true;
-        }
-        return true;
+        return false;
     }
 
 
     /*
-     * Teorema 10.7
+     * Teorema 7
      * In due triangoli uguali ad angoli uguali sono opposti lati uguali.
      *
      */
 
 
     /*
-     * Teorema 10.8
+     * Teorema 8 (NAA)
      * Angoli opposti al vertice sono uguali.
      *
      */
-    public static Boolean equalOppositeAngles(Direction direction1, Direction direction2){
-        Point point = direction1.intersecate(direction2);
-        if( point != null ){
-            Problem problem = ProblemsTree.getProblem();
-            List<Point> points1 = direction1.getOrderedPoints();
-            Integer i = points1.indexOf(point);
-            List<Point> points2 = direction2.getOrderedPoints();
-            Integer j = points2.indexOf(point);
-            if( i>0 && i< points1.size()-1 &&
-                    j>0 && j< points2.size()-1 ){
-                Angle angle1 = problem.findAngle(points1.get(i - 1), point, points2.get(j - 1));
-                if( angle1 == null ){
-                    angle1 = Angle.build(points1.get(i - 1), point, points2.get(j - 1));
-                    problem.addItem(angle1);
+    public static Boolean notAdjacentAngles(Angle angle1, Angle angle2){
+        Problem problem = ProblemsTree.getProblem();
+        Set<Point> points1 = angle1.getPoints();
+        Set<Point> points2 = angle2.getPoints();
+        Set<Point> intersection = angle2.getPoints();
+        intersection.retainAll(points1);
+        Point central = intersection.iterator().next();
+        if( intersection.size() != 1 ){
+            return Boolean.FALSE;
+        }
+        List<Direction> directions = new ArrayList<>();
+        for( Point point: points1 ){
+            if( !point.equals(central) ){
+                Direction direction = problem.findDirection(point, central);
+                if( direction != null ) {
+                    directions.add(direction);
                 }
-                Angle angle2 = problem.findAngle(points1.get(i + 1), point, points2.get(j + 1));
-                if( angle2 == null ){
-                    angle2 = Angle.build(points1.get(i + 1), point, points2.get(j + 1));
-                    problem.addItem(angle2);
-                }
-                Angle angle3 = problem.findAngle(points1.get(i - 1), point, points2.get(j + 1));
-                if( angle3 == null ){
-                    angle3 = Angle.build(points1.get(i - 1), point, points2.get(j + 1));
-                    problem.addItem(angle3);
-                }
-                Angle angle4 = problem.findAngle(points1.get(i + 1), point, points2.get(j - 1));
-                if( angle4 == null ){
-                    angle4 = Angle.build(points1.get(i + 1), point, points2.get(j - 1));
-                    problem.addItem(angle4);
-                }
-                equalizeItem(angle1, angle2);
-                equalizeItem(angle3, angle4);
             }
         }
-        return Boolean.FALSE;
+        for( Point point: points2 ){
+            if( !directions.get(0).contains(point) && !directions.get(1).contains(point) ){
+                return Boolean.FALSE;
+            }
+        }
+        equalizeItem(angle1, angle2);
+        return Boolean.TRUE;
     }
 
     /*
-     * Teorema 10.9
+     * Teorema 9
      * Angoli supplementari di angoli uguali sono uguali
      *
      */
 
 
     /*
-     * Teorema 10.10
+     * Teorema 10 (TICA)
      * In un triangolo isoscele gli angoli alla base sono uguali
      *
      */
-    public static Boolean correspondingAnglesInIsoscelesTriangle(Triangle triangle, Segment segment1, Segment segment2){
-        if( triangle.contains(segment1) && triangle.contains(segment2) ){
-            if( segment1.equals(segment2) ){
-                Angle angle1 = triangle.getOppositeAngle(segment1);
-                Angle angle2 = triangle.getOppositeAngle(segment2);
+    public static Boolean triangleIsoscelesCorrespondingAngles(Angle angle1, Angle angle2){
+        Problem problem = ProblemsTree.getProblem();
+        Collection<Container> parents1 = problem.getParents(angle1);
+        Collection<Triangle> triangles1 = parents1.stream().filter(c -> c instanceof Triangle).map(c -> (Triangle) c)
+                .collect(Collectors.toCollection(ArrayList::new));
+        Collection<Container> parents2 = problem.getParents(angle2);
+        Collection<Triangle> triangles = parents2.stream().filter(c -> c instanceof Triangle).map(c -> (Triangle) c)
+                .collect(Collectors.toCollection(ArrayList::new));
+        triangles.retainAll(triangles1);
+        for( Triangle triangle: triangles ){
+            List<Segment> segments = triangle.getSegments().stream().filter(s -> s.getMeasure() != null).collect(Collectors.toList());
+            for( int i=0; i<segments.size(); i++ ){
+                Segment s1 = segments.get(i);
+                for( int j=1; j<segments.size(); j++ ){
+                    Segment s2 = segments.get(j);
+                    if( s1.getMeasure().equals(s2.getMeasure())){
+                        if( (angle1.equals(triangle.getOppositeAngle(s1)) && angle2.equals(triangle.getOppositeAngle(s2))) ||
+                                (angle2.equals(triangle.getOppositeAngle(s1)) && angle1.equals(triangle.getOppositeAngle(s2))) ){
+                            equalizeItem(angle1, angle2);
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    /*
+     * Angoli uguali per somma (SEA) o differenza (DEA) di angoli uguali
+     */
+    public static Boolean diffOfEqualsAngles(Angle angle1, Angle angle2){
+        return sumOfEqualsAngles(angle1, angle2);
+    }
+    public static Boolean sumOfEqualsAngles(Angle angle1, Angle angle2){
+        Problem problem = ProblemsTree.getProblem();
+        Point center1 = angle1.getCentralPoint();
+        Point center2 = angle2.getCentralPoint();
+        Collection<Angle> angles = problem.getItems(ItemType.angle).stream().map(i -> (Angle) i).collect(Collectors.toCollection(ArrayList::new));
+        List<Angle> anglesInCenter1 = new ArrayList<>();
+        List<Angle> anglesInCenter2 = new ArrayList<>();
+        for( Angle angle: angles ){
+            if( !angle.equals(angle1) && angle.getMeasure() != null && center1.equals(angle.getCentralPoint()) ){
+                anglesInCenter1.add(angle);
+            }
+            if( !angle.equals(angle2) && angle.getMeasure() != null && center2.equals(angle.getCentralPoint()) ){
+                anglesInCenter2.add(angle);
+            }
+        }
+        Set<String> measures1 = new HashSet<>();
+        Set<String> measures2 = new HashSet<>();
+        for( int i=0; i<anglesInCenter1.size(); i++ ){
+            for( int j=1; j<anglesInCenter1.size(); j++ ){
+                Angle res = anglesInCenter1.get(i).add(anglesInCenter1.get(j));
+                if( res != null && res.equals(angle1)){
+                    measures1.add(anglesInCenter1.get(i).getMeasure());
+                    measures1.add(anglesInCenter1.get(j).getMeasure());
+                }
+            }
+        }
+        for( int i=0; i<anglesInCenter2.size(); i++ ){
+            for( int j=1; j<anglesInCenter2.size(); j++ ){
+                Angle res = anglesInCenter2.get(i).add(anglesInCenter2.get(j));
+                if( res != null && res.equals(angle2) ){
+                    measures2.add(anglesInCenter2.get(i).getMeasure());
+                    measures2.add(anglesInCenter2.get(j).getMeasure());
+                }
+            }
+        }
+        if( measures1.size()>0 && measures2.size()>0 ){
+            if( measures1.containsAll(measures2) ){
                 equalizeItem(angle1, angle2);
                 return true;
             }
         }
-        return Boolean.FALSE;
+        return false;
     }
 
 
