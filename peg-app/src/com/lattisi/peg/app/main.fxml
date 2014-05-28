@@ -45,6 +45,20 @@
 </center>
 <right><Accordion xmlns:fx="http://javafx.com/fxml">
   <panes>
+    <TitledPane animated="false" text="Theorems">
+<content><TableView fx:id="theoremsView" onMouseClicked="#applyTheorem" prefHeight="200.0" prefWidth="200.0">
+  <columns>
+    <TableColumn fx:id="columnTheoremId" prefWidth="75.0" text="id" />
+    <TableColumn fx:id="columnTheoremDescription" prefWidth="122.0" text="description" />
+  </columns>
+</TableView>
+</content>
+    </TitledPane>
+  </panes>
+</Accordion>
+</right>
+<left><Accordion prefHeight="730.0" prefWidth="183.0" BorderPane.alignment="CENTER">
+         <panes>
     <TitledPane animated="false" text="Plain view">
 <content><TableView fx:id="itemsView" onMouseClicked="#applyOn" prefHeight="200.0" prefWidth="300.0" xmlns:fx="http://javafx.com/fxml">
   <columns>
@@ -58,20 +72,6 @@
 <content><TreeView fx:id="treeView" prefHeight="200.0" prefWidth="200.0" />
 </content>
     </TitledPane>
-  </panes>
-</Accordion>
-</right>
-<left><Accordion BorderPane.alignment="CENTER">
-  <panes>
-    <TitledPane animated="false" text="Theorems">
-<content><TableView fx:id="theoremsView" onMouseClicked="#applyTheorem" prefHeight="200.0" prefWidth="200.0">
-  <columns>
-    <TableColumn fx:id="columnTheoremId" prefWidth="75.0" text="id" />
-    <TableColumn fx:id="columnTheoremDescription" prefWidth="122.0" text="description" />
-  </columns>
-</TableView>
-</content>
-    </TitledPane>
-  </panes>
+         </panes>
 </Accordion>
 </left></BorderPane>
