@@ -6,5 +6,5 @@ package com.lattisi.peg.dsl;
  * Time: 21:59
  */
 public enum Constraint {
-    the, lenght
+    the
 }
