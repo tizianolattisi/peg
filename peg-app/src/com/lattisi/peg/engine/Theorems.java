@@ -87,7 +87,7 @@ public class Theorems {
     /*
      * Teorema 5 (SSS)
      * Terzo criterio di uguaglianza dei triangoli:
-     * due triangoli che hanno i tre lati rispettivament uguali, sono uguali.
+     * due triangoli che hanno i tre lati rispettivamente uguali, sono uguali.
      *
      */
     public static Boolean congruentTriangleSameSides(Triangle triangle1, Triangle triangle2){
