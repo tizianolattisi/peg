@@ -44,7 +44,7 @@ class Shell extends GroovyShell{
 
             //tokensWhitelist = [ItemType.triangle, ItemType.segment, ItemType.direction,
             //        TriangleType.equilateral, TriangleType.isosceles, TriangleType.scalene]
-            tokensWhitelist = [Constraint.the, Argument.length]
+            tokensWhitelist = [Constraint.the, Argument.measure]
 
             // to secure...
             //constantTypesClassesWhiteList = []

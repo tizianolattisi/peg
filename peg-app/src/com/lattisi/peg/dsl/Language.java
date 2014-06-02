@@ -110,7 +110,7 @@ public class Language {
     }
     public Language of(String name){
         switch(withAgument){
-            case length:
+            case measure:
                 Problem problem = ProblemsTree.getProblem();
                 Segment segmentWithLenght = (Segment) problem.find(name, ItemType.segment);
                 Item item = args.get(args.size() - 1);

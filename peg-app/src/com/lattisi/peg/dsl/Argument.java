@@ -6,5 +6,5 @@ package com.lattisi.peg.dsl;
  * Time: 20:35
  */
 public enum Argument {
-    length
+    measure
 }
