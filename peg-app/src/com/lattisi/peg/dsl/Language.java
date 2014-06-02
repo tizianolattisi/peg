@@ -166,10 +166,10 @@ public class Language {
                 Theorems.triangleIsoscelesCorrespondingAngles((Angle) args.get(0), (Angle) args.get(1));
                 return this;
             case "SEA":
-                Theorems.sumOfEqualsAngles((Angle) args.get(0), (Angle) args.get(1));
+                Theorems.sumOfEqualAngles((Angle) args.get(0), (Angle) args.get(1));
                 return this;
             case "DEA":
-                Theorems.diffOfEqualsAngles((Angle) args.get(0), (Angle) args.get(1));
+                Theorems.diffOfEqualAngles((Angle) args.get(0), (Angle) args.get(1));
                 return this;
         }
         return this;

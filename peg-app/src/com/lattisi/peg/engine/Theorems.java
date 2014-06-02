@@ -1,7 +1,6 @@
 package com.lattisi.peg.engine;
 
 import com.lattisi.peg.engine.entities.*;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -18,12 +17,12 @@ public class Theorems {
     {
         THEOREMS_MAP = new HashMap<String, String>();
         THEOREMS_MAP.put("SAS", "congruentTriangleTwoSegmentsOneAngle");        // Teorema 3  (SAS)
-        THEOREMS_MAP.put("SSS", "congruentTriangleSameSides");                  // Teorema 5  (SAS)
+        THEOREMS_MAP.put("SSS", "congruentTriangleSameSides");                  // Teorema 5  (SSS)
         THEOREMS_MAP.put("ETOA", "equalsTrianglesOppositeAngles");              // Teorema 6  (ETOA)
         THEOREMS_MAP.put("NAA", "notAdjacentAngles");                           // Teorema 8  (NAA)
         THEOREMS_MAP.put("TICA", "triangleIsoscelesCorrespondingAngles");       // Teorema 10 (TICA)
-        THEOREMS_MAP.put("SEA", "sumOfEqualsAngles");                           //            (SEA)
-        THEOREMS_MAP.put("DEA", "diffOfEqualsAngles");                          //            (DEA)
+        THEOREMS_MAP.put("SEA", "sumOfEqualAngles");                           //            (SEA)
+        THEOREMS_MAP.put("DEA", "diffOfEqualAngles");                          //            (DEA)
     }
 
     /*
@@ -224,10 +223,10 @@ public class Theorems {
     /*
      * Angoli uguali per somma (SEA) o differenza (DEA) di angoli uguali
      */
-    public static Boolean diffOfEqualsAngles(Angle angle1, Angle angle2){
-        return sumOfEqualsAngles(angle1, angle2);
+    public static Boolean diffOfEqualAngles(Angle angle1, Angle angle2){
+        return sumOfEqualAngles(angle1, angle2);
     }
-    public static Boolean sumOfEqualsAngles(Angle angle1, Angle angle2){
+    public static Boolean sumOfEqualAngles(Angle angle1, Angle angle2){
         Problem problem = ProblemsTree.getProblem();
         Point center1 = angle1.getCentralPoint();
         Point center2 = angle2.getCentralPoint();

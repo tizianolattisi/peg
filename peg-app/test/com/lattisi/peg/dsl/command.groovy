@@ -10,5 +10,5 @@ declare "CED" equals "ABC" due "SAS" // side angle side
 declare "cba" equals "edc" due "ETOA" // equals triangle opposite angles
 create the segment "BD"
 declare "cdb" equals "dbc" due "TICA" // triangle isosceles corresponding angles
-declare "edb" equals "abd" due "SEA" // sum of equals angles
+declare "edb" equals "abd" due "SEA" // sum of equal angles
 declare "hdb" equals "hbd" due "DEA" // difference of equals angles
