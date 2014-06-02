@@ -9,27 +9,27 @@
 var out =
 Diagram(
 
-    NonTerminal('create'),
+    NonTerminal('extend'),
 
     Optional(
         Sequence(
             NonTerminal('the'),
-            Choice(1,
-                NonTerminal('triangle'),
-                NonTerminal('segment'),
-                NonTerminal('point')
-            )
+            NonTerminal('segment')
         )
     ),
 
-    Terminal('"name-1"'),
+    NonTerminal('"segment-name"'),
+
+    NonTerminal('to'),
+
+    Terminal('"point-name"'),
 
     Optional(
         Sequence(
             NonTerminal('with'),
             NonTerminal('measure'),
             NonTerminal('of'),
-            NonTerminal('"name-2"')
+            NonTerminal('"segment-name"')
         )
     )
 
