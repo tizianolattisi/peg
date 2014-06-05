@@ -1,12 +1,18 @@
 package com.lattisi.peg.conv;
 
 import com.lattisi.peg.engine.Problem;
+import com.lattisi.peg.engine.entities.Item;
+import com.lattisi.peg.engine.entities.ItemType;
+import com.lattisi.peg.engine.entities.Point;
+import com.lattisi.peg.engine.entities.Segment;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -18,7 +24,20 @@ import java.util.zip.ZipOutputStream;
  */
 public class GeoGebraConv {
 
-    public static void export(Problem problem){
+    public static void export(Problem problem, String fileName){
+
+        Integer X = 6;
+        Integer Y = 0;
+        String src="";
+        for( Segment segment: problem.getSegments() ){
+            Object[] points = segment.getPoints().toArray();
+            Point first = (Point) points[0];
+            Point second = (Point)points[1];
+            src += MessageFormat.format("{0} = ({1}, {2})\n", first.getName(), 0, 0);
+            src += MessageFormat.format("{0} = ({1}, {2})\n", second.getName(), 6, 0);
+            src += MessageFormat.format("{0}{1} = Segment[{0},{1}]\n", first.getName(), second.getName());
+        }
+        System.out.println(src);
 
         String js = "function ggbOnInit() {\n";
 
@@ -41,7 +60,7 @@ public class GeoGebraConv {
 
 
         try {
-            FileOutputStream fos = new FileOutputStream("export.ggb");
+            FileOutputStream fos = new FileOutputStream(fileName);
             ZipOutputStream zos = new ZipOutputStream(fos);
 
             ZipEntry xmlZip = new ZipEntry("geogebra.xml");

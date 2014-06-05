@@ -53,6 +53,13 @@ public class Problem {
         return filteredItems;
     }
 
+    public Collection<Segment> getSegments(){
+        return getItems(ItemType.segment).stream()
+                .filter(i -> i instanceof Segment)
+                .map(i -> (Segment) i)
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
     public Map<String, Item> getItemsMap() {
         return itemsMap;
     }
