@@ -1,0 +1,20 @@
+// l'angolo dce è uguale all'angolo bca perché angoli opposti al vertice
+declare "dce" equals "bca" due "NAA"
+
+// il triangolo CED è uguale al triangolo ABC per il primo criterio di uguaglianza
+declare "CED" equals "ABC" due "SAS"
+
+// l'angolo cba è uguale all'angolo edc perché opposti a lati uguali in triangoli uguali
+declare "cba" equals "edc" due "ETOA"
+
+// crea il segmento BD
+create the segment "BD"
+
+// l'angolo cdb e l'angolo dbc sono uguali perché angoli alla base di un triangolo isoscele
+declare "cdb" equals "dbc" due "TICA"
+
+// l'angolo edb e l'angolo abd sono uguali perché somma di angoli uguali
+declare "edb" equals "abd" due "SEA" // sum of equals angles
+
+// l'angolo hdb e l'angolo hbd sono uguali perché differenza di angoli uguali
+declare "hdb" equals "hbd" due "DEA"
