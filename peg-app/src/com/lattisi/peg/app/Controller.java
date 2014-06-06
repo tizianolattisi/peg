@@ -240,8 +240,8 @@ public class Controller implements Initializable {
 
         // Demo
         String problemCode = "create the triangle \"ABC\"    // or: create \"ABC\"\n" +
-                "extend the segment \"AC\" to \"D\" with length of \"BC\"\n" +
-                "extend \"BC\" to \"E\" with length of \"AC\"\n" +
+                "extend the segment \"AC\" to \"D\" with measure of \"BC\"\n" +
+                "extend \"BC\" to \"E\" with measure of \"AC\"\n" +
                 "create the segment \"ED\"\n" +
                 "extend the segment \"ED\" to \"H\"\n" +
                 "extend the segment \"AB\" to \"H\"\n" +

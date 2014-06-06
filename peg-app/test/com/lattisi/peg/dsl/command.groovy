@@ -1,6 +1,6 @@
 create the triangle "ABC"    // or: create "ABC"
-extend the segment "AC" to "D" with length of "BC"
-extend "BC" to "E" with length of "AC"
+extend the segment "AC" to "D" with measure of "BC"
+extend "BC" to "E" with measure of "AC"
 create the segment "ED"
 extend the segment "ED" to "H"
 extend the segment "AB" to "H"

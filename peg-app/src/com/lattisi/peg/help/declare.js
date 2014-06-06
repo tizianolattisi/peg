@@ -9,7 +9,7 @@
 var out =
 Diagram(
 
-    NonTerminal('create'),
+    NonTerminal('declare'),
 
     Optional(
         Sequence(
@@ -22,16 +22,15 @@ Diagram(
         )
     ),
 
-    Terminal('"name-1"'),
+    NonTerminal('"name-1"'),
 
-    Optional(
-        Sequence(
-            NonTerminal('with'),
-            NonTerminal('measure'),
-            NonTerminal('of'),
-            NonTerminal('"name-2"')
-        )
-    )
+    NonTerminal('equals'),
+
+    NonTerminal('"name-2"'),
+
+    NonTerminal('due'),
+
+    NonTerminal('"theorem-name"')
 
 );
 
