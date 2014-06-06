@@ -80,6 +80,31 @@ public class Theorems {
      *
      */
     public static Boolean congruentTriangleTwoAnglesOneSegment(Triangle triangle1, Triangle triangle2){
+        Collection<Segment> segments1 = triangle1.getSegments();
+        Collection<Segment> segments2 = triangle2.getSegments();
+        for( Segment segment1: segments1 ){
+            for( Segment segment2: segments2 ){
+                if( segment1.getMeasure() != null && segment2.getMeasure() != null &&
+                        segment1.getMeasure().equals(segment2.getMeasure()) ){
+                    List<Angle> angles1 = new ArrayList(triangle1.getAnglesAround(segment1));
+                    List<Angle> angles2 = new ArrayList(triangle2.getAnglesAround(segment2));
+                    if( angles1.get(0).getMeasure() != null
+                            && angles1.get(1).getMeasure() != null
+                            && angles2.get(0).getMeasure() != null
+                            && angles2.get(1).getMeasure() != null ){
+                        if( (angles1.get(0).getMeasure().equals(angles2.get(0).getMeasure())
+                                && angles1.get(1).getMeasure().equals(angles2.get(1).getMeasure())) ||
+                                (angles1.get(0).getMeasure().equals(angles2.get(1).getMeasure())
+                                        && angles1.get(1).getMeasure().equals(angles2.get(0).getMeasure()))
+                                ){
+                            equalizeItem(triangle1, triangle2);
+                            return true;
+                        }
+
+                    }
+                }
+            }
+        }
         return false; // TODO
     }
 

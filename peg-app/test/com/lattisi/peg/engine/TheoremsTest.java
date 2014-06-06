@@ -11,6 +11,34 @@ import org.junit.Test;
 public class TheoremsTest extends BaseTest {
 
     @Test
+    public void testASA() throws Exception {
+        String s = Metrics.nextMetric(ItemType.segment);
+        String a = Metrics.nextMetric(ItemType.angle);
+        String a1 = Metrics.nextMetric(ItemType.angle);
+
+        Triangle triangle1 = Triangle.build("ABC");
+        triangle1.getSegment("AB").setMeasure(s);
+        triangle1.getAngle("cab").setMeasure(a);
+        triangle1.getAngle("abc").setMeasure(a1);
+
+        Triangle triangle2 = Triangle.build("DEF");
+        triangle2.getSegment("DE").setMeasure(s);
+        triangle2.getAngle("fde").setMeasure(a);
+
+        assert Theorems.congruentTriangleTwoAnglesOneSegment(triangle1, triangle2) == Boolean.FALSE;
+
+        assert triangle1.getMeasure() == null;
+        assert triangle2.getMeasure() == null;
+
+        triangle2.getAngle("def").setMeasure(a1);
+
+        assert Theorems.congruentTriangleTwoAnglesOneSegment(triangle1, triangle2) == Boolean.TRUE;
+        assert triangle1.getMeasure() != null;
+        assert triangle2.getMeasure() == triangle1.getMeasure();
+
+    }
+
+    @Test
     public void testCongruentTriangleSameSides() throws Exception {
         String s = Metrics.nextMetric(ItemType.segment);
         String s1 = Metrics.nextMetric(ItemType.segment);
