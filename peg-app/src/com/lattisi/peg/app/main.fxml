@@ -28,10 +28,10 @@
   </items>
 </SplitPane>
 </center>
-<right><Accordion xmlns:fx="http://javafx.com/fxml">
+<right><Accordion minWidth="300.0" xmlns:fx="http://javafx.com/fxml">
   <panes>
     <TitledPane animated="false" text="Theorems">
-<content><TableView fx:id="theoremsView" onMouseClicked="#applyTheorem" prefHeight="200.0" prefWidth="200.0">
+<content><TableView fx:id="theoremsView" onMouseClicked="#applyTheorem">
   <columns>
     <TableColumn fx:id="columnTheoremId" prefWidth="75.0" text="id" />
     <TableColumn fx:id="columnTheoremDescription" prefWidth="122.0" text="description" />
@@ -42,10 +42,10 @@
   </panes>
 </Accordion>
 </right>
-<left><Accordion prefHeight="730.0" prefWidth="183.0" BorderPane.alignment="CENTER">
+<left><Accordion prefWidth="200.0" BorderPane.alignment="CENTER">
          <panes>
     <TitledPane animated="false" text="Plain view">
-<content><TableView fx:id="itemsView" prefHeight="200.0" prefWidth="300.0" xmlns:fx="http://javafx.com/fxml">
+<content><TableView fx:id="itemsView" xmlns:fx="http://javafx.com/fxml">
   <columns>
     <TableColumn fx:id="columnTypeName" prefWidth="75.0" text="type" />
     <TableColumn fx:id="columnName" prefWidth="75.0" text="name" /><TableColumn fx:id="columnMeasure" prefWidth="75.0" text="measure" />
@@ -54,7 +54,7 @@
 </content>
     </TitledPane>
     <TitledPane animated="false" text="Tree view">
-<content><TreeView fx:id="treeView" prefHeight="200.0" prefWidth="200.0" />
+<content><TreeView fx:id="treeView" />
 </content>
     </TitledPane>
          </panes>
