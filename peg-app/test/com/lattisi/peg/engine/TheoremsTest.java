@@ -25,14 +25,14 @@ public class TheoremsTest extends BaseTest {
         triangle2.getSegment("DE").setMeasure(s);
         triangle2.getAngle("fde").setMeasure(a);
 
-        assert Theorems.congruentTriangleTwoAnglesOneSegment(triangle1, triangle2) == Boolean.FALSE;
+        assert Theorems.ASA.apply(triangle1, triangle2) == Boolean.FALSE;
 
         assert triangle1.getMeasure() == null;
         assert triangle2.getMeasure() == null;
 
         triangle2.getAngle("def").setMeasure(a1);
 
-        assert Theorems.congruentTriangleTwoAnglesOneSegment(triangle1, triangle2) == Boolean.TRUE;
+        assert Theorems.ASA.apply(triangle1, triangle2) == Boolean.TRUE;
         assert triangle1.getMeasure() != null;
         assert triangle2.getMeasure() == triangle1.getMeasure();
 
@@ -53,13 +53,13 @@ public class TheoremsTest extends BaseTest {
         triangle2.getSegment("DE").setMeasure(s);
         triangle2.getSegment("EF").setMeasure(s1);
 
-        assert Theorems.congruentTriangleSameSides(triangle1, triangle2) == Boolean.FALSE;
+        assert Theorems.SSS.apply(triangle1, triangle2) == Boolean.FALSE;
         assert triangle1.getMeasure() == null;
         assert triangle2.getMeasure() == null;
 
         triangle2.getSegment("FD").setMeasure(s2);
 
-        assert Theorems.congruentTriangleSameSides(triangle1, triangle2) == Boolean.TRUE;
+        assert Theorems.SSS.apply(triangle1, triangle2) == Boolean.TRUE;
         assert triangle1.getMeasure() != null;
         assert triangle2.getMeasure() == triangle1.getMeasure();
     }
@@ -107,7 +107,7 @@ public class TheoremsTest extends BaseTest {
 
         assert !abc.equals(edf);
 
-        Boolean res = Theorems.equalsTrianglesOppositeAngles(abc, edf);
+        Boolean res = Theorems.ETOA.apply(abc, edf);
 
         assert res;
         assert abc.equalMeasure(edf);
@@ -130,7 +130,7 @@ public class TheoremsTest extends BaseTest {
 
         assert !angle1.equals(angle2);
 
-        Boolean res = Theorems.triangleIsoscelesCorrespondingAngles(angle1, angle2);
+        Boolean res = Theorems.TICA.apply(angle1, angle2);
 
         assert res;
         assert angle1.equalMeasure(angle2);

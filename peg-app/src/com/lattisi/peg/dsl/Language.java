@@ -154,17 +154,21 @@ public class Language {
     public Boolean due(String theorem){
         switch(theorem){
             case "NAA":
-                return Theorems.notAdjacentAngles((Angle) args.get(0), (Angle) args.get(1));
+                return Theorems.NAA.apply((Angle) args.get(0), (Angle) args.get(1));
             case "SAS":
-                return Theorems.congruentTriangleTwoSegmentsOneAngle((Triangle) args.get(0), (Triangle) args.get(1));
+                return Theorems.SAS.apply((Triangle) args.get(0), (Triangle) args.get(1));
+            case "ASA":
+                return Theorems.ASA.apply((Triangle) args.get(0), (Triangle) args.get(1));
+            case "SSS":
+                return Theorems.SSS.apply((Triangle) args.get(0), (Triangle) args.get(1));
             case "ETOA":
-                return Theorems.equalsTrianglesOppositeAngles((Angle) args.get(0), (Angle) args.get(1));
+                return Theorems.ETOA.apply((Angle) args.get(0), (Angle) args.get(1));
             case "TICA":
-                return Theorems.triangleIsoscelesCorrespondingAngles((Angle) args.get(0), (Angle) args.get(1));
+                return Theorems.TICA.apply((Angle) args.get(0), (Angle) args.get(1));
             case "SEA":
-                return Theorems.sumOfEqualAngles((Angle) args.get(0), (Angle) args.get(1));
+                return Theorems.SEA.apply((Angle) args.get(0), (Angle) args.get(1));
             case "DEA":
-                return Theorems.diffOfEqualAngles((Angle) args.get(0), (Angle) args.get(1));
+                return Theorems.DEA.apply((Angle) args.get(0), (Angle) args.get(1));
         }
         return Boolean.FALSE;
     }

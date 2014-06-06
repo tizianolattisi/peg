@@ -3,6 +3,7 @@ package com.lattisi.peg.engine;
 import com.lattisi.peg.engine.entities.*;
 
 import java.util.*;
+import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
 /**
@@ -45,32 +46,35 @@ public class Theorems {
      * due triangoli che hanno rispettivamente uguali due lati e l'angolo fra di essi compreso, sono uguali.
      *
      */
-    public static Boolean congruentTriangleTwoSegmentsOneAngle(Triangle triangle1, Triangle triangle2){
-        Collection<Angle> angles1 = triangle1.getAngles(true);
-        Collection<Angle> angles2 = triangle2.getAngles(true);
-        for( Angle angle1: angles1 ){
-            for( Angle angle2: angles2 ){
-                if( angle1.getMeasure().equals(angle2.getMeasure()) ){
-                    List<Segment> segments1 = new ArrayList(triangle1.getSegmentsAround(angle1));
-                    List<Segment> segments2 = new ArrayList(triangle2.getSegmentsAround(angle2));
-                    if( segments1.get(0).getMeasure() != null
-                            && segments1.get(1).getMeasure() != null
-                            && segments2.get(0).getMeasure() != null
-                            && segments2.get(1).getMeasure() != null ){
-                        if( (segments1.get(0).getMeasure().equals(segments2.get(0).getMeasure())
-                                && segments1.get(1).getMeasure().equals(segments2.get(1).getMeasure())) ||
-                                (segments1.get(0).getMeasure().equals(segments2.get(1).getMeasure())
-                                        && segments1.get(1).getMeasure().equals(segments2.get(0).getMeasure()))
-                                ){
-                            equalizeItem(triangle1, triangle2);
-                            return true;
+    public static BiFunction<Triangle, Triangle, Boolean> SAS = new BiFunction<Triangle, Triangle, Boolean>() {
+        @Override
+        public Boolean apply(Triangle triangle1, Triangle triangle2) {
+            Collection<Angle> angles1 = triangle1.getAngles(true);
+            Collection<Angle> angles2 = triangle2.getAngles(true);
+            for( Angle angle1: angles1 ){
+                for( Angle angle2: angles2 ){
+                    if( angle1.getMeasure().equals(angle2.getMeasure()) ){
+                        List<Segment> segments1 = new ArrayList(triangle1.getSegmentsAround(angle1));
+                        List<Segment> segments2 = new ArrayList(triangle2.getSegmentsAround(angle2));
+                        if( segments1.get(0).getMeasure() != null
+                                && segments1.get(1).getMeasure() != null
+                                && segments2.get(0).getMeasure() != null
+                                && segments2.get(1).getMeasure() != null ){
+                            if( (segments1.get(0).getMeasure().equals(segments2.get(0).getMeasure())
+                                    && segments1.get(1).getMeasure().equals(segments2.get(1).getMeasure())) ||
+                                    (segments1.get(0).getMeasure().equals(segments2.get(1).getMeasure())
+                                            && segments1.get(1).getMeasure().equals(segments2.get(0).getMeasure()))
+                                    ){
+                                equalizeItem(triangle1, triangle2);
+                                return true;
+                            }
                         }
                     }
                 }
             }
+            return false;
         }
-        return false;
-    }
+    };
 
     /*
      * Teorema 4 (ASA)
@@ -78,34 +82,37 @@ public class Theorems {
      * due triangoli che hanno rispettivamente uguali un lato e gli angoli ad esso adiacenti, sono uguali.
      *
      */
-    public static Boolean congruentTriangleTwoAnglesOneSegment(Triangle triangle1, Triangle triangle2){
-        Collection<Segment> segments1 = triangle1.getSegments();
-        Collection<Segment> segments2 = triangle2.getSegments();
-        for( Segment segment1: segments1 ){
-            for( Segment segment2: segments2 ){
-                if( segment1.getMeasure() != null && segment2.getMeasure() != null &&
-                        segment1.getMeasure().equals(segment2.getMeasure()) ){
-                    List<Angle> angles1 = new ArrayList(triangle1.getAnglesAround(segment1));
-                    List<Angle> angles2 = new ArrayList(triangle2.getAnglesAround(segment2));
-                    if( angles1.get(0).getMeasure() != null
-                            && angles1.get(1).getMeasure() != null
-                            && angles2.get(0).getMeasure() != null
-                            && angles2.get(1).getMeasure() != null ){
-                        if( (angles1.get(0).getMeasure().equals(angles2.get(0).getMeasure())
-                                && angles1.get(1).getMeasure().equals(angles2.get(1).getMeasure())) ||
-                                (angles1.get(0).getMeasure().equals(angles2.get(1).getMeasure())
-                                        && angles1.get(1).getMeasure().equals(angles2.get(0).getMeasure()))
-                                ){
-                            equalizeItem(triangle1, triangle2);
-                            return true;
-                        }
+    public static BiFunction<Triangle, Triangle, Boolean> ASA = new BiFunction<Triangle, Triangle, Boolean>() {
+        @Override
+        public Boolean apply(Triangle triangle1, Triangle triangle2) {
+            Collection<Segment> segments1 = triangle1.getSegments();
+            Collection<Segment> segments2 = triangle2.getSegments();
+            for( Segment segment1: segments1 ){
+                for( Segment segment2: segments2 ){
+                    if( segment1.getMeasure() != null && segment2.getMeasure() != null &&
+                            segment1.getMeasure().equals(segment2.getMeasure()) ){
+                        List<Angle> angles1 = new ArrayList(triangle1.getAnglesAround(segment1));
+                        List<Angle> angles2 = new ArrayList(triangle2.getAnglesAround(segment2));
+                        if( angles1.get(0).getMeasure() != null
+                                && angles1.get(1).getMeasure() != null
+                                && angles2.get(0).getMeasure() != null
+                                && angles2.get(1).getMeasure() != null ){
+                            if( (angles1.get(0).getMeasure().equals(angles2.get(0).getMeasure())
+                                    && angles1.get(1).getMeasure().equals(angles2.get(1).getMeasure())) ||
+                                    (angles1.get(0).getMeasure().equals(angles2.get(1).getMeasure())
+                                            && angles1.get(1).getMeasure().equals(angles2.get(0).getMeasure()))
+                                    ){
+                                equalizeItem(triangle1, triangle2);
+                                return true;
+                            }
 
+                        }
                     }
                 }
             }
+            return false;
         }
-        return false; // TODO
-    }
+    };
 
 
     /*
@@ -114,55 +121,63 @@ public class Theorems {
      * due triangoli che hanno i tre lati rispettivamente uguali, sono uguali.
      *
      */
-    public static Boolean congruentTriangleSameSides(Triangle triangle1, Triangle triangle2){
-        List<String> measures1 = getSegmentMeasures(triangle1);
-        if( measures1.size()<3 ){
+    public static BiFunction<Triangle, Triangle, Boolean> SSS = new BiFunction<Triangle, Triangle, Boolean>() {
+        @Override
+        public Boolean apply(Triangle triangle1, Triangle triangle2) {
+            List<String> measures1 = getSegmentMeasures(triangle1);
+            if( measures1.size()<3 ){
+                return false;
+            }
+            List<String> measures2 = getSegmentMeasures(triangle2);
+            if( measures2.size()<3 ){
+                return false;
+            }
+            Collections.sort(measures1);
+            Collections.sort(measures2);
+            if( measures1.equals(measures2) ){
+                equalizeItem(triangle1, triangle2);
+                return true;
+            }
             return false;
+
         }
-        List<String> measures2 = getSegmentMeasures(triangle2);
-        if( measures2.size()<3 ){
-            return false;
-        }
-        Collections.sort(measures1);
-        Collections.sort(measures2);
-        if( measures1.equals(measures2) ){
-            equalizeItem(triangle1, triangle2);
-            return true;
-        }
-        return false;
-    }
+    };
+
 
     /*
      * Teorema 6 (ETOA)
      * In due triangoli uguali a lati uguali sono opposti angoli uguali.
      *
      */
-    public static Boolean equalsTrianglesOppositeAngles(Angle angle1, Angle angle2) {
-        Problem problem = ProblemsTree.getProblem();
-        Collection<Container> parents1 = problem.getParents(angle1);
-        Collection<Triangle> triangles1 = parents1.stream().filter(c -> c instanceof Triangle).map(c -> (Triangle) c)
-                .collect(Collectors.toCollection(ArrayList::new));
-        Collection<Container> parents2 = problem.getParents(angle2);
-        Collection<Triangle> triangles2 = parents2.stream().filter(c -> c instanceof Triangle).map(c -> (Triangle) c)
-                .collect(Collectors.toCollection(ArrayList::new));
-        for( Triangle triangle1: triangles1 ){
-            for( Triangle triangle2: triangles2 ){
-                if( triangle1.getMeasure() != null && triangle2.getMeasure() != null ){
-                    if( triangle1.getMeasure().equals(triangle2.getMeasure()) ){
-                        Segment segment1 = triangle1.getOppositeSegment(angle1);
-                        Segment segment2 = triangle2.getOppositeSegment(angle2);
-                        if( segment1.getMeasure() != null && segment2.getMeasure() != null ){
-                            if( segment1.getMeasure().equals(segment2.getMeasure()) ){
-                                equalizeItem(angle1, angle2);
-                                return true;
+    public static BiFunction<Angle, Angle, Boolean> ETOA = new BiFunction<Angle, Angle, Boolean>() {
+        @Override
+        public Boolean apply(Angle angle1, Angle angle2) {
+            Problem problem = ProblemsTree.getProblem();
+            Collection<Container> parents1 = problem.getParents(angle1);
+            Collection<Triangle> triangles1 = parents1.stream().filter(c -> c instanceof Triangle).map(c -> (Triangle) c)
+                    .collect(Collectors.toCollection(ArrayList::new));
+            Collection<Container> parents2 = problem.getParents(angle2);
+            Collection<Triangle> triangles2 = parents2.stream().filter(c -> c instanceof Triangle).map(c -> (Triangle) c)
+                    .collect(Collectors.toCollection(ArrayList::new));
+            for( Triangle triangle1: triangles1 ){
+                for( Triangle triangle2: triangles2 ){
+                    if( triangle1.getMeasure() != null && triangle2.getMeasure() != null ){
+                        if( triangle1.getMeasure().equals(triangle2.getMeasure()) ){
+                            Segment segment1 = triangle1.getOppositeSegment(angle1);
+                            Segment segment2 = triangle2.getOppositeSegment(angle2);
+                            if( segment1.getMeasure() != null && segment2.getMeasure() != null ){
+                                if( segment1.getMeasure().equals(segment2.getMeasure()) ){
+                                    equalizeItem(angle1, angle2);
+                                    return true;
+                                }
                             }
                         }
                     }
                 }
             }
+            return false;
         }
-        return false;
-    }
+    };
 
 
     /*
@@ -177,33 +192,37 @@ public class Theorems {
      * Angoli opposti al vertice sono uguali.
      *
      */
-    public static Boolean notAdjacentAngles(Angle angle1, Angle angle2){
-        Problem problem = ProblemsTree.getProblem();
-        Set<Point> points1 = angle1.getPoints();
-        Set<Point> points2 = angle2.getPoints();
-        Set<Point> intersection = angle2.getPoints();
-        intersection.retainAll(points1);
-        Point central = intersection.iterator().next();
-        if( intersection.size() != 1 ){
-            return Boolean.FALSE;
-        }
-        List<Direction> directions = new ArrayList<>();
-        for( Point point: points1 ){
-            if( !point.equals(central) ){
-                Direction direction = problem.findDirection(point, central);
-                if( direction != null ) {
-                    directions.add(direction);
-                }
-            }
-        }
-        for( Point point: points2 ){
-            if( !directions.get(0).contains(point) && !directions.get(1).contains(point) ){
+    public static BiFunction<Angle, Angle, Boolean> NAA = new BiFunction<Angle, Angle, Boolean>() {
+        @Override
+        public Boolean apply(Angle angle1, Angle angle2) {
+            Problem problem = ProblemsTree.getProblem();
+            Set<Point> points1 = angle1.getPoints();
+            Set<Point> points2 = angle2.getPoints();
+            Set<Point> intersection = angle2.getPoints();
+            intersection.retainAll(points1);
+            Point central = intersection.iterator().next();
+            if( intersection.size() != 1 ){
                 return Boolean.FALSE;
             }
+            List<Direction> directions = new ArrayList<>();
+            for( Point point: points1 ){
+                if( !point.equals(central) ){
+                    Direction direction = problem.findDirection(point, central);
+                    if( direction != null ) {
+                        directions.add(direction);
+                    }
+                }
+            }
+            for( Point point: points2 ){
+                if( !directions.get(0).contains(point) && !directions.get(1).contains(point) ){
+                    return Boolean.FALSE;
+                }
+            }
+            equalizeItem(angle1, angle2);
+            return Boolean.TRUE;
         }
-        equalizeItem(angle1, angle2);
-        return Boolean.TRUE;
-    }
+    };
+
 
     /*
      * Teorema 9
@@ -217,83 +236,88 @@ public class Theorems {
      * In un triangolo isoscele gli angoli alla base sono uguali
      *
      */
-    public static Boolean triangleIsoscelesCorrespondingAngles(Angle angle1, Angle angle2){
-        Problem problem = ProblemsTree.getProblem();
-        Collection<Container> parents1 = problem.getParents(angle1);
-        Collection<Triangle> triangles1 = parents1.stream().filter(c -> c instanceof Triangle).map(c -> (Triangle) c)
-                .collect(Collectors.toCollection(ArrayList::new));
-        Collection<Container> parents2 = problem.getParents(angle2);
-        Collection<Triangle> triangles = parents2.stream().filter(c -> c instanceof Triangle).map(c -> (Triangle) c)
-                .collect(Collectors.toCollection(ArrayList::new));
-        triangles.retainAll(triangles1);
-        for( Triangle triangle: triangles ){
-            List<Segment> segments = triangle.getSegments().stream().filter(s -> s.getMeasure() != null).collect(Collectors.toList());
-            for( int i=0; i<segments.size(); i++ ){
-                Segment s1 = segments.get(i);
-                for( int j=1; j<segments.size(); j++ ){
-                    Segment s2 = segments.get(j);
-                    if( s1.getMeasure().equals(s2.getMeasure())){
-                        if( (angle1.equals(triangle.getOppositeAngle(s1)) && angle2.equals(triangle.getOppositeAngle(s2))) ||
-                                (angle2.equals(triangle.getOppositeAngle(s1)) && angle1.equals(triangle.getOppositeAngle(s2))) ){
-                            equalizeItem(angle1, angle2);
-                            return true;
+    public static BiFunction<Angle, Angle, Boolean> TICA = new BiFunction<Angle, Angle, Boolean>() {
+        @Override
+        public Boolean apply(Angle angle1, Angle angle2) {
+            Problem problem = ProblemsTree.getProblem();
+            Collection<Container> parents1 = problem.getParents(angle1);
+            Collection<Triangle> triangles1 = parents1.stream().filter(c -> c instanceof Triangle).map(c -> (Triangle) c)
+                    .collect(Collectors.toCollection(ArrayList::new));
+            Collection<Container> parents2 = problem.getParents(angle2);
+            Collection<Triangle> triangles = parents2.stream().filter(c -> c instanceof Triangle).map(c -> (Triangle) c)
+                    .collect(Collectors.toCollection(ArrayList::new));
+            triangles.retainAll(triangles1);
+            for( Triangle triangle: triangles ){
+                List<Segment> segments = triangle.getSegments().stream().filter(s -> s.getMeasure() != null).collect(Collectors.toList());
+                for( int i=0; i<segments.size(); i++ ){
+                    Segment s1 = segments.get(i);
+                    for( int j=1; j<segments.size(); j++ ){
+                        Segment s2 = segments.get(j);
+                        if( s1.getMeasure().equals(s2.getMeasure())){
+                            if( (angle1.equals(triangle.getOppositeAngle(s1)) && angle2.equals(triangle.getOppositeAngle(s2))) ||
+                                    (angle2.equals(triangle.getOppositeAngle(s1)) && angle1.equals(triangle.getOppositeAngle(s2))) ){
+                                equalizeItem(angle1, angle2);
+                                return true;
+                            }
                         }
                     }
                 }
             }
+            return false;
         }
-        return false;
-    }
+    };
+
 
     /*
      * Angoli uguali per somma (SEA) o differenza (DEA) di angoli uguali
      */
-    public static Boolean diffOfEqualAngles(Angle angle1, Angle angle2){
-        return sumOfEqualAngles(angle1, angle2);
-    }
-    public static Boolean sumOfEqualAngles(Angle angle1, Angle angle2){
-        Problem problem = ProblemsTree.getProblem();
-        Point center1 = angle1.getCentralPoint();
-        Point center2 = angle2.getCentralPoint();
-        Collection<Angle> angles = problem.getItems(ItemType.angle).stream().map(i -> (Angle) i).collect(Collectors.toCollection(ArrayList::new));
-        List<Angle> anglesInCenter1 = new ArrayList<>();
-        List<Angle> anglesInCenter2 = new ArrayList<>();
-        for( Angle angle: angles ){
-            if( !angle.equals(angle1) && angle.getMeasure() != null && center1.equals(angle.getCentralPoint()) ){
-                anglesInCenter1.add(angle);
-            }
-            if( !angle.equals(angle2) && angle.getMeasure() != null && center2.equals(angle.getCentralPoint()) ){
-                anglesInCenter2.add(angle);
-            }
-        }
-        Set<String> measures1 = new HashSet<>();
-        Set<String> measures2 = new HashSet<>();
-        for( int i=0; i<anglesInCenter1.size(); i++ ){
-            for( int j=1; j<anglesInCenter1.size(); j++ ){
-                Angle res = anglesInCenter1.get(i).add(anglesInCenter1.get(j));
-                if( res != null && res.equals(angle1)){
-                    measures1.add(anglesInCenter1.get(i).getMeasure());
-                    measures1.add(anglesInCenter1.get(j).getMeasure());
+    public static BiFunction<Angle, Angle, Boolean> SEA = new BiFunction<Angle, Angle, Boolean>() {
+        @Override
+        public Boolean apply(Angle angle1, Angle angle2) {
+            Problem problem = ProblemsTree.getProblem();
+            Point center1 = angle1.getCentralPoint();
+            Point center2 = angle2.getCentralPoint();
+            Collection<Angle> angles = problem.getItems(ItemType.angle).stream().map(i -> (Angle) i).collect(Collectors.toCollection(ArrayList::new));
+            List<Angle> anglesInCenter1 = new ArrayList<>();
+            List<Angle> anglesInCenter2 = new ArrayList<>();
+            for( Angle angle: angles ){
+                if( !angle.equals(angle1) && angle.getMeasure() != null && center1.equals(angle.getCentralPoint()) ){
+                    anglesInCenter1.add(angle);
+                }
+                if( !angle.equals(angle2) && angle.getMeasure() != null && center2.equals(angle.getCentralPoint()) ){
+                    anglesInCenter2.add(angle);
                 }
             }
-        }
-        for( int i=0; i<anglesInCenter2.size(); i++ ){
-            for( int j=1; j<anglesInCenter2.size(); j++ ){
-                Angle res = anglesInCenter2.get(i).add(anglesInCenter2.get(j));
-                if( res != null && res.equals(angle2) ){
-                    measures2.add(anglesInCenter2.get(i).getMeasure());
-                    measures2.add(anglesInCenter2.get(j).getMeasure());
+            Set<String> measures1 = new HashSet<>();
+            Set<String> measures2 = new HashSet<>();
+            for( int i=0; i<anglesInCenter1.size(); i++ ){
+                for( int j=1; j<anglesInCenter1.size(); j++ ){
+                    Angle res = anglesInCenter1.get(i).add(anglesInCenter1.get(j));
+                    if( res != null && res.equals(angle1)){
+                        measures1.add(anglesInCenter1.get(i).getMeasure());
+                        measures1.add(anglesInCenter1.get(j).getMeasure());
+                    }
                 }
             }
-        }
-        if( measures1.size()>0 && measures2.size()>0 ){
-            if( measures1.containsAll(measures2) ){
-                equalizeItem(angle1, angle2);
-                return true;
+            for( int i=0; i<anglesInCenter2.size(); i++ ){
+                for( int j=1; j<anglesInCenter2.size(); j++ ){
+                    Angle res = anglesInCenter2.get(i).add(anglesInCenter2.get(j));
+                    if( res != null && res.equals(angle2) ){
+                        measures2.add(anglesInCenter2.get(i).getMeasure());
+                        measures2.add(anglesInCenter2.get(j).getMeasure());
+                    }
+                }
             }
+            if( measures1.size()>0 && measures2.size()>0 ){
+                if( measures1.containsAll(measures2) ){
+                    equalizeItem(angle1, angle2);
+                    return true;
+                }
+            }
+            return false;
         }
-        return false;
-    }
+    };
+    public static BiFunction<Angle, Angle, Boolean> DEA = SEA;
 
 
     /*
