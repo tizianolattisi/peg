@@ -17,13 +17,14 @@ public class Theorems {
     static
     {
         THEOREMS_MAP = new HashMap<String, String>();
-        THEOREMS_MAP.put("SAS", "congruentTriangleTwoSegmentsOneAngle");        // Teorema 3  (SAS)
-        THEOREMS_MAP.put("SSS", "congruentTriangleSameSides");                  // Teorema 5  (SSS)
-        THEOREMS_MAP.put("ETOA", "equalsTrianglesOppositeAngles");              // Teorema 6  (ETOA)
-        THEOREMS_MAP.put("NAA", "notAdjacentAngles");                           // Teorema 8  (NAA)
-        THEOREMS_MAP.put("TICA", "triangleIsoscelesCorrespondingAngles");       // Teorema 10 (TICA)
-        THEOREMS_MAP.put("SEA", "sumOfEqualAngles");                           //            (SEA)
-        THEOREMS_MAP.put("DEA", "diffOfEqualAngles");                          //            (DEA)
+        THEOREMS_MAP.put("SAS", "First criterion of similar triangles");                    // Teorema 3  (SAS)
+        THEOREMS_MAP.put("ASA", "Second criterion of similar triangles");                   // Teorema 4  (SAS)
+        THEOREMS_MAP.put("SSS", "Third criterion of similar triangles");                    // Teorema 5  (SSS)
+        THEOREMS_MAP.put("ETOA", "Opposite angles to similar side of similar triangles");   // Teorema 6  (ETOA)
+        THEOREMS_MAP.put("NAA", "Vertical angles in intersection");                         // Teorema 8  (NAA)
+        THEOREMS_MAP.put("TICA", "Corresponding angles in isosceles triangle");             // Teorema 10 (TICA)
+        THEOREMS_MAP.put("SEA", "Sum of similar angles");                                   //            (SEA)
+        THEOREMS_MAP.put("DEA", "Difference of similar angles");                            //            (DEA)
     }
 
     /*
