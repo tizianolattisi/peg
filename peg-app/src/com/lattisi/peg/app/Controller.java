@@ -1,5 +1,6 @@
 package com.lattisi.peg.app;
 
+import com.lattisi.peg.dsl.Language;
 import com.lattisi.peg.dsl.Shell;
 import com.lattisi.peg.engine.Problem;
 import com.lattisi.peg.engine.Theorems;
@@ -77,7 +78,15 @@ public class Controller implements Initializable {
     protected void newLineAction(ActionEvent event) {
         String line = newLine.textProperty().get() + "\n";
         dsl.appendText(line);
-        shell.evaluate(line);
+        Object evaluate = shell.evaluate(line);
+        if( evaluate != null && !(evaluate instanceof Language) ){
+            Boolean res = (Boolean) evaluate;
+            if (res) {
+                dsl.appendText("// OK\n");
+            } else {
+                dsl.appendText("// NO\n");
+            }
+        }
         newLine.textProperty().set("");
         Problem problem = shell.getLanguage().getProblem();
         problem.refresh();
@@ -111,6 +120,8 @@ public class Controller implements Initializable {
     private void loadProblem(ActionEvent event) {
         String code = loadCode();
         if( code != null ) {
+            Problem problem = shell.getLanguage().getProblem();
+            problem.clear();
             dsl.clear();
             dsl.appendText(code);
             execute(code);
