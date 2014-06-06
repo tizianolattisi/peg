@@ -1,0 +1,10 @@
+//  Dato un triangolo ABC si prolunghino i lati AC, BC, dalla parte di C, rispettivamente dei segmenti CD = BC e CE = AC.
+//  Sia H l'intersezione delle rette DE ed AB.
+//  Dimostrare  che il triangolo AEH è isoscele.
+
+create the triangle "ABC"
+extend the segment "AC" to "D" with length of "BC"
+extend "BC" to "E" with length of "AC"
+create the segment "ED"
+extend the segment "ED" to "H"
+extend the segment "AB" to "H"

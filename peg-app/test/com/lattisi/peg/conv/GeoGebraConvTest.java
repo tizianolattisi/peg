@@ -2,6 +2,7 @@ package com.lattisi.peg.conv;
 
 import com.lattisi.peg.engine.Problem;
 import com.lattisi.peg.engine.ProblemsTree;
+import com.lattisi.peg.engine.entities.Item;
 import com.lattisi.peg.engine.entities.Triangle;
 import org.junit.After;
 import org.junit.Before;
@@ -28,7 +29,11 @@ public class GeoGebraConvTest {
         Problem problem = ProblemsTree.getProblem();
         problem.addItem(ABC);
 
-        GeoGebraConv.export(problem);
+        for( Item item: problem.getItems() ){
+            System.out.println(item);
+        }
+
+        GeoGebraConv.export(problem, "export.ggb");
 
     }
 }

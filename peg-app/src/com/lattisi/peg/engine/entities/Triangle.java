@@ -83,11 +83,18 @@ public class Triangle extends AbstractMeasurableItem implements Container {
     public Collection<Segment> getSegmentsAround(Angle angle) {
         Segment segment1 = getSegment(angle.getName().substring(0, 2).toUpperCase());
         Segment segment2 = getSegment(angle.getName().substring(1, 3).toUpperCase());
-        Collection<Segment> segments = new ArrayList<Segment>();
+        Collection<Segment> segments = new ArrayList<>();
         segments.add(segment1);
         segments.add(segment2);
         return segments;
     }
+
+    public Collection<Angle> getAnglesAround(Segment segment) {
+        Angle opposite = getOppositeAngle(segment);
+        List<Angle> angles = getAngles().stream().filter(a -> a != opposite).collect(Collectors.toList());
+        return angles;
+    }
+
 
     public Segment getOppositeSegment(Angle angle) {
         String segmentName = (angle.getName().substring(0, 1) + angle.getName().substring(2, 3)).toUpperCase();
