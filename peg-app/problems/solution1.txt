@@ -14,7 +14,7 @@ create the segment "BD"
 declare "cdb" equals "dbc" due "TICA"
 
 // l'angolo edb e l'angolo abd sono uguali perché somma di angoli uguali
-declare "edb" equals "abd" due "SEA" // sum of equals angles
+declare "edb" equals "abd" due "SEA"
 
 // l'angolo hdb e l'angolo hbd sono uguali perché differenza di angoli uguali
 declare "hdb" equals "hbd" due "DEA"
