@@ -47,34 +47,25 @@ public class Theorems {
      * due triangoli che hanno rispettivamente uguali due lati e l'angolo fra di essi compreso, sono uguali.
      *
      */
-    public static BiFunction<Triangle, Triangle, Boolean> SAS = new BiFunction<Triangle, Triangle, Boolean>() {
-        @Override
-        public Boolean apply(Triangle triangle1, Triangle triangle2) {
-            Collection<Angle> angles1 = triangle1.getAngles(true);
-            Collection<Angle> angles2 = triangle2.getAngles(true);
-            for( Angle angle1: angles1 ){
-                for( Angle angle2: angles2 ){
-                    if( angle1.getMeasure().equals(angle2.getMeasure()) ){
-                        List<Segment> segments1 = new ArrayList(triangle1.getSegmentsAround(angle1));
-                        List<Segment> segments2 = new ArrayList(triangle2.getSegmentsAround(angle2));
-                        if( segments1.get(0).getMeasure() != null
-                                && segments1.get(1).getMeasure() != null
-                                && segments2.get(0).getMeasure() != null
-                                && segments2.get(1).getMeasure() != null ){
-                            if( (segments1.get(0).getMeasure().equals(segments2.get(0).getMeasure())
-                                    && segments1.get(1).getMeasure().equals(segments2.get(1).getMeasure())) ||
-                                    (segments1.get(0).getMeasure().equals(segments2.get(1).getMeasure())
-                                            && segments1.get(1).getMeasure().equals(segments2.get(0).getMeasure()))
-                                    ){
-                                equalizeItem(triangle1, triangle2);
-                                return true;
-                            }
-                        }
+    public static BiFunction<Triangle, Triangle, Boolean> SAS = (triangle1, triangle2) -> {
+        Collection<Angle> angles1 = triangle1.getAngles(true);
+        Collection<Angle> angles2 = triangle2.getAngles(true);
+        for( Angle angle1: angles1 ){
+            for( Angle angle2: angles2 ){
+                if( angle1.getMeasure().equals(angle2.getMeasure()) ){
+                    List<Segment> segments1 = new ArrayList(triangle1.getSegmentsAround(angle1));
+                    List<Segment> segments2 = new ArrayList(triangle2.getSegmentsAround(angle2));
+                    if( (segments1.get(0).isSimilarTo(segments2.get(0))
+                            && segments1.get(1).isSimilarTo(segments2.get(1))) ||
+                            (segments1.get(0).isSimilarTo(segments2.get(1))
+                                    && segments1.get(1).isSimilarTo(segments2.get(0))) ){
+                        equalizeItem(triangle1, triangle2);
+                        return true;
                     }
                 }
             }
-            return false;
         }
+        return false;
     };
 
     /*

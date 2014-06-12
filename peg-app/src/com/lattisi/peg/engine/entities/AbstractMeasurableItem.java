@@ -20,7 +20,7 @@ public abstract class AbstractMeasurableItem extends AbstractItem implements Mea
     }
 
     @Override
-    public boolean equalMeasure(Measurable item) {
+    public boolean isSimilarTo(Measurable item) {
         if( item.getMeasure()!=null && this.getMeasure()!=null ){
             return this.getMeasure().equals(this.getMeasure());
         }

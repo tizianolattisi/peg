@@ -11,6 +11,6 @@ public interface Measurable {
 
     void setMeasure(String measure);
 
-    boolean equalMeasure(Measurable item);
+    boolean isSimilarTo(Measurable item);
 
 }

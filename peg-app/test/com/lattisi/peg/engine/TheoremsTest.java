@@ -39,6 +39,29 @@ public class TheoremsTest extends BaseTest {
     }
 
     @Test
+    public void testSAS() throws Exception {
+        String s = Metrics.nextMetric(ItemType.segment);
+        String s1 = Metrics.nextMetric(ItemType.segment);
+        String a = Metrics.nextMetric(ItemType.angle);
+
+        Triangle triangle1 = Triangle.build("ABC");
+        triangle1.getSegment("AB").setMeasure(s);
+        triangle1.getAngle("cab").setMeasure(a);
+        triangle1.getSegment("CA").setMeasure(s1);
+
+        Triangle triangle2 = Triangle.build("DEF");
+        triangle2.getSegment("DE").setMeasure(s);
+        triangle2.getAngle("fde").setMeasure(a);
+
+        assert Theorems.SAS.apply(triangle1, triangle2) == Boolean.FALSE;
+
+        triangle2.getSegment("FD").setMeasure(s1);
+
+        assert Theorems.SAS.apply(triangle1, triangle2) == Boolean.TRUE;
+
+    }
+
+    @Test
     public void testCongruentTriangleSameSides() throws Exception {
         String s = Metrics.nextMetric(ItemType.segment);
         String s1 = Metrics.nextMetric(ItemType.segment);
@@ -110,7 +133,7 @@ public class TheoremsTest extends BaseTest {
         Boolean res = Theorems.ETOA.apply(abc, edf);
 
         assert res;
-        assert abc.equalMeasure(edf);
+        assert abc.isSimilarTo(edf);
 
     }
 
@@ -133,7 +156,7 @@ public class TheoremsTest extends BaseTest {
         Boolean res = Theorems.TICA.apply(angle1, angle2);
 
         assert res;
-        assert angle1.equalMeasure(angle2);
+        assert angle1.isSimilarTo(angle2);
     }
 
 }
