@@ -43,37 +43,32 @@ abstract class LanguageBaseScriptClass extends Script {
         this.binding.language.declare(name)
     }
 
-
     /*
-     * apply
+     *  Italian
      */
-    /*
-    def apply(String theoremName){
-        this.binding.language.apply(theoremName)
-    }*/
 
-    /*
-     * sum
-     */
-    /*
-    def sum(String measurableName){
-        this.binding.language.sum(measurableName)
-    }*/
+    def triangolo(String name){
+        triangle(name)
+    }
+    def segmento(String name){
+        segment(name)
+    }
+    def crea(Constraint theConstraint){
+        create(theConstraint)
+    }
+    def crea(String name){
+        create(name)
+    }
+    def estendi(Constraint theConstraint){
+        extend(theConstraint)
+    }
+    def estendi(String name){
+        extend(name)
+    }
+    def dichiara(String name){
+        declare(name)
+    }
 
-    /*
-     * difference
-     */
-    /*
-    def difference(String measurableName){
-        this.binding.language.difference(measurableName)
-    }*/
 
-    /*
-     * check
-     */
-    /*
-    def check(String assertion){
-        this.binding.language.check(assertion)
-    }*/
 
 }

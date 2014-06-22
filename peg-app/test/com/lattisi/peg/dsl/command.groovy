@@ -1,14 +1,14 @@
-create the triangle "ABC"    // or: create "ABC"
-extend the segment "AC" to "D" with measure of "BC"
-extend "BC" to "E" with measure of "AC"
-create the segment "ED"
-extend the segment "ED" to "H"
-extend the segment "AB" to "H"
+crea il triangolo "ABC"    // or: create "ABC"
+estendi il segmento "AC" a "D" con misura di "BC"
+estendi "BC" a "E" con misura di "AC"
+crea il segmento "ED"
+estendi il segmento "ED" a "H"
+estendi il segmento "AB" a "H"
 
-declare "dce" equals "bca" due "NAA" // not adjacent angles
-declare "CED" equals "ABC" due "SAS" // side angle side
-declare "cba" equals "edc" due "ETOA" // equals triangle opposite angles
-create the segment "BD"
-declare "cdb" equals "dbc" due "TICA" // triangle isosceles corresponding angles
-declare "edb" equals "abd" due "SEA" // sum of equal angles
-declare "hdb" equals "hbd" due "DEA" // difference of equals angles
+dichiara "dce" simile "bca" per "NAA" // not adjacent angles
+dichiara "CED" simile "ABC" per "SAS" // side angle side
+dichiara "cba" simile "edc" per "ETOA" // equals triangle opposite angles
+crea il segmento "BD"
+dichiara "cdb" simile "dbc" per "TICA" // triangle isosceles corresponding angles
+dichiara "edb" simile "abd" per "SEA" // sum of equal angles
+dichiara "hdb" simile "hbd" per "DEA" // difference of equals angles

@@ -184,4 +184,39 @@ public class Language {
     public Problem getProblem() {
         return problem;
     }
+
+
+    /*
+     *  Traduzione in italiano
+     */
+
+    public Language triangolo(String name){
+        return triangle(name);
+    }
+    public Language segmento(String name){
+        return segment(name);
+    }
+    public Language retta(String name){
+        return direction(name);
+    }
+    public Language a(String pointName){
+        return to(pointName);
+    }
+    public Language con(Argument argument){
+        switch(argument){
+            case misura:
+                argument = Argument.measure;
+        }
+        return with(argument);
+    }
+    public Language di(String name){
+        return of(name);
+    }
+    public Language simile(String name){
+        return equals(name);
+    }
+    public Boolean per(String theorem){
+        return due(theorem);
+    }
+
 }
