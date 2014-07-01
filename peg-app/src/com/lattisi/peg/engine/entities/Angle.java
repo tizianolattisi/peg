@@ -22,7 +22,7 @@ public class Angle extends AbstractMeasurableItem {
                 return (Angle) found;
             }
             Angle angle = new Angle();
-            angle.setName(name.toLowerCase());
+            angle.setName(name);
             angle.setType(ItemType.angle);
             problem.addItem(angle);
             return angle;
@@ -32,7 +32,7 @@ public class Angle extends AbstractMeasurableItem {
     }
 
     public static Angle build(Point point1, Point point2, Point point3){
-        return build((point1.getName() + point2.getName() + point3.getName()).toLowerCase());
+        return build(point1.getName().toLowerCase() + point2.getName() + point3.getName().toLowerCase());
     }
 
     public static Angle build(Segment segment1, Segment segment2){
@@ -61,7 +61,7 @@ public class Angle extends AbstractMeasurableItem {
         String b = getName().substring(1, 2);
         String c = getName().substring(2, 3);
         Point A = problem.findPoint(a.toUpperCase());
-        Point B = problem.findPoint(b.toUpperCase());
+        Point B = problem.findPoint(b);
         Point C = problem.findPoint(c.toUpperCase());
         List<Point> points = new ArrayList<Point>();
         points.add(A);
@@ -73,7 +73,7 @@ public class Angle extends AbstractMeasurableItem {
     public Point getCentralPoint() {
         Problem problem = ProblemsTree.getProblem();
         String b = getName().substring(1, 2);
-        Point B = problem.findPoint(b.toUpperCase());
+        Point B = problem.findPoint(b);
         return B;
     }
 
@@ -110,10 +110,6 @@ public class Angle extends AbstractMeasurableItem {
         String b = getName().substring(1, 2);
         String c = getName().substring(2, 3);
         aliases.add(a+b+c);
-        //aliases.add(a+c+b);
-        //aliases.add(b+a+c);
-        //aliases.add(b+c+a);
-        //aliases.add(c+a+b);
         aliases.add(c+b+a);
         return aliases;
     }

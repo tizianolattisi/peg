@@ -109,26 +109,26 @@ class DslTest extends GroovyTestCase {
         problem.refresh()
 
         // angoli opposti al vertice
-        shell.evaluate("declare \"dce\" equals \"bca\" due \"NAA\"")
+        shell.evaluate("declare \"dCe\" equals \"bCa\" due \"NAA\"")
 
         // uguaglianza triangoli (due lati e un angolo)
         shell.evaluate("declare \"CED\" equals \"ABC\" due \"SAS\"")
 
         // angoli opposti a segmenti uguali
-        shell.evaluate("declare \"cba\" equals \"edc\" due \"ETOA\"")
+        shell.evaluate("declare \"cBa\" equals \"eDc\" due \"ETOA\"")
 
         // costruisco il segmento BD (troverà da solo il triangolo BCD)
         shell.evaluate("create the segment \"BD\"")
         problem.refresh()
 
         // il triangolo BCD è isoscele, quindi gli angoli cbd e cdb sono uguali
-        shell.evaluate("declare \"cdb\" equals \"dbc\" due \"TICA\"")
+        shell.evaluate("declare \"cDb\" equals \"dBc\" due \"TICA\"")
 
         // edb e abd sono uguali per somma di angoli uguali
-        shell.evaluate("declare \"edb\" equals \"abd\" due \"SEA\"")
+        shell.evaluate("declare \"eDb\" equals \"aBd\" due \"SEA\"")
 
         // hdb e hbd sono ugueli per differenza di angoli uguali
-        shell.evaluate("declare \"hdb\" equals \"hbd\" due \"DEA\"")
+        shell.evaluate("declare \"hDb\" equals \"hBd\" due \"DEA\"")
 
         printProblem(problem)
 

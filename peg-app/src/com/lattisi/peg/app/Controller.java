@@ -250,7 +250,7 @@ public class Controller implements Initializable {
 
         WebEngine engine = help.getEngine();
         URL indexUrl = getClass().getResource("../help/index.html");
-        engine.load(indexUrl.toExternalForm());
+        //engine.load(indexUrl.toExternalForm());
 
         // Demo
         String problemCode = "crea il triangolo \"ABC\"    // o: crea \"ABC\"\n" +

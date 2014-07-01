@@ -39,9 +39,9 @@ public class Triangle extends AbstractMeasurableItem implements Container {
             String segment2name = point2name.concat(point3name);
             String segment3name = point3name.concat(point1name);
             triangle.setSegments(Segment.build(segment1name), Segment.build(segment2name), Segment.build(segment3name));
-            String angle1name = (point1name + point2name + point3name).toLowerCase();
-            String angle2name = (point2name + point3name + point1name).toLowerCase();
-            String angle3name = (point3name + point1name + point2name).toLowerCase();
+            String angle1name = point1name.toLowerCase() + point2name + point3name.toLowerCase();
+            String angle2name = point2name.toLowerCase() + point3name + point1name.toLowerCase();
+            String angle3name = point3name.toLowerCase() + point1name + point2name.toLowerCase();
             triangle.setAngles(Angle.build(angle1name), Angle.build(angle2name), Angle.build(angle3name));
 
             return triangle;
@@ -130,8 +130,8 @@ public class Triangle extends AbstractMeasurableItem implements Container {
         assert this.contains(segment);
         Point centralPoint = getPoints().stream().filter(p -> !segment.getPoints().contains(p)).findFirst().get();
         List<Point> points = new ArrayList(segment.getPoints());
-        String angleName = (points.get(0).getName() + centralPoint.getName() + points.get(1).getName()).toLowerCase();
-        return getAngle(angleName.toLowerCase());
+        String angleName = points.get(0).getName().toLowerCase() + centralPoint.getName() + points.get(1).getName().toLowerCase();
+        return getAngle(angleName);
     }
 
     public Collection<Point> getPoints() {

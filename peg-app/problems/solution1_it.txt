@@ -1,20 +1,20 @@
 // l'angolo dce è uguale all'angolo bca perché angoli opposti al vertice
-dichiara "dce" simile "bca" per "NAA"
+dichiara "dCe" simile "bCa" per "NAA"
 
 // il triangolo CED è uguale al triangolo ABC per il primo criterio di uguaglianza
 dichiara "CED" simile "ABC" per "SAS"
 
 // l'angolo cba è uguale all'angolo edc perché opposti a lati uguali in triangoli uguali
-dichiara "cba" simile "edc" per "ETOA"
+dichiara "cBa" simile "eDc" per "ETOA"
 
 // crea il segmento BD
 crea il segmento "BD"
 
-// l'angolo cdb e l'angolo dbc sono uguali perché angoli alla base di un triangolo isoscele
-dichiara "cdb" simile "dbc" per "TICA"
+// l'angolo cDb e l'angolo dBc sono uguali perché angoli alla base di un triangolo isoscele
+dichiara "cDb" simile "dBc" per "TICA"
 
-// l'angolo edb e l'angolo abd sono uguali perché somma di angoli uguali
-dichiara "edb" simile "abd" per "SEA"
+// l'angolo eDb e l'angolo aBd sono uguali perché somma di angoli uguali
+dichiara "eDb" simile "aBd" per "SEA"
 
-// l'angolo hdb e l'angolo hbd sono uguali perché differenza di angoli uguali
-dichiara "hdb" simile "hbd" per "DEA"
+// l'angolo hDb e l'angolo hBd sono uguali perché differenza di angoli uguali
+dichiara "hDb" simile "hBd" per "DEA"

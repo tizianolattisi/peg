@@ -18,19 +18,19 @@ public class TheoremsTest extends BaseTest {
 
         Triangle triangle1 = Triangle.build("ABC");
         triangle1.getSegment("AB").setMeasure(s);
-        triangle1.getAngle("cab").setMeasure(a);
-        triangle1.getAngle("abc").setMeasure(a1);
+        triangle1.getAngle("cAb").setMeasure(a);
+        triangle1.getAngle("aBc").setMeasure(a1);
 
         Triangle triangle2 = Triangle.build("DEF");
         triangle2.getSegment("DE").setMeasure(s);
-        triangle2.getAngle("fde").setMeasure(a);
+        triangle2.getAngle("fDe").setMeasure(a);
 
         assert Theorems.ASA.apply(triangle1, triangle2) == Boolean.FALSE;
 
         assert triangle1.getMeasure() == null;
         assert triangle2.getMeasure() == null;
 
-        triangle2.getAngle("def").setMeasure(a1);
+        triangle2.getAngle("dEf").setMeasure(a1);
 
         assert Theorems.ASA.apply(triangle1, triangle2) == Boolean.TRUE;
         assert triangle1.getMeasure() != null;
@@ -46,12 +46,12 @@ public class TheoremsTest extends BaseTest {
 
         Triangle triangle1 = Triangle.build("ABC");
         triangle1.getSegment("AB").setMeasure(s);
-        triangle1.getAngle("cab").setMeasure(a);
+        triangle1.getAngle("cAb").setMeasure(a);
         triangle1.getSegment("CA").setMeasure(s1);
 
         Triangle triangle2 = Triangle.build("DEF");
         triangle2.getSegment("DE").setMeasure(s);
-        triangle2.getAngle("fde").setMeasure(a);
+        triangle2.getAngle("fDe").setMeasure(a);
 
         assert Theorems.SAS.apply(triangle1, triangle2) == Boolean.FALSE;
 
@@ -119,8 +119,8 @@ public class TheoremsTest extends BaseTest {
         Triangle triangle1 = Triangle.build("ABC");
         Triangle triangle2 = Triangle.build("DEF");
 
-        Angle abc = problem.findAngle("abc");
-        Angle edf = problem.findAngle("edf");
+        Angle abc = problem.findAngle("aBc");
+        Angle edf = problem.findAngle("eDf");
 
         Segment AC = problem.findSegment("AC");
         Segment EF = problem.findSegment("EF");
@@ -148,8 +148,8 @@ public class TheoremsTest extends BaseTest {
         Segment segment2 = triangle.getSegment("AC");
         segment2.setMeasure(s);
 
-        Angle angle1 = triangle.getAngle("abc");
-        Angle angle2 = triangle.getAngle("acb");
+        Angle angle1 = triangle.getAngle("aBc");
+        Angle angle2 = triangle.getAngle("aCb");
 
         assert !angle1.equals(angle2);
 

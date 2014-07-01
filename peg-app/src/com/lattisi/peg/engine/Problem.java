@@ -85,7 +85,7 @@ public class Problem {
     }
 
     public Angle findAngle(Point point1, Point point2, Point point3){
-        String name = (point1.getName() + point2.getName() + point3.getName()).toLowerCase();
+        String name = point1.getName().toLowerCase() + point2.getName() + point3.getName().toLowerCase();
         return findAngle(name);
     }
 

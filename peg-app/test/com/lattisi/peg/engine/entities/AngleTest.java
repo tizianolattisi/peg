@@ -21,11 +21,11 @@ public class AngleTest {
 
         problem.refresh();
 
-        Angle abc = problem.findAngle("abc");
-        Angle dbc = problem.findAngle("dbc");
-        Angle abd = abc.add(dbc);
+        Angle aBc = problem.findAngle("aBc");
+        Angle dBc = problem.findAngle("dBc");
+        Angle abd = aBc.add(dBc);
 
-        assert problem.findAngle("abd").equals(abd);
+        assert problem.findAngle("aBd").equals(abd);
 
     }
 }

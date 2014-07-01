@@ -59,14 +59,14 @@ public class ProblemTest extends BaseTest {
 
         problem.refresh();
 
-        Angle angle1 = problem.findAngle("bac");
+        Angle angle1 = problem.findAngle("bAc");
         angle1.setMeasure("a1");
-        Angle angle2 = problem.findAngle("cad");
+        Angle angle2 = problem.findAngle("cAd");
         angle2.setMeasure("a2");
 
         Angle angle3 = problem.sum(angle1, angle2);
 
-        assert angle3.getAliases().contains("bad");
+        assert angle3.getAliases().contains("bAd");
         //assert angle3.getMeasure().equals("a1+a2") || angle3.getMeasure().equals("a2+a1");
     }
 

@@ -16,8 +16,8 @@ public class TriangleTest extends BaseTest {
         Triangle triangle = Triangle.build("ABC");
 
         Angle angle = triangle.getAngle("AB", "BC");
-        assert angle.equals(triangle.getAngle("abc"));
-        assert angle.equals(triangle.getAngle("cba"));
+        assert angle.equals(triangle.getAngle("aBc"));
+        assert angle.equals(triangle.getAngle("cBa"));
 
     }
 
@@ -26,7 +26,7 @@ public class TriangleTest extends BaseTest {
 
         Triangle triangle = Triangle.build("ABC");
         Segment AC = triangle.getSegment("AC");
-        Angle abc = triangle.getAngle("abc");
+        Angle abc = triangle.getAngle("aBc");
         Angle opposite = triangle.getOppositeAngle(AC);
 
         assert opposite.equals(abc);
