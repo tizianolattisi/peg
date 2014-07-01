@@ -6,6 +6,7 @@ import com.lattisi.peg.engine.Theorems;
 import com.lattisi.peg.engine.entities.*;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -20,6 +21,7 @@ public class Language {
     private Problem problem;
     private Command command;
     private Argument withAgument;
+    private Role asRole;
     private List<Item> args;
 
     public Language() {
@@ -57,6 +59,15 @@ public class Language {
             case CREATE:
                 Direction direction = Direction.build(name);
                 args.add(direction);
+                break;
+        }
+        return this;
+    }
+    public Language point(String name){
+        switch(command) {
+            case CREATE:
+                Point point = Point.build(name);
+                args.add(point);
                 break;
         }
         return this;
@@ -104,31 +115,61 @@ public class Language {
         args.add(segment);
         return this;
     }
+
+
+
+    /*
+     *  WITH Argument OF Item
+     */
     public Language with(Argument argument){
         withAgument = argument;
         return this;
     }
     public Language of(String name){
-        switch(withAgument){
-            case measure:
-                Problem problem = ProblemsTree.getProblem();
-                Segment segmentWithLenght = (Segment) problem.find(name, ItemType.segment);
-                Item item = args.get(args.size() - 1);
-                if( !(item instanceof Segment) ){
-                    return this;
-                }
-                String measure;
-                if( segmentWithLenght.getMeasure() != null ){
-                    measure = segmentWithLenght.getMeasure();
-                } else {
-                    measure = Metrics.nextMetric(ItemType.segment);
-                    segmentWithLenght.setMeasure(measure);
-                }
-                ((Segment) item).setMeasure(segmentWithLenght.getMeasure());
-                break;
+        Problem problem = ProblemsTree.getProblem();
+        if( withAgument != null ){
+            switch( withAgument ){
+                case measure:
+                    Segment segmentWithLenght = problem.findSegment(name);
+                    Item item = args.get(args.size() - 1);
+                    if (!(item instanceof Segment)) {
+                        return this;
+                    }
+                    String measure;
+                    if (segmentWithLenght.getMeasure() != null) {
+                        measure = segmentWithLenght.getMeasure();
+                    } else {
+                        measure = Metrics.nextMetric(ItemType.segment);
+                        segmentWithLenght.setMeasure(measure);
+                    }
+                    ((Segment) item).setMeasure(segmentWithLenght.getMeasure());
+                    break;
+            }
+        } else if( asRole != null ){
+            switch( asRole ){
+                case median:
+                    Segment segment = problem.findSegment(name);
+                    Point m = (Point) args.get(0);
+                    Iterator<Point> iterator = segment.getPoints().iterator();
+                    Point point1 = iterator.next();
+                    Point point2 = iterator.next();
+                    Segment segment1 = Segment.build(point1.getName() + m.getName());
+                    Segment segment2 = Segment.build(point2.getName() + m.getName());
+                    Theorems.equalizeItem(segment1, segment2);
+            }
         }
         return this;
     }
+
+
+    /*
+     *  AS Role OF Item
+     */
+    public Language as(Role role){
+        asRole = role;
+        return this;
+    }
+
 
     /*
      *  VERIFY
@@ -196,6 +237,9 @@ public class Language {
     public Language segmento(String name){
         return segment(name);
     }
+    public Language punto(String name){
+        return point(name);
+    }
     public Language retta(String name){
         return direction(name);
     }
@@ -206,8 +250,17 @@ public class Language {
         switch(argument){
             case misura:
                 argument = Argument.measure;
+                break;
         }
         return with(argument);
+    }
+    public Language come(Role role){
+        switch(role){
+            case mediano:
+                role = Role.median;
+                break;
+        }
+        return as(role);
     }
     public Language di(String name){
         return of(name);

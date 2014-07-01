@@ -28,7 +28,7 @@ class Shell extends GroovyShell{
 
         def imports = new ImportCustomizer()
         //imports.addStaticStars(ItemType.name, TriangleType.name)
-        imports.addStaticStars(Constraint.name, Argument.name)
+        imports.addStaticStars(Constraint.name, Argument.name, Role.name)
 
         def secure = new SecureASTCustomizer()
         secure.with {
@@ -40,11 +40,11 @@ class Shell extends GroovyShell{
             staticImportsWhitelist = []
 
             //staticStarImportsWhitelist = [ItemType.name, TriangleType.name]
-            staticStarImportsWhitelist = [Constraint.name, Argument.name]
+            staticStarImportsWhitelist = [Constraint.name, Argument.name, Role.name]
 
             //tokensWhitelist = [ItemType.triangle, ItemType.segment, ItemType.direction,
             //        TriangleType.equilateral, TriangleType.isosceles, TriangleType.scalene]
-            tokensWhitelist = [Constraint.the, Argument.measure]
+            tokensWhitelist = [Constraint.the, Argument.measure, Role.name]
 
             // to secure...
             //constantTypesClassesWhiteList = []
