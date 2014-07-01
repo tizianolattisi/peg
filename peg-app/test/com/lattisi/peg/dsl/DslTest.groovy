@@ -14,12 +14,11 @@ class DslTest extends GroovyTestCase {
 
     def scan
 
-    void test() {
+    void test1() {
 
         Shell shell = Shell.build()
         Problem problem = shell.getLanguage().getProblem()
-        //shell.evaluate(new File("test/com/lattisi/peg/dsl/command.groovy"))
-        String text = (new File("test/com/lattisi/peg/dsl/command.groovy")).text
+        String text = (new File("test/com/lattisi/peg/dsl/problem1.groovy")).text
 
         for( String line: text.split("\\n") ){
             shell.evaluate(line);
@@ -31,6 +30,24 @@ class DslTest extends GroovyTestCase {
         printProblem(problem)
 
     }
+
+    void test2() {
+
+        Shell shell = Shell.build()
+        Problem problem = shell.getLanguage().getProblem()
+        String text = (new File("test/com/lattisi/peg/dsl/problem2.groovy")).text
+
+        for( String line: text.split("\\n") ){
+            shell.evaluate(line);
+            problem.refresh();
+        }
+
+        problem.refresh()
+
+        printProblem(problem)
+
+    }
+
 
     private void printProblem(Problem problem) {
         scan = { node, i ->
