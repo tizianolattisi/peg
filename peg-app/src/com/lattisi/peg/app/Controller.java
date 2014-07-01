@@ -99,17 +99,17 @@ public class Controller implements Initializable {
         // Items
         ObservableList items = itemsView.getSelectionModel().getSelectedItems();
         if( items.size() != 2 ){
-            dsl.appendText("//You need to select two items to apply a theorem.\n");
+            dsl.appendText("// Devi selezionare due elementi per poter applicare un teorema.\n");
             return;
         }
         Item item1 = (Item) items.get(0);
         Item item2 = (Item) items.get(1);
-        String out = "declare \"" + item1.getName() + "\" equals \"" + item2.getName() + "\" ";
+        String out = "dichiara \"" + item1.getName() + "\" uguale \"" + item2.getName() + "\" ";
         Map<String, String> map = (Map<String, String>) theoremsView.getSelectionModel().getSelectedItem();
-        out += " due \"" + map.get("id") + "\"";
+        out += " per \"" + map.get("id") + "\"";
         if( !item1.getType().equals(item2.getType()) ){
             dsl.appendText("// " + out + "\n");
-            dsl.appendText("// The selected items must have the same type.\n");
+            dsl.appendText("// Gli elementi selezionati devono essere dello stesso tipo.\n");
             return;
         }
         //newLine.clear();
@@ -140,7 +140,7 @@ public class Controller implements Initializable {
     private String loadCode() {
         String code = null;
         FileChooser fileChooser = new FileChooser();
-        FileChooser.ExtensionFilter extension =new FileChooser.ExtensionFilter("Problem (*.txt)","*.txt");
+        FileChooser.ExtensionFilter extension =new FileChooser.ExtensionFilter("Problema (*.txt)","*.txt");
         fileChooser.getExtensionFilters().add(extension);
         File file = fileChooser.showOpenDialog(borderPane.getScene().getWindow());
         try {
@@ -190,7 +190,7 @@ public class Controller implements Initializable {
         itemsView.setItems(observableList);
 
         // TreeView
-        TreeItem<String> root = new TreeItem<String>("Problem");
+        TreeItem<String> root = new TreeItem<String>("Problema");
         root.setExpanded(true);
         Collection<Item> values = map.values();
 
@@ -208,7 +208,7 @@ public class Controller implements Initializable {
                 label = label.concat(" (").concat(((Measurable) item).getMeasure()).concat(")");
             }
             TreeItem<String> childNode = new TreeItem<String>(label);
-            if( node.getValue().equals("Problem") && problem.getParents(item).size()>0 ){
+            if( node.getValue().equals("Problema") && problem.getParents(item).size()>0 ){
                 // skip
             } else {
                 children.add(childNode);
@@ -245,17 +245,20 @@ public class Controller implements Initializable {
         ObservableList<Map> observableList = FXCollections.observableArrayList(theorems);
         theoremsView.setItems(observableList);
 
+        //dsl.setPrefSize( Double.MAX_VALUE, Double.MAX_VALUE );
+        //dsl.setScaleY(100);
+
         WebEngine engine = help.getEngine();
         URL indexUrl = getClass().getResource("../help/index.html");
         engine.load(indexUrl.toExternalForm());
 
         // Demo
-        String problemCode = "create the triangle \"ABC\"    // or: create \"ABC\"\n" +
-                "extend the segment \"AC\" to \"D\" with measure of \"BC\"\n" +
-                "extend \"BC\" to \"E\" with measure of \"AC\"\n" +
-                "create the segment \"ED\"\n" +
-                "extend the segment \"ED\" to \"H\"\n" +
-                "extend the segment \"AB\" to \"H\"\n" +
+        String problemCode = "crea il triangolo \"ABC\"    // o: crea \"ABC\"\n" +
+                "estendi il segmento \"AC\" to \"D\" con misura di \"BC\"\n" +
+                "estendi \"BC\" to \"E\" con misura di \"AC\"\n" +
+                "crea il segmento \"ED\"\n" +
+                "estendi il segmento \"ED\" a \"H\"\n" +
+                "estendi il segmento \"AB\" a \"H\"\n" +
                 "\n";
 
         /*
