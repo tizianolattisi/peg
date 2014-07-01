@@ -15,7 +15,8 @@ public class Metrics {
             "a11", "a12", "a13", "a14", "a15", "a16", "a17", "a17", "a18", "a19"};
 
     private static Integer segmentMeasuresIndex = 0;
-    private static final String[] segmentMeasures = {"s", "s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9"};
+    private static final String[] segmentMeasures = {"s", "s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9", "s10",
+            "s11", "s12", "s13", "s14"};
 
     private static Integer directionMeasuresIndex = 0;
     private static final String[] directionMeasures = {"r", "r1", "r2", "r3", "r4", "r5", "r6", "r7", "r8", "r9"};
