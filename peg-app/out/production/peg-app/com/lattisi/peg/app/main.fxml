@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.web.*?>
+
+<BorderPane fx:id="borderPane" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lattisi.peg.app.Controller">
+<top><ToolBar xmlns:fx="http://javafx.com/fxml">
+  <items><Button mnemonicParsing="false" onAction="#loadProblem" text="Carica problema" /><Button mnemonicParsing="false" onAction="#loadSolution" text="Carica soluzione" />
+    <Button fx:id="test" mnemonicParsing="false" onAction="#testDslAction" text="Riesegui" />
+  </items>
+</ToolBar>
+</top>
+<center><SplitPane dividerPositions="0.5" focusTraversable="true" layoutX="220.0" layoutY="100.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
+  <items><WebView fx:id="help" layoutX="174.0" layoutY="70.0" prefHeight="200.0" prefWidth="338.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+      <children>
+                  <HBox maxHeight="26.0" maxWidth="1.7976931348623157E308" minHeight="26.0" prefHeight="26.0" spacing="10.0">
+      <children>
+                        <TextField fx:id="newLine" maxHeight="26.0" maxWidth="1.7976931348623157E308" minHeight="26.0" minWidth="-Infinity" prefHeight="26.0" prefWidth="500.0">
+      <HBox.margin>
+      <Insets />
+      </HBox.margin>
+                        </TextField>
+                        <Button fx:id="enter" mnemonicParsing="false" onAction="#newLineAction" text="Enter" />
+      </children>
+      <VBox.margin>
+      <Insets />
+      </VBox.margin>
+                  </HBox>
+                  <TextArea fx:id="dsl" editable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="300.0" />
+      </children>
+            </VBox>
+  </items>
+</SplitPane>
+</center>
+<right><Accordion minWidth="300.0" xmlns:fx="http://javafx.com/fxml">
+  <panes>
+    <TitledPane animated="false" text="Teoremi">
+<content><TableView fx:id="theoremsView" onMouseClicked="#applyTheorem">
+  <columns>
+    <TableColumn fx:id="columnTheoremId" prefWidth="58.0" text="codice" />
+    <TableColumn fx:id="columnTheoremDescription" prefWidth="240.0" text="descrizione" />
+  </columns>
+</TableView>
+</content>
+    </TitledPane>
+  </panes>
+</Accordion>
+</right>
+<left><Accordion prefWidth="200.0" BorderPane.alignment="CENTER">
+         <panes>
+    <TitledPane animated="false" text="Vista piana">
+<content><TableView fx:id="itemsView" xmlns:fx="http://javafx.com/fxml">
+  <columns>
+    <TableColumn fx:id="columnTypeName" prefWidth="75.0" text="type" />
+    <TableColumn fx:id="columnName" prefWidth="75.0" text="name" /><TableColumn fx:id="columnMeasure" prefWidth="75.0" text="measure" />
+  </columns>
+</TableView>
+</content>
+    </TitledPane>
+    <TitledPane animated="false" text="Vista ad albero">
+<content><TreeView fx:id="treeView" />
+</content>
+    </TitledPane>
+         </panes>
+</Accordion>
+</left></BorderPane>
